@@ -1,18 +1,16 @@
 //
-//  TagSelectViewController.swift
+//  SiteSelectViewController.swift
 //  WishList
 //
-//  Created by 홍승아 on 2021/01/28.
+//  Created by 홍승아 on 2021/01/31.
 //
 
 import UIKit
-import SnapKit
 
-class TagSelectViewController: UIViewController {
-
-    @IBOutlet weak var collectionView: UICollectionView!
+class SiteSelectViewController: UIViewController {
     
-    let tagViewModel = TagViewModel()
+    @IBOutlet weak var collectionView: UICollectionView!
+    let siteViewModel = SiteViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +18,7 @@ class TagSelectViewController: UIViewController {
     }
 
     private func setupView() {
-        view.backgroundColor = UIColor.clear
+        view.backgroundColor = .white
         setupCollectionView()
     }
     
@@ -34,8 +32,8 @@ class TagSelectViewController: UIViewController {
         collectionView.setCollectionViewLayout(flowLayout, animated: false)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = UIColor.clear
-        collectionView.register(TagCell.self, forCellWithReuseIdentifier: "TagCell")
+        collectionView.backgroundColor = .white
+        collectionView.register(SiteCell.self, forCellWithReuseIdentifier: "SiteCell")
     }
      
     override func viewWillAppear(_ animated: Bool) {
@@ -45,23 +43,23 @@ class TagSelectViewController: UIViewController {
 
 }
 
-extension TagSelectViewController: UICollectionViewDataSource{
+extension SiteSelectViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tagViewModel.tags.count
+        return siteViewModel.sites.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as? TagCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SiteCell", for: indexPath) as? SiteCell else {
             return UICollectionViewCell()
         }
         
-        let tag = tagViewModel.tags[indexPath.item]
-        cell.configure(tag: tag)
+        let site = siteViewModel.sites[indexPath.item]
+        cell.configure(site: site)
         
         cell.deleteButtonTapHandler = {
-            self.tagViewModel.deleteTag(tag)
+            self.siteViewModel.deleteSite(site)
             self.collectionView.reloadData()
         }
         
@@ -69,20 +67,22 @@ extension TagSelectViewController: UICollectionViewDataSource{
     }
 }
 
-extension TagSelectViewController : UICollectionViewDelegateFlowLayout {
+extension SiteSelectViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return TagCell.fittingSize(availableHeight: 45, tag: tagViewModel.tags[indexPath.item])
+        // let width =
+        return CGSize(width: 100, height: 100
+        )
     }
 }
 
-class TagCell: UICollectionViewCell{
+class SiteCell: UICollectionViewCell{
     
-    static func fittingSize(availableHeight: CGFloat, tag: Tag) -> CGSize {
-        let cell = TagCell()
-        cell.configure(tag: tag)
+    /*static func fittingSize(availableHeight: CGFloat, site: String) -> CGSize {
+        let cell = SiteCell()
+        cell.configure(site: site)
         let targetSize = CGSize(width: UIView.layoutFittingCompressedSize.width, height: availableHeight)
         return cell.contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: .fittingSizeLevel, verticalFittingPriority: .required)
-    }
+    }*/
     
     private let titleBackView: UIView = UIView()
     private let titleLabel: UILabel = UILabel()
@@ -130,12 +130,14 @@ class TagCell: UICollectionViewCell{
         }
     }
     
-    func configure(tag: Tag) {
-        titleLabel.text = tag.tag
+    func configure(site: String) {
+        titleLabel.text = site
     }
     
     @objc func deleteButtonTapped(_ sender:UIButton!){
         // print("---> 클릭")
         deleteButtonTapHandler?()
     }
+    
+
 }

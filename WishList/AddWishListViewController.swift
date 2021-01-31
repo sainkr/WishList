@@ -12,14 +12,28 @@ class AddWishListViewController: UIViewController{
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var tagSelectTextField: UITextField!
     @IBOutlet weak var siteTextField: UITextField!
+    @IBOutlet var gestureRecognizer: UITapGestureRecognizer!
     
     // var message = ["# 향수","# 딥디크","# 에어팟 맥스","# 아이패드","# 매직 마우스"]
     
-    let tagViewModel = TagViewModel()
+    var tageselectViewController: TagSelectViewController!
+    var photoselectViewController: PhotosSelectViewController!
+   
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "tag" {
+            let destinationVC = segue.destination as? TagSelectViewController
+            tageselectViewController = destinationVC
+        
+        } else if segue.identifier == "photo" {
+            let destinationVC = segue.destination as? PhotosSelectViewController
+            photoselectViewController = destinationVC
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tagSelectTextField.delegate = self
+        gestureRecognizer.cancelsTouchesInView = false
     }
 
     
@@ -55,8 +69,8 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
         if textField == tagSelectTextField{
             guard let tag = tagSelectTextField.text, tag.isEmpty == false else { return false }
             let tagText = Tag(tag: tag)
-            tagViewModel.addTag(tagText)
-            // collectionView.reloadData()
+            tageselectViewController.tagViewModel.addTag(tagText)
+            tageselectViewController.collectionView.reloadData()
             
             tagSelectTextField.text = ""
         }
