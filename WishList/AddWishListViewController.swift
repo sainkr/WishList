@@ -17,7 +17,7 @@ class AddWishListViewController: UIViewController{
     // var message = ["# 향수","# 딥디크","# 에어팟 맥스","# 아이패드","# 매직 마우스"]
     
     var tageselectViewController: TagSelectViewController!
-    var photoselectViewController: PhotosSelectViewController!
+    var photoselectViewController: PhotoAddViewController!
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "tag" {
@@ -25,7 +25,7 @@ class AddWishListViewController: UIViewController{
             tageselectViewController = destinationVC
         
         } else if segue.identifier == "photo" {
-            let destinationVC = segue.destination as? PhotosSelectViewController
+            let destinationVC = segue.destination as? PhotoAddViewController
             photoselectViewController = destinationVC
         }
     }

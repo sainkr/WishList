@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotosSelectViewController: UIViewController {
+class PhotoAddViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     let imagePickerController = UIImagePickerController()
@@ -20,7 +20,7 @@ class PhotosSelectViewController: UIViewController {
     }
 }
 
-extension PhotosSelectViewController:  UICollectionViewDataSource{
+extension PhotoAddViewController:  UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return img.count + 1
     }
@@ -40,16 +40,21 @@ extension PhotosSelectViewController:  UICollectionViewDataSource{
     
 }
 
-extension PhotosSelectViewController: UICollectionViewDelegate{
+extension PhotoAddViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
-            self.imagePickerController.sourceType = .photoLibrary
-            self.present(imagePickerController, animated: true, completion: nil)
+            let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
+            guard let photoLibraryVC = addWishListStoryboard.instantiateViewController(identifier: "PhotoLibraryViewController") as? PhotoLibraryViewController else { return }
+            photoLibraryVC.modalPresentationStyle = .fullScreen
+            
+            present(photoLibraryVC, animated: true, completion: nil)
+            //self.imagePickerController.sourceType = .photoLibrary
+            // self.present(imagePickerController, animated: true, completion: nil)
         }
     }
 }
 
-extension PhotosSelectViewController: UICollectionViewDelegateFlowLayout {
+extension PhotoAddViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width: CGFloat = 100
         let height: CGFloat = 100
@@ -58,7 +63,7 @@ extension PhotosSelectViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension PhotosSelectViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+extension PhotoAddViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage]{
             img.append(image as! UIImage)
@@ -66,7 +71,7 @@ extension PhotosSelectViewController: UIImagePickerControllerDelegate, UINavigat
             collectionView.reloadData()
         }
         
-        dismiss(animated: true, completion: nil)
+        // dismiss(animated: true, completion: nil)
     }
 }
 

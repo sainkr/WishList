@@ -63,6 +63,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>WishList selected photos to your photo library</string>
+	<string>사진앱 접근 허용 부탁드립니다요</string>
 </dict>
 </plist>
