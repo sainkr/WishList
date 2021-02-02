@@ -204,20 +204,33 @@
                                             <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.app" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="648-G1-0AI">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="648-G1-0AI">
                                                     <rect key="frame" x="0.0" y="2.5" width="130" height="124.5"/>
                                                     <color key="tintColor" red="0.02745098248" green="0.0" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z1c-nB-q8B">
+                                                    <rect key="frame" x="109" y="0.0" width="21" height="22"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal" image="xmark.circle.fill" catalog="system">
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="bold"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="deleteButonTapped:" destination="HBv-0K-KV9" eventType="touchUpInside" id="abF-j1-0kh"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="648-G1-0AI" secondAttribute="trailing" id="2uJ-lt-R4S"/>
+                                                <constraint firstItem="648-G1-0AI" firstAttribute="top" secondItem="ZrX-Ka-Rrn" secondAttribute="top" id="44x-jd-Ryo"/>
                                                 <constraint firstAttribute="bottom" secondItem="648-G1-0AI" secondAttribute="bottom" id="4qX-FE-Q2k"/>
-                                                <constraint firstItem="648-G1-0AI" firstAttribute="top" secondItem="ZrX-Ka-Rrn" secondAttribute="top" id="6f5-NO-pjZ"/>
+                                                <constraint firstItem="Z1c-nB-q8B" firstAttribute="top" secondItem="ZrX-Ka-Rrn" secondAttribute="top" id="hjz-DX-5J9"/>
                                                 <constraint firstItem="648-G1-0AI" firstAttribute="leading" secondItem="ZrX-Ka-Rrn" secondAttribute="leading" id="mVO-7Z-uRg"/>
+                                                <constraint firstAttribute="trailing" secondItem="Z1c-nB-q8B" secondAttribute="trailing" id="vWA-jT-0Tt"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
+                                            <outlet property="deleteButton" destination="Z1c-nB-q8B" id="R2j-ms-W2E"/>
                                             <outlet property="thumbnailImageView" destination="648-G1-0AI" id="wKf-hO-oZo"/>
                                         </connections>
                                     </collectionViewCell>
@@ -359,8 +372,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Cza-de-Bv2">
-                                                    <rect key="frame" x="0.0" y="0.5" width="128" height="126"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Cza-de-Bv2">
+                                                    <rect key="frame" x="0.0" y="0.5" width="128" height="127"/>
                                                     <color key="tintColor" red="0.02745098248" green="0.0" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zd-kq-eh9">
@@ -413,9 +426,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="camera.fill" catalog="system" width="128" height="94"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
-        <image name="plus.app" catalog="system" width="128" height="114"/>
+        <image name="photo" catalog="system" width="128" height="93"/>
+        <image name="plus.circle" catalog="system" width="128" height="121"/>
+        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
