@@ -77,7 +77,7 @@ extension TagSelectViewController : UICollectionViewDelegateFlowLayout {
 
 class TagCell: UICollectionViewCell{
     
-    static func fittingSize(availableHeight: CGFloat, tag: Tag) -> CGSize {
+    static func fittingSize(availableHeight: CGFloat, tag: String) -> CGSize {
         let cell = TagCell()
         cell.configure(tag: tag)
         let targetSize = CGSize(width: UIView.layoutFittingCompressedSize.width, height: availableHeight)
@@ -130,8 +130,8 @@ class TagCell: UICollectionViewCell{
         }
     }
     
-    func configure(tag: Tag) {
-        titleLabel.text = tag.tag
+    func configure(tag: String) {
+        titleLabel.text = tag
     }
     
     @objc func deleteButtonTapped(_ sender:UIButton!){

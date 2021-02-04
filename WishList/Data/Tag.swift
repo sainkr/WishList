@@ -7,29 +7,21 @@
 
 import UIKit
 
-struct Tag: Codable {
-    var tag: String
-}
-
 class TagManager {
     static let shared = TagManager()
     
-    var tags: [Tag] = []
+    var tags: [String] = []
     
-    func addTag(_ tag: Tag){
+    func addTag(_ tag: String){
         tags.append(tag)
     }
     
-    func deleteTag(_ tag: Tag){
-        tags = tags.filter { $0.tag != tag.tag}
+    func deleteTag(_ tag: String){
+        tags = tags.filter { $0 != tag}
     }
     
-    func saveWish(){
-        
-    }
-    
-    func retrieveWish() {
-        
+    func resetTag(){
+        tags = []
     }
     
 }
@@ -37,16 +29,20 @@ class TagManager {
 class TagViewModel {
     private let manager = TagManager.shared
     
-    var tags: [Tag]{
+    var tags: [String]{
         return manager.tags
     }
     
-    func addTag(_ tag: Tag){
+    func addTag(_ tag: String){
         manager.addTag(tag)
     }
     
-    func deleteTag(_ tag: Tag){
+    func deleteTag(_ tag: String){
         manager.deleteTag(tag)
+    }
+    
+    func resetTag(){
+        manager.resetTag()
     }
 
 }

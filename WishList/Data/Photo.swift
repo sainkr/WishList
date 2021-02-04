@@ -7,47 +7,46 @@
 
 import UIKit
 
-struct Photo: Codable {
-    var img: String
+struct Photo {
+    var image: UIImage
 }
 
-/*class TagManager {
-    static let shared = TagManager()
+class PhotoManager {
+    static let shared = PhotoManager()
     
-    var tags: [Tag] = []
+    var photos: [Photo] = []
     
-    func addTag(_ tag: Tag){
-        tags.append(tag)
+    func addPhoto(_ photo: Photo){
+        photos.append(photo)
     }
     
-    func deleteTag(_ tag: Tag){
-        tags = tags.filter { $0.tag != tag.tag}
+    func deletePhoto(_ photo: Photo){
+        photos = photos.filter { $0.image != photo.image}
     }
     
-    func saveWish(){
-        
-    }
-    
-    func retrieveWish() {
-        
+    func resetPhoto(){
+        photos = []
     }
     
 }
 
-class TagViewModel {
-    private let manager = TagManager.shared
+class PhotoViewModel {
+    private let manager = PhotoManager.shared
     
-    var tags: [Tag]{
-        return manager.tags
+    var photos: [Photo]{
+        return manager.photos
     }
     
-    func addTag(_ tag: Tag){
-        manager.addTag(tag)
+    func addPhoto(_ photo: Photo){
+        manager.addPhoto(photo)
     }
     
-    func deleteTag(_ tag: Tag){
-        manager.deleteTag(tag)
+    func deletePhoto(_ photo: Photo){
+        manager.deletePhoto(photo)
     }
 
-}*/
+    func resetPhoto(){
+        manager.resetPhoto()
+    }
+}
 

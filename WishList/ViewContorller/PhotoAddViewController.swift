@@ -11,8 +11,9 @@ import PhotosUI
 class PhotoAddViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    var img:[UIImage] = []
     
+    let photoViewModel = PhotoViewModel()
+
     var itemProviders: [NSItemProvider] = []
     var iterator: IndexingIterator<[NSItemProvider]>?
     
@@ -24,7 +25,7 @@ class PhotoAddViewController: UIViewController {
 
 extension PhotoAddViewController:  UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return img.count + 1
+        return photoViewModel.photos.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -37,11 +38,13 @@ extension PhotoAddViewController:  UICollectionViewDataSource{
             cell.updateUI()
         }
         else {
-            cell.updateUI(img[indexPath.item - 1])
+            let photo = photoViewModel.photos[indexPath.item - 1]
+            cell.updateUI(photo)
         }
         
         cell.deleteButtonTapHandler = {
-            self.img.remove(at: indexPath.item-1)
+            let photo = self.photoViewModel.photos[indexPath.item - 1]
+            self.photoViewModel.deletePhoto(photo)
             // self.tagViewModel.deleteTag(tag)
             self.collectionView.reloadData()
         }
@@ -56,8 +59,9 @@ extension PhotoAddViewController: UICollectionViewDelegate{
         if indexPath.item == 0 {
             
         if #available(iOS 14, *) {
-            var configuration = PHPickerConfiguration()
-            configuration.selectionLimit = 0
+            // var configuration = PHPickerConfiguration()
+            var configuration = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+            configuration.selectionLimit = 5
             configuration.filter = .any(of: [.images])
             
             let picker = PHPickerViewController(configuration: configuration)
@@ -85,7 +89,7 @@ extension PhotoAddViewController: PHPickerViewControllerDelegate {
         itemProviders = results.map(\.itemProvider)
         iterator = itemProviders.makeIterator()
 
-        if itemProviders.count + img.count > 5{
+        if itemProviders.count + photoViewModel.photos.count > 5{
             let alert = UIAlertController(title: "사진 선택", message: "최대 5개까지 가능임 ㅇㅇ", preferredStyle: UIAlertController.Style.alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler : nil )
             alert.addAction(okAction)
@@ -95,7 +99,7 @@ extension PhotoAddViewController: PHPickerViewControllerDelegate {
                 if let itemProvider = iterator?.next(), itemProvider.canLoadObject(ofClass: UIImage.self) {
                     itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
                         guard let self = self, let image = image as? UIImage else {return}
-                        self.img.append(image)
+                        self.photoViewModel.addPhoto(Photo(image: image))
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
                         }
@@ -124,8 +128,8 @@ class PhotoCell: UICollectionViewCell{
     
     var deleteButtonTapHandler: (() -> Void )?
     
-    func updateUI(_ image: UIImage){
-        thumbnailImageView.image = image
+    func updateUI(_ photo: Photo){
+        thumbnailImageView.image = photo.image
         deleteButton.isHidden = false
     }
     

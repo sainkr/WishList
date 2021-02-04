@@ -20,6 +20,8 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>사진앱 접근 허용 부탁드립니다요</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -62,7 +64,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>사진앱 접근 허용 부탁드립니다요</string>
 </dict>
 </plist>
