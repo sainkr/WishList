@@ -20,8 +20,25 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        // 데이터 불러오기
-        wishListViewModel.loadTasks()
+        // wishListViewModel.loadTasks()
+        
+        print("--> 실행")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didReciveWishsNotification(_:)), name: DidReceiveWishsNotification , object: nil)
+    }
+    
+    @objc func didReciveWishsNotification(_ noti: Notification){
+        guard let wishs = noti.userInfo?["wishs"] as? [Wish] else { return }
+        self.wishListViewModel.setWish(wishs)
+        print("--> wishs count : \(wishs.count)")
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        collectionView.reloadData()
     }
 
     @IBAction func searchButtonTapped(_ sender: Any) {
@@ -60,8 +77,6 @@ extension HomeViewController: UICollectionViewDataSource{
 
 extension HomeViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
-        
     }
 }
 
@@ -79,7 +94,9 @@ class WishListCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     
     func updateUI(_ wish: Wish){
-        // thumbnailImageView.image = wish.
+        if wish.photo.count > 0 {
+            thumbnailImageView.image = wish.photo[0]
+        }
         nameLabel.text = wish.name
     }
 }

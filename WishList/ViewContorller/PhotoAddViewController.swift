@@ -99,7 +99,7 @@ extension PhotoAddViewController: PHPickerViewControllerDelegate {
                 if let itemProvider = iterator?.next(), itemProvider.canLoadObject(ofClass: UIImage.self) {
                     itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
                         guard let self = self, let image = image as? UIImage else {return}
-                        self.photoViewModel.addPhoto(Photo(image: image))
+                        self.photoViewModel.addPhoto(image)
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
                         }
@@ -128,8 +128,8 @@ class PhotoCell: UICollectionViewCell{
     
     var deleteButtonTapHandler: (() -> Void )?
     
-    func updateUI(_ photo: Photo){
-        thumbnailImageView.image = photo.image
+    func updateUI(_ photo: UIImage){
+        thumbnailImageView.image = photo
         deleteButton.isHidden = false
     }
     

@@ -6,15 +6,26 @@
 //
 
 import UIKit
+import Kingfisher
 
-struct Wish: Codable {
-    var timestamp: Double // = Date().timeIntervalSince1970.rounded()
+struct Wish{
+    var timestamp: TimeInterval
     var name: String
     var tag: [String]
     var content: String
-    var photo: [String]
-    var site: [String]
-    var place: [String]
+    var photo: [UIImage]
+    var link: String
+    var place: String
+}
+
+struct WishDB: Codable{
+    var timestamp: TimeInterval
+    var name: String
+    var tag: [String]
+    var content: String
+    var img: [String]
+    var link: String
+    var place: String
 }
 
 class WishManager {
@@ -24,6 +35,7 @@ class WishManager {
     
     func addWish(_ wish: Wish){
         wishs.append(wish)
+        saveWish(wish)
     }
     
     func deleteWish(_ wish: Wish){
@@ -34,12 +46,17 @@ class WishManager {
         
     }
     
-    func saveWish(){
-        
+    func setWish(_ wish: [Wish]){
+        wishs = wish
     }
     
-    func retrieveWish() {
-        
+    func saveWish(_ wish: Wish){
+        DataBaseManager.shared.saveWish(wish)
+    }
+    
+    
+    func retrieveWish(){
+        DataBaseManager.shared.loadData()
     }
     
 }
@@ -63,7 +80,11 @@ class WishViewModel {
         manager.updateWish(wish)
     }
     
-    func loadTasks() {
+    func setWish(_ wish: [Wish]){
+        manager.setWish(wish)
+    }
+    
+    func loadTasks(){
         manager.retrieveWish()
     }
 }

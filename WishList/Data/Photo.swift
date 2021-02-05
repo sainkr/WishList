@@ -7,21 +7,17 @@
 
 import UIKit
 
-struct Photo {
-    var image: UIImage
-}
-
 class PhotoManager {
     static let shared = PhotoManager()
     
-    var photos: [Photo] = []
+    var photos: [UIImage] = []
     
-    func addPhoto(_ photo: Photo){
+    func addPhoto(_ photo: UIImage){
         photos.append(photo)
     }
     
-    func deletePhoto(_ photo: Photo){
-        photos = photos.filter { $0.image != photo.image}
+    func deletePhoto(_ photo: UIImage){
+        photos = photos.filter { $0 != photo}
     }
     
     func resetPhoto(){
@@ -33,15 +29,15 @@ class PhotoManager {
 class PhotoViewModel {
     private let manager = PhotoManager.shared
     
-    var photos: [Photo]{
+    var photos: [UIImage]{
         return manager.photos
     }
     
-    func addPhoto(_ photo: Photo){
+    func addPhoto(_ photo: UIImage){
         manager.addPhoto(photo)
     }
     
-    func deletePhoto(_ photo: Photo){
+    func deletePhoto(_ photo: UIImage){
         manager.deletePhoto(photo)
     }
 
