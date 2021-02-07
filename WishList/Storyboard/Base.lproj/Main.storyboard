@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -35,6 +36,7 @@
                                 </state>
                                 <connections>
                                     <action selector="searchButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DVx-OH-uUG"/>
+                                    <segue destination="kV5-MR-m09" kind="show" id="U1h-yX-M7y"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QY8-ox-bDL">
@@ -126,11 +128,39 @@
             </objects>
             <point key="canvasLocation" x="-213.04347826086959" y="87.723214285714278"/>
         </scene>
+        <!--Map View Controller-->
+        <scene sceneID="jFu-s0-d3O">
+            <objects>
+                <viewController id="kV5-MR-m09" customClass="MapViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ba7-Z9-5ck">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mWN-ur-AHu" customClass="NMFMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="sq6-Hn-ET7"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="sq6-Hn-ET7" firstAttribute="trailing" secondItem="mWN-ur-AHu" secondAttribute="trailing" id="282-bP-G53"/>
+                            <constraint firstItem="mWN-ur-AHu" firstAttribute="top" secondItem="sq6-Hn-ET7" secondAttribute="top" id="JF7-iE-5ye"/>
+                            <constraint firstItem="sq6-Hn-ET7" firstAttribute="bottom" secondItem="mWN-ur-AHu" secondAttribute="bottom" id="PHb-Zg-rus"/>
+                            <constraint firstItem="mWN-ur-AHu" firstAttribute="leading" secondItem="sq6-Hn-ET7" secondAttribute="leading" id="yXB-Sy-PoE"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="w4I-oh-xnu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ami-pb-vUd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="569.56521739130437" y="-147.32142857142856"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
-        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="slider.horizontal.3" catalog="system" width="128" height="100"/>
+        <image name="magnifyingglass" catalog="system" width="32" height="32"/>
+        <image name="plus.circle.fill" catalog="system" width="32" height="32"/>
+        <image name="slider.horizontal.3" catalog="system" width="32" height="32"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
