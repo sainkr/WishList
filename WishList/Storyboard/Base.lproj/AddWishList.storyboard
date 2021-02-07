@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -20,7 +21,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Kv-Kr-45p">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="barTintColor" systemColor="tertiarySystemBackgroundColor"/>
                                 <items>
                                     <navigationItem id="4gS-ts-UOA">
                                         <barButtonItem key="leftBarButtonItem" style="plain" id="yRZ-0D-fAL">
@@ -163,6 +164,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bar" destination="2Kv-Kr-45p" id="sCF-N1-30j"/>
                         <outlet property="gestureRecognizer" destination="4bV-qh-Lab" id="1Nh-t7-Jwh"/>
                         <outlet property="linkTextField" destination="pGI-ju-CcE" id="7Oo-8X-Chi"/>
                         <outlet property="nameTextField" destination="v59-v7-y9Z" id="KI9-qT-lDy"/>
@@ -178,10 +180,10 @@
             </objects>
             <point key="canvasLocation" x="-2139.130434782609" y="-461.38392857142856"/>
         </scene>
-        <!--Photo Add View Controller-->
+        <!--Add Photo View Controller-->
         <scene sceneID="gXx-ku-cLQ">
             <objects>
-                <viewController id="yvn-eA-eYc" customClass="PhotoAddViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="yvn-eA-eYc" customClass="AddPhotoViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0Yu-LY-unl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -257,10 +259,10 @@
             </objects>
             <point key="canvasLocation" x="-1368.1159420289855" y="-601.33928571428567"/>
         </scene>
-        <!--Tag Select View Controller-->
+        <!--Select Tag View Controller-->
         <scene sceneID="6io-yC-Mhx">
             <objects>
-                <viewController id="RCV-8C-U3R" customClass="TagSelectViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="RCV-8C-U3R" customClass="SelectTagViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mbd-QW-HZL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -433,6 +435,9 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tertiarySystemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>

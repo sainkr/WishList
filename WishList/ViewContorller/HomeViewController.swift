@@ -15,6 +15,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var addButton: UIButton!
     
     let wishListViewModel = WishViewModel()
+    let tagViewModel = TagViewModel()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +41,7 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         
         collectionView.reloadData()
+        tagViewModel.resetTag()
     }
 
     @IBAction func searchButtonTapped(_ sender: Any) {
@@ -77,6 +80,14 @@ extension HomeViewController: UICollectionViewDataSource{
 
 extension HomeViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+let selectWishStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+guard let selectWishVC = selectWishStoryboard.instantiateViewController(identifier: "SelectWishViewController") as? SelectWishViewController else { return }
+selectWishVC.modalPresentationStyle = .fullScreen
+
+selectWishVC.paramIndex = indexPath.item
+
+present(selectWishVC, animated: true, completion: nil)
     }
 }
 
@@ -92,10 +103,18 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 class WishListCell: UICollectionViewCell {
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var tagLabel: UILabel!
     
     func updateUI(_ wish: Wish){
         if wish.photo.count > 0 {
             thumbnailImageView.image = wish.photo[0]
+        }
+        if wish.tag.count > 0{
+            var tag: String = ""
+            for i in 0..<wish.tag.count{
+                tag += "# \(wish.tag[i]) "
+            }
+            tagLabel.text = tag
         }
         nameLabel.text = wish.name
     }

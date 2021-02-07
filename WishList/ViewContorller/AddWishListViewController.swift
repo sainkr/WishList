@@ -15,9 +15,10 @@ class AddWishListViewController: UIViewController{
     @IBOutlet weak var tagSelectTextField: UITextField!
     @IBOutlet weak var linkTextField: UITextField!
     @IBOutlet var gestureRecognizer: UITapGestureRecognizer!
+    @IBOutlet weak var bar: UINavigationBar!
 
-    var tageselectViewController: TagSelectViewController!
-    var photoselectViewController: PhotoAddViewController!
+    var selectTagViewController: SelectTagViewController!
+    var selectPhotoViewController: AddPhotoViewController!
     
     let wishViewModel = WishViewModel()
     let tagViewModel = TagViewModel()
@@ -25,11 +26,11 @@ class AddWishListViewController: UIViewController{
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "tag" {
-            let destinationVC = segue.destination as? TagSelectViewController
-            tageselectViewController = destinationVC
+            let destinationVC = segue.destination as? SelectTagViewController
+            selectTagViewController = destinationVC
         } else if segue.identifier == "photo" {
-            let destinationVC = segue.destination as? PhotoAddViewController
-            photoselectViewController = destinationVC
+            let destinationVC = segue.destination as? AddPhotoViewController
+            selectPhotoViewController = destinationVC
         }
     }
     
@@ -37,6 +38,13 @@ class AddWishListViewController: UIViewController{
         super.viewDidLoad()
         self.tagSelectTextField.delegate = self
         gestureRecognizer.cancelsTouchesInView = false
+        setNavigationBar()
+    }
+    
+    func setNavigationBar(){
+        bar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        bar.shadowImage = UIImage()
+        bar.backgroundColor = UIColor.clear
     }
 
     
@@ -76,8 +84,8 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
         if textField == tagSelectTextField{
             guard let tag = tagSelectTextField.text, tag.isEmpty == false else { return false }
             let tagText = tag
-            tageselectViewController.tagViewModel.addTag(tagText)
-            tageselectViewController.collectionView.reloadData()
+            selectTagViewController.tagViewModel.addTag(tagText)
+            selectTagViewController.collectionView.reloadData()
             
             tagSelectTextField.text = ""
         }

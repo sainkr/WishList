@@ -8,10 +8,10 @@
 import UIKit
 import SnapKit
 
-class TagSelectViewController: UIViewController {
+class SelectTagViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    
+
     let tagViewModel = TagViewModel()
     
     override func viewDidLoad() {
@@ -45,7 +45,7 @@ class TagSelectViewController: UIViewController {
 
 }
 
-extension TagSelectViewController: UICollectionViewDataSource{
+extension SelectTagViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tagViewModel.tags.count
@@ -69,7 +69,7 @@ extension TagSelectViewController: UICollectionViewDataSource{
     }
 }
 
-extension TagSelectViewController : UICollectionViewDelegateFlowLayout {
+extension SelectTagViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return TagCell.fittingSize(availableHeight: 45, tag: tagViewModel.tags[indexPath.item])
     }

@@ -8,7 +8,7 @@
 import UIKit
 import PhotosUI
 
-class PhotoAddViewController: UIViewController {
+class AddPhotoViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -23,7 +23,7 @@ class PhotoAddViewController: UIViewController {
     }
 }
 
-extension PhotoAddViewController:  UICollectionViewDataSource{
+extension AddPhotoViewController:  UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoViewModel.photos.count + 1
     }
@@ -54,7 +54,7 @@ extension PhotoAddViewController:  UICollectionViewDataSource{
     
 }
 
-extension PhotoAddViewController: UICollectionViewDelegate{
+extension AddPhotoViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
             
@@ -81,7 +81,7 @@ extension PhotoAddViewController: UICollectionViewDelegate{
     }
 }
 
-extension PhotoAddViewController: PHPickerViewControllerDelegate {
+extension AddPhotoViewController: PHPickerViewControllerDelegate {
     @available(iOS 14, *)
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true) // 1
@@ -113,7 +113,7 @@ extension PhotoAddViewController: PHPickerViewControllerDelegate {
     }
 }
 
-extension PhotoAddViewController: UICollectionViewDelegateFlowLayout {
+extension AddPhotoViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width: CGFloat = 100
         let height: CGFloat = 100

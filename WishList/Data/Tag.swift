@@ -24,6 +24,10 @@ class TagManager {
         tags = []
     }
     
+    func setTag(_ tag:[String]){
+        tags = tag
+    }
+    
 }
 
 class TagViewModel {
@@ -43,6 +47,10 @@ class TagViewModel {
     
     func resetTag(){
         manager.resetTag()
+    }
+    
+    func setTag(_ tag: [String]){
+        manager.setTag(tag)
     }
 
 }
