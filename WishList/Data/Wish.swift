@@ -35,6 +35,7 @@ class WishManager {
     
     func addWish(_ wish: Wish){
         wishs.append(wish)
+        sortedWish()
         saveWish(wish)
     }
     
@@ -44,6 +45,10 @@ class WishManager {
     
     func updateWish(_ wish: Wish){
         
+    }
+    
+    func sortedWish(){
+        wishs = wishs.sorted{ $0.timestamp > $1.timestamp}
     }
     
     func setWish(_ wish: [Wish]){

@@ -167,6 +167,7 @@
                         <outlet property="bar" destination="2Kv-Kr-45p" id="sCF-N1-30j"/>
                         <outlet property="gestureRecognizer" destination="4bV-qh-Lab" id="1Nh-t7-Jwh"/>
                         <outlet property="linkTextField" destination="pGI-ju-CcE" id="7Oo-8X-Chi"/>
+                        <outlet property="memoTextView" destination="yln-jP-01T" id="18V-yk-EeS"/>
                         <outlet property="nameTextField" destination="v59-v7-y9Z" id="KI9-qT-lDy"/>
                         <outlet property="tagSelectTextField" destination="vlc-Op-in8" id="dAg-Ie-qQV"/>
                     </connections>

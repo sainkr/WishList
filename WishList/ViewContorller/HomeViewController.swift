@@ -8,7 +8,7 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-
+    
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var sliderButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -16,7 +16,6 @@ class HomeViewController: UIViewController {
     
     let wishListViewModel = WishViewModel()
     let tagViewModel = TagViewModel()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +42,7 @@ class HomeViewController: UIViewController {
         collectionView.reloadData()
         tagViewModel.resetTag()
     }
-
+    
     @IBAction func searchButtonTapped(_ sender: Any) {
     }
     
@@ -70,7 +69,7 @@ extension HomeViewController: UICollectionViewDataSource{
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WishListCell", for: indexPath) as? WishListCell else {
             return UICollectionViewCell()
         }
-    
+        
         cell.updateUI(wishListViewModel.wishs[indexPath.item])
         
         return cell
@@ -81,13 +80,13 @@ extension HomeViewController: UICollectionViewDataSource{
 extension HomeViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-let selectWishStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
-guard let selectWishVC = selectWishStoryboard.instantiateViewController(identifier: "SelectWishViewController") as? SelectWishViewController else { return }
-selectWishVC.modalPresentationStyle = .fullScreen
-
-selectWishVC.paramIndex = indexPath.item
-
-present(selectWishVC, animated: true, completion: nil)
+        let selectWishStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+        guard let selectWishVC = selectWishStoryboard.instantiateViewController(identifier: "SelectWishViewController") as? SelectWishViewController else { return }
+        selectWishVC.modalPresentationStyle = .fullScreen
+        
+        selectWishVC.paramIndex = indexPath.item
+        
+        present(selectWishVC, animated: true, completion: nil)
     }
 }
 

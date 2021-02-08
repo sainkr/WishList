@@ -16,7 +16,8 @@ class AddWishListViewController: UIViewController{
     @IBOutlet weak var linkTextField: UITextField!
     @IBOutlet var gestureRecognizer: UITapGestureRecognizer!
     @IBOutlet weak var bar: UINavigationBar!
-
+    @IBOutlet weak var memoTextView: UITextView!
+    
     var selectTagViewController: SelectTagViewController!
     var selectPhotoViewController: AddPhotoViewController!
     
@@ -55,7 +56,7 @@ class AddWishListViewController: UIViewController{
     @IBAction func doneButtonTapped(_ sender: Any){
         
         let timestamp = Date().timeIntervalSince1970.rounded()
-        wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "ghdtmddk", tag: tagViewModel.tags, content: "zzzz" , photo: self.photoViewModel.photos, link: self.linkTextField.text ?? "sainkr.kakao.com" , place: "cafe"))
+        wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "ghdtmddk", tag: tagViewModel.tags, content: self.memoTextView.text ?? " " , photo: self.photoViewModel.photos, link: self.linkTextField.text ?? "sainkr.kakao.com" , place: "cafe"))
         tagViewModel.resetTag()
         photoViewModel.resetPhoto()
         dismiss(animated: true, completion: nil)
