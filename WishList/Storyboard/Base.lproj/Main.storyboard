@@ -75,9 +75,19 @@
                                                     <color key="textColor" red="0.1176470518" green="0.12549020350000001" blue="0.51372551919999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c5b-IG-HUb">
+                                                    <rect key="frame" x="-4" y="126" width="394" height="1"/>
+                                                    <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="dFE-Fz-ex2"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="c5b-IG-HUb" firstAttribute="leading" secondItem="4gR-XG-vNZ" secondAttribute="leading" constant="10" id="Esg-Au-LZw"/>
                                                 <constraint firstItem="VeP-v0-rxs" firstAttribute="leading" secondItem="4gR-XG-vNZ" secondAttribute="leading" constant="10" id="FMz-yo-tQq"/>
+                                                <constraint firstAttribute="trailing" secondItem="c5b-IG-HUb" secondAttribute="trailing" constant="10" id="Itq-WV-mg8"/>
+                                                <constraint firstAttribute="bottom" secondItem="c5b-IG-HUb" secondAttribute="bottom" id="Jgw-PB-ksi"/>
                                                 <constraint firstAttribute="trailing" secondItem="wfR-mH-X04" secondAttribute="trailing" constant="20" id="Sce-4B-kpt"/>
                                                 <constraint firstItem="mM0-SQ-pq4" firstAttribute="leading" secondItem="VeP-v0-rxs" secondAttribute="trailing" constant="20" id="XxI-ZU-mSw"/>
                                                 <constraint firstItem="VeP-v0-rxs" firstAttribute="top" secondItem="4gR-XG-vNZ" secondAttribute="top" constant="10" id="Yim-rD-cGZ"/>
@@ -275,6 +285,7 @@
                                 </items>
                             </navigationBar>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="bPf-yd-VdK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="ARt-w6-4we" firstAttribute="top" secondItem="ooQ-Wa-QMU" secondAttribute="bottom" constant="-36" id="0N5-ZK-ZUg"/>
@@ -301,7 +312,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aew-w6-j7Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="427.536231884058" y="95.758928571428569"/>
+            <point key="canvasLocation" x="443" y="96"/>
         </scene>
         <!--Show Tag View Controller-->
         <scene sceneID="50a-cs-wcs">
@@ -360,6 +371,9 @@
         <image name="slider.horizontal.3" catalog="system" width="128" height="100"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

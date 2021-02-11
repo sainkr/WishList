@@ -86,12 +86,12 @@ class SelectWishViewController: UIViewController {
 
     }
     
-    @IBAction func linkButtonTapped(_ sender: Any) {
-        //사파리로 링크열기
-        if let url = URL(string: wishListViewModel.wishs[paramIndex].link) {
-            UIApplication.shared.open(url, options: [:])
-        }
+@IBAction func linkButtonTapped(_ sender: Any) {
+    //사파리로 링크열기
+    if let url = URL(string: wishListViewModel.wishs[paramIndex].link) {
+        UIApplication.shared.open(url, options: [:])
     }
+}
     @IBAction func pageChanged(_ sender: Any) {
         imageView.image = wishListViewModel.wishs[paramIndex].photo[pageControl.currentPage]
     }

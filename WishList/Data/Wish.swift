@@ -12,6 +12,7 @@ struct Wish{
     var timestamp: TimeInterval
     var name: String
     var tag: [String]
+    var tagString: String
     var content: String
     var photo: [UIImage]
     var link: String

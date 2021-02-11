@@ -56,7 +56,7 @@ class AddWishListViewController: UIViewController{
     @IBAction func doneButtonTapped(_ sender: Any){
         
         let timestamp = Date().timeIntervalSince1970.rounded()
-        wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "ghdtmddk", tag: tagViewModel.tags, content: self.memoTextView.text ?? " " , photo: self.photoViewModel.photos, link: self.linkTextField.text ?? "sainkr.kakao.com" , place: "cafe"))
+        wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "ghdtmddk", tag: tagViewModel.tags, tagString : tagViewModel.getTagString() ,content: self.memoTextView.text ?? " " , photo: self.photoViewModel.photos, link: self.linkTextField.text ?? "sainkr.kakao.com" , place: "cafe"))
         tagViewModel.resetTag()
         photoViewModel.resetPhoto()
         dismiss(animated: true, completion: nil)
@@ -64,6 +64,7 @@ class AddWishListViewController: UIViewController{
     
     // 탭 했을때, 키보드 내려옴
     @IBAction func tapBG(_ sender: Any) {
+
         nameTextField.resignFirstResponder()
         tagSelectTextField.resignFirstResponder()
         linkTextField.resignFirstResponder()

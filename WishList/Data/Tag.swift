@@ -28,6 +28,15 @@ class TagManager {
         tags = tag
     }
     
+    func getTagString()-> String{
+        var tagString = ""
+        for i in 0..<tags.count{
+            tagString += "# \(tags[i]) "
+        }
+    
+        return tagString
+    }
+    
 }
 
 class TagViewModel {
@@ -51,6 +60,10 @@ class TagViewModel {
     
     func setTag(_ tag: [String]){
         manager.setTag(tag)
+    }
+    
+    func getTagString() -> String{
+        return manager.getTagString()
     }
 
 }

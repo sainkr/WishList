@@ -44,6 +44,11 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func searchButtonTapped(_ sender: Any) {
+        let searchStoryboard = UIStoryboard.init(name: "Search", bundle: nil)
+        guard let searchVC = searchStoryboard.instantiateViewController(identifier: "SearchViewController") as? SearchViewController else { return }
+        searchVC.modalPresentationStyle = .fullScreen
+        
+        present(searchVC, animated: true, completion: nil)
     }
     
     @IBAction func sliderButtonTapped(_ sender: Any) {

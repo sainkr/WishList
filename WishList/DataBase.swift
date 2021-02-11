@@ -72,7 +72,14 @@ class DataBaseManager {
                         let image = UIImage(data : data! as Data)!
                         img.append(image)
                     }
-                    let wish = Wish(timestamp: wishList[i].timestamp, name: wishList[i].name, tag: wishList[i].tag, content: wishList[i].content, photo: img, link: wishList[i].link, place: wishList[i].place)
+                    var tagString = ""
+                    
+                    for j in 0..<wishList[i].tag.count{
+                        tagString += "# \(wishList[i].tag[j])"
+                    }
+                    
+                    let wish = Wish(
+                        timestamp: wishList[i].timestamp, name: wishList[i].name, tag: wishList[i].tag, tagString : tagString, content: wishList[i].content, photo: img, link: wishList[i].link, place: wishList[i].place)
                     wishs.append(wish)
                 }
                 
