@@ -19,6 +19,7 @@ class DataBaseManager {
     
     func saveWish(_ wish: Wish){
         var imgURL: [String] = []
+        
         for i in 0..<wish.photo.count{
             let image: UIImage = wish.photo[i]
             let data = image.jpegData(compressionQuality: 0.1)!
@@ -40,12 +41,60 @@ class DataBaseManager {
                         imgURL.append(url!.absoluteString)
                         if imgURL.count == wish.photo.count  {
                             print("--->imgurl..length : \(imgURL.count)")
-                            db.childByAutoId().setValue([ "timestamp" : wish.timestamp, "name": wish.name ,  "tag" : wish.tag, "img" : imgURL, "content" : wish.content , "link" : wish.link, "place" : wish.place])
+                            print("---> timestamp : \(String(wish.timestamp))")
+                            db.child(String(wish.timestamp)).setValue([ "timestamp" : wish.timestamp, "name": wish.name ,  "tag" : wish.tag, "img" : imgURL, "content" : wish.content , "link" : wish.link ])
                         }
                     }
                 }
             }
         }
+    }
+    
+    func updateWish(_ wish: Wish, _ imgCnt: Int){
+        print("---> update 2")
+        // 스토리지 파일 삭제
+        for i in 0..<imgCnt{
+            let imageName = "\(wish.timestamp)\(i)"
+            storage.reference().child(imageName).delete(completion: nil)
+        }
+        
+        var imgURL: [String] = []
+        for i in 0..<wish.photo.count{
+            let image: UIImage = wish.photo[i]
+            let data = image.jpegData(compressionQuality: 0.1)!
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/png"
+            let imageName = "\(wish.timestamp)\(i)"
+            storage.reference().child(imageName).putData(data, metadata: metaData) { (data, err) in
+                if let error = err {
+                    print("--> error1:\(error.localizedDescription)")
+                }
+                self.storage.reference().child(imageName).downloadURL { [self] (url, err) in
+                    print("url fetch")
+                    if let error = err {
+                        print("--> error2:\(error.localizedDescription)")
+                    }
+                    else {
+                        // print("--> url : \(url?.absoluteString)")
+                        print("---> \(i)")
+                        imgURL.append(url!.absoluteString)
+                        if imgURL.count == wish.photo.count  {
+                            print("--->imgurl..length : \(imgURL.count)")
+                            db.child(String(wish.timestamp)).updateChildValues([ "timestamp" : wish.timestamp, "name": wish.name ,  "tag" : wish.tag, "img" : imgURL, "content" : wish.content , "link" : wish.link ])
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func deleteWish(_ wish: Wish){
+        // 스토리지 파일 삭제
+        for i in 0..<wish.photo.count{
+            let imageName = "\(wish.timestamp)\(i)"
+            storage.reference().child(imageName).delete(completion: nil)
+        }
+        db.child(String(wish.timestamp)).removeValue()
     }
     
     func loadData(){
@@ -79,7 +128,7 @@ class DataBaseManager {
                     }
                     
                     let wish = Wish(
-                        timestamp: wishList[i].timestamp, name: wishList[i].name, tag: wishList[i].tag, tagString : tagString, content: wishList[i].content, photo: img, link: wishList[i].link, place: wishList[i].place)
+                        timestamp: wishList[i].timestamp, name: wishList[i].name, tag: wishList[i].tag, tagString : tagString, content: wishList[i].content, photo: img, link: wishList[i].link)
                     wishs.append(wish)
                 }
                 

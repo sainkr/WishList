@@ -37,11 +37,7 @@ class SelectTagViewController: UIViewController {
         collectionView.backgroundColor = UIColor.clear
         collectionView.register(TagCell.self, forCellWithReuseIdentifier: "TagCell")
     }
-     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
+    
 
 }
 

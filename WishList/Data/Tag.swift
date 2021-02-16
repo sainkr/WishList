@@ -25,6 +25,7 @@ class TagManager {
     }
     
     func setTag(_ tag:[String]){
+        resetTag()
         tags = tag
     }
     

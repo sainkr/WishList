@@ -12,13 +12,15 @@ class SearchViewController: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var nameSwitch: UISwitch!
+    @IBOutlet weak var tagSwitch: UISwitch!
     
     let wishViewModel = WishViewModel()
     var filterWish: [Wish] = []
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -79,10 +81,25 @@ extension SearchViewController: UISearchBarDelegate{
             collectionView.reloadData()
             return }
         
-        self.filterWish = self.wishViewModel.wishs.filter{
-            $0.name.localizedStandardContains(searchTerm)
+        print("")
+  
+        if nameSwitch.isOn && tagSwitch.isOn { // 둘 다 선택되어있을 때
+            self.filterWish = self.wishViewModel.wishs.filter{
+                $0.name.localizedStandardContains(searchTerm) && $0.tagString.localizedStandardContains(searchTerm)
+            }
         }
-            
+        else {
+            if nameSwitch.isOn { // 이름만 선택되어 있을 때
+                self.filterWish = self.wishViewModel.wishs.filter{
+                    $0.name.localizedStandardContains(searchTerm)
+                }
+            } else if tagSwitch.isOn { // 태그만 선택되어 있을 때
+                self.filterWish = self.wishViewModel.wishs.filter{
+                    $0.tagString.localizedStandardContains(searchTerm)
+                }
+            }
+        }
+        
         collectionView.reloadData()
     }
     
@@ -90,7 +107,7 @@ extension SearchViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchWish()
     }
-    
+        
     // 키보드 search 버튼 누른 후
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         dismissKeyboard()

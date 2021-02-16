@@ -196,7 +196,7 @@
                                                 </constraints>
                                             </view>
                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vdc-tP-sy1">
-                                                <rect key="frame" x="20" y="74" width="374" height="65"/>
+                                                <rect key="frame" x="10" y="74" width="394" height="65"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="65" id="qTv-Jc-Xgd"/>
                                                 </constraints>
@@ -219,9 +219,9 @@
                                             <constraint firstAttribute="trailing" secondItem="6kf-Pz-mbj" secondAttribute="trailing" constant="20" id="IhR-ck-TeW"/>
                                             <constraint firstItem="Zre-cQ-TiG" firstAttribute="top" secondItem="Ufm-mV-LOi" secondAttribute="top" constant="20" id="M8m-dm-HI7"/>
                                             <constraint firstItem="Vdc-tP-sy1" firstAttribute="top" secondItem="6kf-Pz-mbj" secondAttribute="bottom" constant="10" id="TOy-ej-Nyf"/>
-                                            <constraint firstAttribute="trailing" secondItem="Vdc-tP-sy1" secondAttribute="trailing" constant="20" id="Vcm-u4-KF8"/>
+                                            <constraint firstAttribute="trailing" secondItem="Vdc-tP-sy1" secondAttribute="trailing" constant="10" id="Vcm-u4-KF8"/>
                                             <constraint firstItem="Zre-cQ-TiG" firstAttribute="leading" secondItem="Ufm-mV-LOi" secondAttribute="leading" constant="20" id="WLL-vN-7bc"/>
-                                            <constraint firstItem="Vdc-tP-sy1" firstAttribute="leading" secondItem="Ufm-mV-LOi" secondAttribute="leading" constant="20" id="aso-I0-ZoN"/>
+                                            <constraint firstItem="Vdc-tP-sy1" firstAttribute="leading" secondItem="Ufm-mV-LOi" secondAttribute="leading" constant="10" id="aso-I0-ZoN"/>
                                             <constraint firstItem="6kf-Pz-mbj" firstAttribute="leading" secondItem="Ufm-mV-LOi" secondAttribute="leading" constant="20" id="blx-i1-EdF"/>
                                             <constraint firstAttribute="trailing" secondItem="3zg-0F-Uhs" secondAttribute="trailing" constant="20" id="bxF-34-mWm"/>
                                             <constraint firstItem="hge-93-KJf" firstAttribute="top" secondItem="Ufm-mV-LOi" secondAttribute="top" constant="20" id="fEq-eR-xam"/>
@@ -270,10 +270,10 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="plain" id="edS-x0-ktG">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0tz-kR-x8Y">
-                                                <rect key="frame" x="367.5" y="6.5" width="26.5" height="31"/>
+                                                <rect key="frame" x="365.5" y="6.5" width="28.5" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" image="hand.point.up" catalog="system">
+                                                <state key="normal" image="ellipsis" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25" weight="bold"/>
                                                 </state>
                                                 <connections>
@@ -319,11 +319,11 @@
             <objects>
                 <viewController id="PwR-bv-poI" customClass="ShowTagViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="B05-tp-Stz">
-                        <rect key="frame" x="0.0" y="0.0" width="374" height="65"/>
+                        <rect key="frame" x="0.0" y="0.0" width="394" height="65"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CTY-Lh-BdD">
-                                <rect key="frame" x="0.0" y="0.0" width="374" height="65"/>
+                                <rect key="frame" x="0.0" y="0.0" width="394" height="65"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gQy-6K-B1H">
                                     <size key="itemSize" width="87" height="36"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -365,7 +365,7 @@
     <resources>
         <image name="arrowshape.turn.up.backward.circle.fill" catalog="system" width="128" height="121"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
-        <image name="hand.point.up" catalog="system" width="111" height="128"/>
+        <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="slider.horizontal.3" catalog="system" width="128" height="100"/>

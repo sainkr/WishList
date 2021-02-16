@@ -52,12 +52,14 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func sliderButtonTapped(_ sender: Any) {
+        
     }
     
     @IBAction func addButtonTapped(_ sender: Any) {
         let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
         guard let addWishListVC = addWishListStoryboard.instantiateViewController(identifier: "AddWishListViewController") as? AddWishListViewController else { return }
         addWishListVC.modalPresentationStyle = .fullScreen
+        addWishListVC.paramIndex = -1
         
         present(addWishListVC, animated: true, completion: nil)
     }

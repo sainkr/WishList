@@ -24,14 +24,24 @@ class SelectWishViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        tagViewModel.setTag(wishListViewModel.wishs[paramIndex].tag)
-        self.nameLabel.text = wishListViewModel.wishs[paramIndex].name
-        self.contentLabel.text = wishListViewModel.wishs[paramIndex].content
         
+        setContent()
         setNavigationBar()
         setPageControl()
         setSiwpe()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        setContent()
+        setPageControl()
+    }
+    
+    func setContent(){
+        tagViewModel.setTag(wishListViewModel.wishs[paramIndex].tag)
+        self.nameLabel.text = wishListViewModel.wishs[paramIndex].name
+        self.contentLabel.text = wishListViewModel.wishs[paramIndex].content
     }
     
     func setSiwpe(){
@@ -86,12 +96,13 @@ class SelectWishViewController: UIViewController {
 
     }
     
-@IBAction func linkButtonTapped(_ sender: Any) {
-    //사파리로 링크열기
-    if let url = URL(string: wishListViewModel.wishs[paramIndex].link) {
-        UIApplication.shared.open(url, options: [:])
+    @IBAction func linkButtonTapped(_ sender: Any) {
+        //사파리로 링크열기
+        if let url = URL(string: wishListViewModel.wishs[paramIndex].link) {
+            UIApplication.shared.open(url, options: [:])
+        }
     }
-}
+    
     @IBAction func pageChanged(_ sender: Any) {
         imageView.image = wishListViewModel.wishs[paramIndex].photo[pageControl.currentPage]
     }
@@ -101,7 +112,34 @@ class SelectWishViewController: UIViewController {
     }
     
     @IBAction func menuButtonTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        // UIAlertController 초기화
+        var actionsheetController = UIAlertController(title:    nil, message: nil, preferredStyle: .actionSheet)
+
+        // UIAlertAction 설정
+        // handler : 액션 발생시 호출
+        let editWish = UIAlertAction(title: "수정", style: .default) { action in
+            
+            let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
+            guard let addWishListVC = addWishListStoryboard.instantiateViewController(identifier: "AddWishListViewController") as? AddWishListViewController else { return }
+            addWishListVC.modalPresentationStyle = .fullScreen
+            addWishListVC.paramIndex = self.paramIndex
+            
+            self.present(addWishListVC, animated: true, completion: nil)
+        }
+        
+        let deleteWish = UIAlertAction(title: "삭제", style: .destructive, handler: { action in
+            self.wishListViewModel.deleteWish(self.wishListViewModel.wishs[self.paramIndex])
+            self.dismiss(animated: true, completion: nil)
+        })
+
+        // **cancel 액션은 한개만 됩니다.
+        let actionCancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+
+        actionsheetController.addAction(editWish)
+        actionsheetController.addAction(deleteWish)
+        actionsheetController.addAction(actionCancel)
+        
+        self.present(actionsheetController, animated: true)
     }
 
 }
