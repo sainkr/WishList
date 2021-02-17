@@ -18,7 +18,6 @@ class SearchViewController: UIViewController {
     let wishViewModel = WishViewModel()
     var filterWish: [Wish] = []
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -53,7 +52,16 @@ extension SearchViewController: UICollectionViewDelegate{
         guard let selectWishVC = selectWishStoryboard.instantiateViewController(identifier: "SelectWishViewController") as? SelectWishViewController else { return }
         selectWishVC.modalPresentationStyle = .fullScreen
         
-        selectWishVC.paramIndex = indexPath.item
+        var index = -1
+        
+        for i in 0..<wishViewModel.wishs.count{
+            if wishViewModel.wishs[i].timestamp == filterWish[indexPath.item].timestamp{
+                index = i
+                break
+            }
+        }
+        
+        selectWishVC.paramIndex = index
         
         present(selectWishVC, animated: true, completion: nil)
     }

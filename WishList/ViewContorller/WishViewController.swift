@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class WishViewController: UIViewController {
     
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var sliderButton: UIButton!
@@ -37,7 +37,7 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         collectionView.reloadData()
         tagViewModel.resetTag()
     }
@@ -65,7 +65,7 @@ class HomeViewController: UIViewController {
     
 }
 
-extension HomeViewController: UICollectionViewDataSource{
+extension WishViewController: UICollectionViewDataSource{
     // 아이템 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return wishListViewModel.wishs.count
@@ -83,7 +83,7 @@ extension HomeViewController: UICollectionViewDataSource{
     
 }
 
-extension HomeViewController: UICollectionViewDelegate{
+extension WishViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let selectWishStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -96,7 +96,7 @@ extension HomeViewController: UICollectionViewDelegate{
     }
 }
 
-extension HomeViewController: UICollectionViewDelegateFlowLayout {
+extension WishViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width: CGFloat = collectionView.bounds.width
         let height: CGFloat = 110

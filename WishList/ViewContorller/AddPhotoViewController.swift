@@ -69,13 +69,6 @@ extension AddPhotoViewController: UICollectionViewDelegate{
         } else {
             // Fallback on earlier versions
         }
-            
-            /* let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
-             guard let photoLibraryVC = addWishListStoryboard.instantiateViewController(identifier: "PhotoLibraryViewController") as? PhotoLibraryViewController else { return }
-             photoLibraryVC.modalPresentationStyle = .fullScreen
-             
-             present(photoLibraryVC, animated: true, completion: nil)
-             */
         }
     }
 }
@@ -89,8 +82,8 @@ extension AddPhotoViewController: PHPickerViewControllerDelegate {
         iterator = itemProviders.makeIterator()
 
         if itemProviders.count + photoViewModel.photos.count > 5{
-            let alert = UIAlertController(title: "사진 선택", message: "최대 5개까지 가능임 ㅇㅇ", preferredStyle: UIAlertController.Style.alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler : nil )
+            let alert = UIAlertController(title: nil, message: "사진은 최대 5개까지 선택  가능합니다.", preferredStyle: UIAlertController.Style.alert)
+            let okAction = UIAlertAction(title: "확인", style: .default, handler : nil )
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
         } else {

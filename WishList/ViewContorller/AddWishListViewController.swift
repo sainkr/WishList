@@ -65,17 +65,20 @@ class AddWishListViewController: UIViewController{
     
     @IBAction func backButtonTapped(_ sender: Any){
         dismiss(animated: true, completion: nil)
+        
+        tagViewModel.resetTag()
+        photoViewModel.resetPhoto()
     }
     
     @IBAction func doneButtonTapped(_ sender: Any){
         if paramIndex > -1{
             let timestamp = wishViewModel.wishs[paramIndex].timestamp
             print("---> update")
-            wishViewModel.updateWish(paramIndex, Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString() ,content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos, link: self.linkTextField.text ?? "-"))
+            wishViewModel.updateWish(paramIndex, Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString(), content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos , img: [] , link: self.linkTextField.text ?? "-"))
         }
         else{
             let timestamp = Int(Date().timeIntervalSince1970.rounded())
-            wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString() ,content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos, link: self.linkTextField.text ?? "-"))
+            wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString() ,content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos, img: [], link: self.linkTextField.text ?? "-"))
         }
         
         tagViewModel.resetTag()
@@ -90,16 +93,6 @@ class AddWishListViewController: UIViewController{
         tagSelectTextField.resignFirstResponder()
         linkTextField.resignFirstResponder()
     }
-    
-    
-    /* func textFieldDidBeginEditing(_ textField: UITextField) {
-     let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
-     guard let addTagVC = addWishListStoryboard.instantiateViewController(identifier: "TagSelectViewController") as? TagSelectViewController else { return }
-     addTagVC.modalPresentationStyle = .fullScreen
-     
-     present(addTagVC, animated: true, completion: nil)
-     }*/
-    
 }
 extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelegate{
     

@@ -19,8 +19,8 @@ class DataBaseManager {
     
     func saveWish(_ wish: Wish){
         var imgURL: [String] = []
-        
-        for i in 0..<wish.photo.count{
+        let imgCnt = wish.photo.count
+        for i in 0..<imgCnt{
             let image: UIImage = wish.photo[i]
             let data = image.jpegData(compressionQuality: 0.1)!
             let metaData = StorageMetadata()
@@ -36,13 +36,12 @@ class DataBaseManager {
                         print("--> error2:\(error.localizedDescription)")
                     }
                     else {
-                        // print("--> url : \(url?.absoluteString)")
                         print("---> \(i)")
                         imgURL.append(url!.absoluteString)
                         if imgURL.count == wish.photo.count  {
                             print("--->imgurl..length : \(imgURL.count)")
                             print("---> timestamp : \(String(wish.timestamp))")
-                            db.child(String(wish.timestamp)).setValue([ "timestamp" : wish.timestamp, "name": wish.name ,  "tag" : wish.tag, "img" : imgURL, "content" : wish.content , "link" : wish.link ])
+                            db.child(String(wish.timestamp)).setValue([ "timestamp" : wish.timestamp, "name": wish.name ,  "tag" : wish.tag, "img" : imgURL, "tagString" : wish.tagString , "content" : wish.content , "link" : wish.link ])
                         }
                     }
                 }
@@ -51,15 +50,14 @@ class DataBaseManager {
     }
     
     func updateWish(_ wish: Wish, _ imgCnt: Int){
-        print("---> update 2")
         // 스토리지 파일 삭제
         for i in 0..<imgCnt{
             let imageName = "\(wish.timestamp)\(i)"
             storage.reference().child(imageName).delete(completion: nil)
         }
-        
         var imgURL: [String] = []
-        for i in 0..<wish.photo.count{
+        let imgCnt = wish.photo.count
+        for i in 0..<imgCnt{
             let image: UIImage = wish.photo[i]
             let data = image.jpegData(compressionQuality: 0.1)!
             let metaData = StorageMetadata()
@@ -75,12 +73,11 @@ class DataBaseManager {
                         print("--> error2:\(error.localizedDescription)")
                     }
                     else {
-                        // print("--> url : \(url?.absoluteString)")
                         print("---> \(i)")
                         imgURL.append(url!.absoluteString)
                         if imgURL.count == wish.photo.count  {
                             print("--->imgurl..length : \(imgURL.count)")
-                            db.child(String(wish.timestamp)).updateChildValues([ "timestamp" : wish.timestamp, "name": wish.name ,  "tag" : wish.tag, "img" : imgURL, "content" : wish.content , "link" : wish.link ])
+                            db.child(String(wish.timestamp)).updateChildValues([ "timestamp" : wish.timestamp, "name": wish.name ,  "tag" : wish.tag, "img" : imgURL, "tagString" : wish.tagString , "content" : wish.content , "link" : wish.link ])
                         }
                     }
                 }
@@ -98,8 +95,6 @@ class DataBaseManager {
     }
     
     func loadData(){
-        var wishList: [WishDB] = []
-        var wishs: [Wish] = []
         db.observeSingleEvent(of:.value) { (snapshot) in
             guard let wishValue = snapshot.value as? [String:Any] else {
                 return
@@ -110,33 +105,18 @@ class DataBaseManager {
                 let decoder = JSONDecoder()
                 // 현재 data는 Array안에 Dictionary가 있는 형태인데 [Wish]로 디코딩 하기
                 let wish = try decoder.decode([WishDB].self, from: data)
-                wishList = wish.sorted{ $0.timestamp > $1.timestamp}
- 
-                // UIImage로 바꾸는 작업
-                for i in 0..<wishList.count{
-                    var img: [UIImage] = []
-                    for j in 0..<wishList[i].img.count{
-                        guard let url = URL(string: wishList[i].img[j]) else { return  }
-                        let data = NSData(contentsOf: url)
-                        let image = UIImage(data : data! as Data)!
-                        img.append(image)
-                    }
-                    var tagString = ""
-                    
-                    for j in 0..<wishList[i].tag.count{
-                        tagString += "# \(wishList[i].tag[j])"
-                    }
-                    
-                    let wish = Wish(
-                        timestamp: wishList[i].timestamp, name: wishList[i].name, tag: wishList[i].tag, tagString : tagString, content: wishList[i].content, photo: img, link: wishList[i].link)
-                    wishs.append(wish)
+                let wishDB: [WishDB] = wish.sorted{ $0.timestamp > $1.timestamp}
+                var wishList: [Wish] = []
+                let wishCnt = wishDB.count
+                for i in 0..<wishCnt{
+                    wishList.append(Wish(timestamp: wishDB[i].timestamp , name: wishDB[i].name , tag: wishDB[i].tag, tagString: wishDB[i].tagString , content: wishDB[i].content , photo: [] , img: wishDB[i].img, link: wishDB[i].link ))
                 }
-                
-                NotificationCenter.default.post(name: DidReceiveWishsNotification, object: nil, userInfo: ["wishs" :wishs])
+                NotificationCenter.default.post(name: DidReceiveWishsNotification, object: nil, userInfo: ["wishs" :wishList])
             }
             catch {
                 print("---> error : \(error)")
             }
+
         }
     }
 }
