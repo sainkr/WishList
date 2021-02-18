@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Kingfisher
+// import Kingfisher
 
 struct Wish: Equatable{
     var timestamp: Int
