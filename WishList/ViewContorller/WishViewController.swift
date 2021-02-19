@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class WishViewController: UIViewController {
     
@@ -117,7 +118,7 @@ class WishListCell: UICollectionViewCell {
         else {
             if wish.img.count > 0 {
                 let url = URL(string: wish.img[0])
-                //thumbnailImageView.kf.setImage(with: url)
+                thumbnailImageView.kf.setImage(with: url)
             }
         }
         if wish.tag.count > 0{

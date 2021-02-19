@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SelectWishViewController: UIViewController {
 
@@ -74,7 +75,7 @@ class SelectWishViewController: UIViewController {
             if wishViewModel.wishs[paramIndex].img.count > 0 {
                 pageControl.numberOfPages = wishViewModel.wishs[paramIndex].img.count
                 let url = URL(string: wishViewModel.wishs[paramIndex].img[0])
-                //imageView.kf.setImage(with: url)
+                imageView.kf.setImage(with: url)
             }
         }
         pageControl.currentPage = 0
@@ -118,7 +119,7 @@ class SelectWishViewController: UIViewController {
                     else {
                         if wishViewModel.wishs[paramIndex].img.count > 0 {
                             let url = URL(string: wishViewModel.wishs[paramIndex].img[pageControl.currentPage])
-                            //imageView.kf.setImage(with: url)
+                            imageView.kf.setImage(with: url)
                         }
                     }
                 case UISwipeGestureRecognizer.Direction.right :
@@ -129,7 +130,7 @@ class SelectWishViewController: UIViewController {
                     else {
                         if wishViewModel.wishs[paramIndex].img.count > 0 {
                             let url = URL(string:  wishViewModel.wishs[paramIndex].img[pageControl.currentPage])
-                            //imageView.kf.setImage(with: url)
+                            imageView.kf.setImage(with: url)
                         }
                     }
                 default:
