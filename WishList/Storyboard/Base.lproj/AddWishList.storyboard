@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -14,7 +15,7 @@
             <objects>
                 <viewController storyboardIdentifier="AddWishListViewController" id="JJB-WO-I4Y" customClass="AddWishListViewController" customModule="WishList" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dhr-Wr-3PQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Kv-Kr-45p">
@@ -54,10 +55,10 @@
                                 </items>
                             </navigationBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycd-Ss-79U">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="878"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PMR-ia-Zb0">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1000"/>
                                         <subviews>
                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bhS-g4-2L1">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
@@ -108,21 +109,38 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="장소 입력" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zJH-f4-SPt">
+                                                <rect key="frame" x="10" y="499" width="394" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Nnq-de-cV0" customClass="GMSMapView">
+                                                <rect key="frame" x="0.0" y="543" width="414" height="414"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Nnq-de-cV0" secondAttribute="height" multiplier="1:1" id="qSY-9a-lA8"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="pGI-ju-CcE" firstAttribute="top" secondItem="yln-jP-01T" secondAttribute="bottom" id="0YR-ev-0sq"/>
                                             <constraint firstItem="vlc-Op-in8" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" constant="10" id="2Ad-jC-scR"/>
+                                            <constraint firstAttribute="trailing" secondItem="zJH-f4-SPt" secondAttribute="trailing" constant="10" id="8AR-zS-50h"/>
                                             <constraint firstItem="pGI-ju-CcE" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" constant="10" id="Fb8-yV-89Z"/>
                                             <constraint firstItem="v59-v7-y9Z" firstAttribute="top" secondItem="bhS-g4-2L1" secondAttribute="bottom" id="HKd-Tw-rRT"/>
                                             <constraint firstAttribute="trailing" secondItem="bhS-g4-2L1" secondAttribute="trailing" id="LGs-je-Aih"/>
                                             <constraint firstItem="pgR-27-lNV" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" id="LIm-dV-ssp"/>
                                             <constraint firstItem="vlc-Op-in8" firstAttribute="top" secondItem="v59-v7-y9Z" secondAttribute="bottom" constant="8" symbolic="YES" id="M3A-9n-Hep"/>
                                             <constraint firstAttribute="trailing" secondItem="pGI-ju-CcE" secondAttribute="trailing" constant="10" id="OEg-m7-u0R"/>
+                                            <constraint firstItem="Nnq-de-cV0" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" id="Qwa-eu-DS3"/>
+                                            <constraint firstItem="zJH-f4-SPt" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" constant="10" id="V4t-Bn-xxt"/>
+                                            <constraint firstAttribute="trailing" secondItem="Nnq-de-cV0" secondAttribute="trailing" id="Wr2-to-tkw"/>
                                             <constraint firstItem="8cx-zy-nbG" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" constant="10" id="YUD-Ww-yTx"/>
                                             <constraint firstItem="pgR-27-lNV" firstAttribute="top" secondItem="vlc-Op-in8" secondAttribute="bottom" id="cGK-ti-iIZ"/>
                                             <constraint firstAttribute="trailing" secondItem="pgR-27-lNV" secondAttribute="trailing" id="fWC-0C-0Cr"/>
+                                            <constraint firstItem="Nnq-de-cV0" firstAttribute="top" secondItem="zJH-f4-SPt" secondAttribute="bottom" constant="10" id="g0a-ks-ezS"/>
                                             <constraint firstItem="bhS-g4-2L1" firstAttribute="top" secondItem="PMR-ia-Zb0" secondAttribute="top" id="h7V-DU-kCY"/>
                                             <constraint firstItem="8cx-zy-nbG" firstAttribute="top" secondItem="pgR-27-lNV" secondAttribute="bottom" constant="5" id="iOr-T5-qMe"/>
                                             <constraint firstItem="yln-jP-01T" firstAttribute="top" secondItem="8cx-zy-nbG" secondAttribute="bottom" constant="5" id="ltE-vN-05P"/>
@@ -130,6 +148,7 @@
                                             <constraint firstItem="bhS-g4-2L1" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" id="q3e-zz-6z1"/>
                                             <constraint firstAttribute="trailing" secondItem="yln-jP-01T" secondAttribute="trailing" constant="10" id="qpg-n1-5ih"/>
                                             <constraint firstItem="v59-v7-y9Z" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" constant="10" id="rbe-oS-2dE"/>
+                                            <constraint firstItem="zJH-f4-SPt" firstAttribute="top" secondItem="pGI-ju-CcE" secondAttribute="bottom" constant="10" id="s8X-0N-IJI"/>
                                             <constraint firstAttribute="trailing" secondItem="v59-v7-y9Z" secondAttribute="trailing" constant="10" id="uC7-lY-Qav"/>
                                             <constraint firstItem="yln-jP-01T" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" constant="10" id="yoL-x5-4b0"/>
                                         </constraints>
@@ -162,12 +181,15 @@
                             <constraint firstItem="ycd-Ss-79U" firstAttribute="leading" secondItem="DvI-Aw-lSk" secondAttribute="leading" id="wkZ-PS-Sxh"/>
                         </constraints>
                     </view>
+                    <size key="freeformSize" width="414" height="1000"/>
                     <connections>
                         <outlet property="bar" destination="2Kv-Kr-45p" id="sCF-N1-30j"/>
                         <outlet property="gestureRecognizer" destination="4bV-qh-Lab" id="1Nh-t7-Jwh"/>
                         <outlet property="linkTextField" destination="pGI-ju-CcE" id="7Oo-8X-Chi"/>
                         <outlet property="memoTextView" destination="yln-jP-01T" id="18V-yk-EeS"/>
                         <outlet property="nameTextField" destination="v59-v7-y9Z" id="KI9-qT-lDy"/>
+                        <outlet property="placeMapView" destination="Nnq-de-cV0" id="dx4-9T-lmI"/>
+                        <outlet property="placeTextField" destination="zJH-f4-SPt" id="KqK-S0-TOM"/>
                         <outlet property="tagSelectTextField" destination="vlc-Op-in8" id="dAg-Ie-qQV"/>
                     </connections>
                 </viewController>

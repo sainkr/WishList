@@ -1,6 +1,0 @@
-framework module Pods_WishList_WishListUITests {
-  umbrella header "Pods-WishList-WishListUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}

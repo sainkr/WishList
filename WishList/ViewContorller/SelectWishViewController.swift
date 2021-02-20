@@ -161,6 +161,7 @@ class SelectWishViewController: UIViewController {
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
+        tagViewModel.resetTag()
         dismiss(animated: true, completion: nil)
     }
     

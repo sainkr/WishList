@@ -9,6 +9,9 @@ target 'WishList' do
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
+  
   pod 'SnapKit', '~> 5.0.0'
   pod 'Kingfisher', '~> 6.0'
 

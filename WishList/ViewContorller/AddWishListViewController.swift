@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import GoogleMaps
+import GooglePlaces
 
-
-class AddWishListViewController: UIViewController{
+class AddWishListViewController: UIViewController, GMSAutocompleteViewControllerDelegate {
     
     
     @IBOutlet weak var nameTextField: UITextField!
@@ -17,6 +18,8 @@ class AddWishListViewController: UIViewController{
     @IBOutlet var gestureRecognizer: UITapGestureRecognizer!
     @IBOutlet weak var bar: UINavigationBar!
     @IBOutlet weak var memoTextView: UITextView!
+    @IBOutlet weak var placeTextField: UITextField!
+    @IBOutlet weak var placeMapView: GMSMapView!
     
     var selectTagViewController: SelectTagViewController!
     var selectPhotoViewController: AddPhotoViewController!
@@ -25,6 +28,8 @@ class AddWishListViewController: UIViewController{
     let tagViewModel = TagViewModel()
     let photoViewModel = PhotoViewModel()
     
+    let autocompleteController = GMSAutocompleteViewController()
+
     var paramIndex = -1
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -39,7 +44,20 @@ class AddWishListViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tagSelectTextField.delegate = self
+         
+         let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+        placeMapView.camera = camera
+         
+         let marker = GMSMarker()
+         marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
+         marker.title = "Sydney"
+         marker.snippet = "Australia"
+         marker.map = placeMapView
+        
+        autocompleteController.delegate = self //딜리게이트
+           
+        placeTextField.delegate = self
+        
         gestureRecognizer.cancelsTouchesInView = false
         setNavigationBar()
         
@@ -61,7 +79,6 @@ class AddWishListViewController: UIViewController{
         bar.shadowImage = UIImage()
         bar.backgroundColor = UIColor.clear
     }
-
     
     @IBAction func backButtonTapped(_ sender: Any){
         dismiss(animated: true, completion: nil)
@@ -92,9 +109,20 @@ class AddWishListViewController: UIViewController{
         nameTextField.resignFirstResponder()
         tagSelectTextField.resignFirstResponder()
         linkTextField.resignFirstResponder()
+        placeTextField.resignFirstResponder()
     }
 }
 extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelegate{
+    
+    // textfield 클릭하면
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("---> 클릭")
+        if textField == placeTextField {
+            placeTextField.resignFirstResponder()
+            print("---> 클릭")
+            present(autocompleteController, animated: true, completion: nil)
+        }
+    }
     
     // textfield 엔터하면 append
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -108,6 +136,37 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
         }
         return true
     }
+}
+
+extension AddWishListViewController { //해당 뷰컨트롤러를 익스텐션으로 딜리게이트를 달아준다.
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        print("--> Place name: \(String(describing: place.name))") //셀탭한 글씨출력
+        
+        // self.placeMapView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
+        let camera = GMSCameraPosition.camera(withLatitude: place.coordinate.latitude, longitude: place.coordinate.longitude, zoom: 6.0)
+        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+       
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+        marker.title = "place.name"
+   
+        marker.map = mapView
+       
+       placeMapView = mapView
+       
+     
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        print(error.localizedDescription)
+    }
+    
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 
