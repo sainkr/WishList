@@ -6,11 +6,10 @@
 //
 
 import UIKit
-import GoogleMaps
-import GooglePlaces
+import MapKit
+import CoreLocation
 
-class AddWishListViewController: UIViewController, GMSAutocompleteViewControllerDelegate {
-    
+class AddWishListViewController: UIViewController{
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var tagSelectTextField: UITextField!
@@ -19,7 +18,10 @@ class AddWishListViewController: UIViewController, GMSAutocompleteViewController
     @IBOutlet weak var bar: UINavigationBar!
     @IBOutlet weak var memoTextView: UITextView!
     @IBOutlet weak var placeTextField: UITextField!
-    @IBOutlet weak var placeMapView: GMSMapView!
+    @IBOutlet weak var mapView: MKMapView!
+    
+    var locationManager: CLLocationManager = CLLocationManager() // location manager
+    var currentLocation: CLLocation! // 내 위치 저장
     
     var selectTagViewController: SelectTagViewController!
     var selectPhotoViewController: AddPhotoViewController!
@@ -27,8 +29,6 @@ class AddWishListViewController: UIViewController, GMSAutocompleteViewController
     let wishViewModel = WishViewModel()
     let tagViewModel = TagViewModel()
     let photoViewModel = PhotoViewModel()
-    
-    let autocompleteController = GMSAutocompleteViewController()
 
     var paramIndex = -1
    
@@ -42,20 +42,20 @@ class AddWishListViewController: UIViewController, GMSAutocompleteViewController
         }
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        locationManager = manager
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            currentLocation = locationManager.location
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
          
-         let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-        placeMapView.camera = camera
-         
-         let marker = GMSMarker()
-         marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-         marker.title = "Sydney"
-         marker.snippet = "Australia"
-         marker.map = placeMapView
+        self.mapView.showsUserLocation = true
+        self.currentLocation = locationManager.location
+        self.mapView.setUserTrackingMode(.follow, animated: true)
         
-        autocompleteController.delegate = self //딜리게이트
-           
         placeTextField.delegate = self
         
         gestureRecognizer.cancelsTouchesInView = false
@@ -64,6 +64,20 @@ class AddWishListViewController: UIViewController, GMSAutocompleteViewController
         if paramIndex > -1 {
             setContent()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        let coordinate = CLLocationCoordinate2D(latitude: 37.52086970595338, longitude: 127.0227724313736)
+        let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        self.mapView.setRegion(region, animated: true)
+
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        annotation.title = "Apple 가로수길"
+        self.mapView.addAnnotation(annotation)
+        self.mapView.setUserTrackingMode(.follow, animated: true)
     }
     
     func setContent(){
@@ -116,11 +130,15 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
     
     // textfield 클릭하면
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("---> 클릭")
+        
         if textField == placeTextField {
             placeTextField.resignFirstResponder()
-            print("---> 클릭")
-            present(autocompleteController, animated: true, completion: nil)
+            
+            let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
+            guard let searchPlaceVC = addWishListStoryboard.instantiateViewController(identifier: "SearchPlaceViewController") as? SearchPlaceViewController else { return }
+
+            present(searchPlaceVC, animated: true, completion: nil)
+           
         }
     }
     
@@ -137,39 +155,3 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
         return true
     }
 }
-
-extension AddWishListViewController { //해당 뷰컨트롤러를 익스텐션으로 딜리게이트를 달아준다.
-    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        print("--> Place name: \(String(describing: place.name))") //셀탭한 글씨출력
-        
-        // self.placeMapView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        
-        let camera = GMSCameraPosition.camera(withLatitude: place.coordinate.latitude, longitude: place.coordinate.longitude, zoom: 6.0)
-        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-       
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
-        marker.title = "place.name"
-   
-        marker.map = mapView
-       
-       placeMapView = mapView
-       
-     
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        print(error.localizedDescription)
-    }
-    
-    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-}
-
-
-
-
-

@@ -22,6 +22,8 @@
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>사진 접근 허용 </string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>위치 접근 허용</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

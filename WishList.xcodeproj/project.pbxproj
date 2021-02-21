@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		360CBB0F25DF90BB009C0DEE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 360CBB0E25DF90BB009C0DEE /* GoogleService-Info.plist */; };
+		363D489B25E2710200FF2210 /* SearchPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363D489A25E2710200FF2210 /* SearchPlaceViewController.swift */; };
 		364526E525DE447300F438AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364526E425DE447300F438AE /* AppDelegate.swift */; };
 		364526E725DE447300F438AE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364526E625DE447300F438AE /* SceneDelegate.swift */; };
 		364526EC25DE447300F438AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 364526EA25DE447300F438AE /* Main.storyboard */; };
@@ -54,6 +55,7 @@
 /* Begin PBXFileReference section */
 		0E03650F63E4F292BB9A9774 /* Pods-WishListTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishListTests.release.xcconfig"; path = "Target Support Files/Pods-WishListTests/Pods-WishListTests.release.xcconfig"; sourceTree = "<group>"; };
 		360CBB0E25DF90BB009C0DEE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		363D489A25E2710200FF2210 /* SearchPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewController.swift; sourceTree = "<group>"; };
 		364526E125DE447300F438AE /* WishList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WishList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		364526E425DE447300F438AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		364526E625DE447300F438AE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				3645275E25DE497700F438AE /* MapViewController.swift */,
 				3645276325DE498300F438AE /* SelectWishViewController.swift */,
 				3645276825DE498F00F438AE /* SearchViewController.swift */,
+				363D489A25E2710200FF2210 /* SearchPlaceViewController.swift */,
 			);
 			path = ViewContorller;
 			sourceTree = "<group>";
@@ -246,7 +249,6 @@
 				364526DE25DE447300F438AE /* Frameworks */,
 				364526DF25DE447300F438AE /* Resources */,
 				9D87AD13E5D30F48F397212A /* [CP] Embed Pods Frameworks */,
-				DBA766C13CBF4CE921396954 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -285,7 +287,6 @@
 				364526FF25DE447400F438AE /* Frameworks */,
 				3645270025DE447400F438AE /* Resources */,
 				030FEE33ADE7E8FF573C8B95 /* [CP] Embed Pods Frameworks */,
-				C2B0D021DFFFE1E4F560A928 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -426,40 +427,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WishList/Pods-WishList-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C2B0D021DFFFE1E4F560A928 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WishList-WishListUITests/Pods-WishList-WishListUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WishList-WishListUITests/Pods-WishList-WishListUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WishList-WishListUITests/Pods-WishList-WishListUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DBA766C13CBF4CE921396954 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WishList/Pods-WishList-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WishList/Pods-WishList-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WishList/Pods-WishList-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		E728B1B011EAF4C8FD771BF7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -525,6 +492,7 @@
 				3645274325DE492A00F438AE /* WishViewController.swift in Sources */,
 				3645275025DE495000F438AE /* SelectTagViewController.swift in Sources */,
 				3645275F25DE497700F438AE /* MapViewController.swift in Sources */,
+				363D489B25E2710200FF2210 /* SearchPlaceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -713,7 +681,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SG72AH33ZM;
 				EXCLUDED_ARCHS = "";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				INFOPLIST_FILE = WishList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -736,7 +704,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SG72AH33ZM;
 				EXCLUDED_ARCHS = "";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				INFOPLIST_FILE = WishList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
