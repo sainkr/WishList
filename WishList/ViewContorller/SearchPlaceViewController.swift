@@ -15,13 +15,16 @@ class SearchPlaceViewController: UIViewController, MKLocalSearchCompleterDelegat
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchResultTableView: UITableView!
     
+    let placeViewModel = PlaceViewModel()
+    let PlaceAddCompleteNotification: Notification.Name = Notification.Name("PlaceAddCompleteNotification")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.searchBar.showsCancelButton = true
         //self.searchBar.becomeFirstResponder()
         self.searchCompleter.delegate = self
         // self.completer.region = self.myMapView.region
-        // self.searchCompleter.resultTypes = .pointOfInterest
+        // self.searchCompleter.resultTypes = .pointOfInteres
     }
 }
 
@@ -84,9 +87,14 @@ extension SearchPlaceViewController: UITableViewDelegate{
             guard let placeMark = response?.mapItems[0].placemark else {
                 return
             }
-            let lat =  placeMark.coordinate.latitude
-            let long = placeMark.coordinate.longitude
-            print("----> coordinate : \(lat) \(long)")
+            
+            self.placeViewModel.addPlace(Place(name: selectedResult.title , lat: placeMark.coordinate.latitude, lng: placeMark.coordinate.longitude))
+
+            print("----> coordinate : \(placeMark.coordinate.latitude) \(placeMark.coordinate.longitude)")
+            
+            NotificationCenter.default.post(name: self.PlaceAddCompleteNotification, object: nil, userInfo: nil)
+            
+            self.dismiss(animated: true, completion: nil)
         }
     }
 }

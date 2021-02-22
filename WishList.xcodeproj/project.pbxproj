@@ -31,6 +31,7 @@
 		364527CD25DE56BC00F438AE /* Pods_WishList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBEC0588425850E59444A9E /* Pods_WishList.framework */; };
 		36A06D7F25DEBFE900FA19BA /* AddWishList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D7D25DEBFE900FA19BA /* AddWishList.storyboard */; };
 		36A06D8725DEBFF200FA19BA /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D8625DEBFF200FA19BA /* Search.storyboard */; };
+		36B48B5925E389D000BD927D /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B48B5825E389D000BD927D /* Place.swift */; };
 		9D96D6F35562F774C9680A2A /* Pods_WishListTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E163203F763D49F769D82183 /* Pods_WishListTests.framework */; };
 		B4ABC6F0AE8E30FF0E707BC6 /* Pods_WishList_WishListUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30E60BFF157A6793A761B0A /* Pods_WishList_WishListUITests.framework */; };
 /* End PBXBuildFile section */
@@ -83,6 +84,7 @@
 		3645278025DE49E000F438AE /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		36A06D7E25DEBFE900FA19BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../WishList/WishList/Storyboard/Base.lproj/AddWishList.storyboard; sourceTree = "<group>"; };
 		36A06D8625DEBFF200FA19BA /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Search.storyboard; path = ../../../WishList/WishList/Storyboard/Search.storyboard; sourceTree = "<group>"; };
+		36B48B5825E389D000BD927D /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		4992E10C4469AAA1C8F35D6C /* Pods-WishList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishList.release.xcconfig"; path = "Target Support Files/Pods-WishList/Pods-WishList.release.xcconfig"; sourceTree = "<group>"; };
 		4E04D392067CE89B676C6BD4 /* Pods-WishList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishList.debug.xcconfig"; path = "Target Support Files/Pods-WishList/Pods-WishList.debug.xcconfig"; sourceTree = "<group>"; };
 		6B0C69F08716DC53C5533FF3 /* Pods-WishList-WishListUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishList-WishListUITests.release.xcconfig"; path = "Target Support Files/Pods-WishList-WishListUITests/Pods-WishList-WishListUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				3645276E25DE49BC00F438AE /* Tag.swift */,
 				3645277625DE49C600F438AE /* Photo.swift */,
 				3645277B25DE49CC00F438AE /* Wish.swift */,
+				36B48B5825E389D000BD927D /* Place.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 				3645274B25DE493A00F438AE /* AddPhotoViewController.swift in Sources */,
 				3645276F25DE49BC00F438AE /* Tag.swift in Sources */,
 				364526E725DE447300F438AE /* SceneDelegate.swift in Sources */,
+				36B48B5925E389D000BD927D /* Place.swift in Sources */,
 				3645274325DE492A00F438AE /* WishViewController.swift in Sources */,
 				3645275025DE495000F438AE /* SelectTagViewController.swift in Sources */,
 				3645275F25DE497700F438AE /* MapViewController.swift in Sources */,

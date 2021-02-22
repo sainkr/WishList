@@ -44,7 +44,6 @@ extension AddPhotoViewController:  UICollectionViewDataSource{
         cell.deleteButtonTapHandler = {
             let photo = self.photoViewModel.photos[indexPath.item - 1]
             self.photoViewModel.deletePhoto(photo)
-            // self.tagViewModel.deleteTag(tag)
             self.collectionView.reloadData()
         }
         
@@ -56,19 +55,17 @@ extension AddPhotoViewController:  UICollectionViewDataSource{
 extension AddPhotoViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0 {
-            
-        if #available(iOS 14, *) {
-            // var configuration = PHPickerConfiguration()
-            var configuration = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
-            configuration.selectionLimit = 5
-            configuration.filter = .any(of: [.images])
-            
-            let picker = PHPickerViewController(configuration: configuration)
-            picker.delegate = self
-            self.present(picker, animated: true, completion: nil)
-        } else {
-            // Fallback on earlier versions
-        }
+            if #available(iOS 14, *) {
+                var configuration = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+                configuration.selectionLimit = 5
+                configuration.filter = .any(of: [.images])
+                
+                let picker = PHPickerViewController(configuration: configuration)
+                picker.delegate = self
+                self.present(picker, animated: true, completion: nil)
+            } else {
+                // Fallback on earlier versions
+            }
         }
     }
 }

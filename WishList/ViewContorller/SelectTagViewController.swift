@@ -6,7 +6,7 @@
 //
 
 import UIKit
-// import SnapKit
+import SnapKit
 
 class SelectTagViewController: UIViewController {
 
@@ -109,7 +109,7 @@ class TagCell: UICollectionViewCell{
         contentView.addSubview(titleLabel)
         contentView.addSubview(deleteButton)
         
-        /*titleBackView.snp.makeConstraints{(make) in
+        titleBackView.snp.makeConstraints{(make) in
             make.top.equalToSuperview()
             make.leading.equalToSuperview().inset(5)
             make.bottom.equalToSuperview()
@@ -123,7 +123,7 @@ class TagCell: UICollectionViewCell{
             make.leading.equalTo(titleBackView.snp.trailing).offset(3)
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview().inset(9)
-        }*/
+        }
     }
     
     func configure(tag: String) {

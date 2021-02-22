@@ -20,16 +20,19 @@ class AddWishListViewController: UIViewController{
     @IBOutlet weak var placeTextField: UITextField!
     @IBOutlet weak var mapView: MKMapView!
     
-    var locationManager: CLLocationManager = CLLocationManager() // location manager
-    var currentLocation: CLLocation! // 내 위치 저장
-    
     var selectTagViewController: SelectTagViewController!
     var selectPhotoViewController: AddPhotoViewController!
     
     let wishViewModel = WishViewModel()
     let tagViewModel = TagViewModel()
     let photoViewModel = PhotoViewModel()
+    let placeViewModel = PlaceViewModel()
 
+    let PlaceAddCompleteNotification: Notification.Name = Notification.Name("PlaceAddCompleteNotification")
+    
+    let annotation = MKPointAnnotation()
+    
+    // 받아온 데이터
     var paramIndex = -1
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -42,21 +45,13 @@ class AddWishListViewController: UIViewController{
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        locationManager = manager
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            currentLocation = locationManager.location
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
          
-        self.mapView.showsUserLocation = true
-        self.currentLocation = locationManager.location
-        self.mapView.setUserTrackingMode(.follow, animated: true)
+        // self.mapView.showsUserLocation = true
         
         placeTextField.delegate = self
+        tagSelectTextField.delegate = self
         
         gestureRecognizer.cancelsTouchesInView = false
         setNavigationBar()
@@ -64,28 +59,20 @@ class AddWishListViewController: UIViewController{
         if paramIndex > -1 {
             setContent()
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        let coordinate = CLLocationCoordinate2D(latitude: 37.52086970595338, longitude: 127.0227724313736)
-        let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
-        let region = MKCoordinateRegion(center: coordinate, span: span)
-        self.mapView.setRegion(region, animated: true)
-
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        annotation.title = "Apple 가로수길"
-        self.mapView.addAnnotation(annotation)
-        self.mapView.setUserTrackingMode(.follow, animated: true)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(placeAddCompleteNotification(_:)), name: PlaceAddCompleteNotification, object: nil)
     }
     
     func setContent(){
         nameTextField.text = wishViewModel.wishs[paramIndex].name
         memoTextView.text = wishViewModel.wishs[paramIndex].content
         linkTextField.text = wishViewModel.wishs[paramIndex].link
+        
+        placeViewModel.addPlace(Place(name: wishViewModel.wishs[paramIndex].placeName, lat: wishViewModel.wishs[paramIndex].placeLat, lng: wishViewModel.wishs[paramIndex].placeLng ))
         photoViewModel.setPhoto(wishViewModel.wishs[paramIndex].photo)
         tagViewModel.setTag(wishViewModel.wishs[paramIndex].tag)
+        
+        setMap()
     }
 
     func setNavigationBar(){
@@ -105,17 +92,41 @@ class AddWishListViewController: UIViewController{
         if paramIndex > -1{
             let timestamp = wishViewModel.wishs[paramIndex].timestamp
             print("---> update")
-            wishViewModel.updateWish(paramIndex, Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString(), content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos , img: [] , link: self.linkTextField.text ?? "-"))
+            wishViewModel.updateWish(paramIndex, Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString(), content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos , img: [] , link: self.linkTextField.text ?? "-", placeName: placeViewModel.place.name, placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng ))
         }
         else{
             let timestamp = Int(Date().timeIntervalSince1970.rounded())
-            wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString() ,content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos, img: [], link: self.linkTextField.text ?? "-"))
+            wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString() ,content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos, img: [], link: self.linkTextField.text ?? "-", placeName: placeViewModel.place.name, placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng ))
         }
         
         tagViewModel.resetTag()
         photoViewModel.resetPhoto()
+        placeViewModel.resetPlace()
         
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func placeAddCompleteNotification(_ noti: Notification){
+       setMap()
+    }
+    
+    func setMap(){
+        if placeViewModel.place.name != "None" {
+            let coordinate = CLLocationCoordinate2D(latitude: placeViewModel.place.lat, longitude: placeViewModel.place.lng)
+            let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
+            let region = MKCoordinateRegion(center: coordinate, span: span)
+            self.mapView.setRegion(region, animated: true)
+        
+            annotation.coordinate = coordinate
+            annotation.title = placeViewModel.place.name
+            self.mapView.addAnnotation(annotation)
+            
+            self.placeTextField.text = placeViewModel.place.name
+        }
+    }
+    
+    @IBAction func linkDeleteButtonTapped(_ sender: Any) {
+        linkTextField.text = ""
     }
     
     // 탭 했을때, 키보드 내려옴
@@ -130,7 +141,6 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
     
     // textfield 클릭하면
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        
         if textField == placeTextField {
             placeTextField.resignFirstResponder()
             
@@ -144,7 +154,9 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
     
     // textfield 엔터하면 append
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("---> 엔터")
         if textField == tagSelectTextField{
+            print("---> 엔터")
             guard let tag = tagSelectTextField.text, tag.isEmpty == false else { return false }
             let tagText = tag
             selectTagViewController.tagViewModel.addTag(tagText)

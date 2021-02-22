@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ouC-fa-uYy">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -154,10 +155,24 @@
                     <view key="view" contentMode="scaleToFill" id="5tT-q4-r6j">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="4W0-Yt-dC5">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                            </mapView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="FGg-t3-vKR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="FGg-t3-vKR" firstAttribute="bottom" secondItem="4W0-Yt-dC5" secondAttribute="bottom" id="1Ee-Zu-WbF"/>
+                            <constraint firstItem="FGg-t3-vKR" firstAttribute="trailing" secondItem="4W0-Yt-dC5" secondAttribute="trailing" id="KJf-yo-j93"/>
+                            <constraint firstItem="4W0-Yt-dC5" firstAttribute="leading" secondItem="FGg-t3-vKR" secondAttribute="leading" id="WIt-nd-6cj"/>
+                            <constraint firstItem="4W0-Yt-dC5" firstAttribute="top" secondItem="FGg-t3-vKR" secondAttribute="top" id="XC4-Qn-c4X"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="mappin.and.ellipse" catalog="system" id="Jcg-Py-3bU"/>
+                    <connections>
+                        <outlet property="mapView" destination="4W0-Yt-dC5" id="Pbf-yN-4Hb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5FA-i4-dM5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -262,17 +277,24 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uWJ-mK-mku">
+                                                <rect key="frame" x="0.0" y="220" width="414" height="262"/>
+                                            </mapView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="3zg-0F-Uhs" firstAttribute="top" secondItem="Vdc-tP-sy1" secondAttribute="bottom" constant="10" id="6Nt-U3-Ped"/>
                                             <constraint firstItem="hge-93-KJf" firstAttribute="leading" secondItem="Zre-cQ-TiG" secondAttribute="trailing" constant="10" id="7vO-Ua-eb6"/>
+                                            <constraint firstItem="uWJ-mK-mku" firstAttribute="leading" secondItem="Ufm-mV-LOi" secondAttribute="leading" id="FZt-Ym-90X"/>
                                             <constraint firstItem="6kf-Pz-mbj" firstAttribute="top" secondItem="Zre-cQ-TiG" secondAttribute="bottom" constant="10" id="H87-bN-Aiv"/>
                                             <constraint firstAttribute="trailing" secondItem="6kf-Pz-mbj" secondAttribute="trailing" constant="20" id="IhR-ck-TeW"/>
                                             <constraint firstItem="Zre-cQ-TiG" firstAttribute="top" secondItem="Ufm-mV-LOi" secondAttribute="top" constant="20" id="M8m-dm-HI7"/>
+                                            <constraint firstAttribute="bottom" secondItem="uWJ-mK-mku" secondAttribute="bottom" id="MGr-fF-0js"/>
+                                            <constraint firstItem="uWJ-mK-mku" firstAttribute="top" secondItem="3zg-0F-Uhs" secondAttribute="bottom" constant="10" id="ScB-qE-6Yv"/>
                                             <constraint firstItem="Vdc-tP-sy1" firstAttribute="top" secondItem="6kf-Pz-mbj" secondAttribute="bottom" constant="10" id="TOy-ej-Nyf"/>
                                             <constraint firstAttribute="trailing" secondItem="Vdc-tP-sy1" secondAttribute="trailing" constant="10" id="Vcm-u4-KF8"/>
                                             <constraint firstItem="Zre-cQ-TiG" firstAttribute="leading" secondItem="Ufm-mV-LOi" secondAttribute="leading" constant="20" id="WLL-vN-7bc"/>
+                                            <constraint firstAttribute="trailing" secondItem="uWJ-mK-mku" secondAttribute="trailing" id="Y00-A5-7q3"/>
                                             <constraint firstItem="Vdc-tP-sy1" firstAttribute="leading" secondItem="Ufm-mV-LOi" secondAttribute="leading" constant="10" id="aso-I0-ZoN"/>
                                             <constraint firstItem="6kf-Pz-mbj" firstAttribute="leading" secondItem="Ufm-mV-LOi" secondAttribute="leading" constant="20" id="blx-i1-EdF"/>
                                             <constraint firstAttribute="trailing" secondItem="3zg-0F-Uhs" secondAttribute="trailing" constant="20" id="bxF-34-mWm"/>
@@ -358,13 +380,14 @@
                         <outlet property="bar" destination="xNa-mT-fCr" id="rvR-Is-WnM"/>
                         <outlet property="contentLabel" destination="3zg-0F-Uhs" id="9gd-aV-IjA"/>
                         <outlet property="imageView" destination="ooQ-Wa-QMU" id="rUa-vj-XZZ"/>
+                        <outlet property="mapView" destination="uWJ-mK-mku" id="9vS-k6-KPe"/>
                         <outlet property="nameLabel" destination="Zre-cQ-TiG" id="x4u-05-0ok"/>
                         <outlet property="pageControl" destination="ARt-w6-4we" id="ef5-Y6-EGh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aew-w6-j7Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2712" y="778"/>
+            <point key="canvasLocation" x="-2700" y="846"/>
         </scene>
         <!--Show Tag View Controller-->
         <scene sceneID="50a-cs-wcs">

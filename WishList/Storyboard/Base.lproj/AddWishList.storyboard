@@ -105,10 +105,20 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="링크 입력" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pGI-ju-CcE">
-                                                <rect key="frame" x="10" y="455" width="394" height="34"/>
+                                                <rect key="frame" x="10" y="455" width="355" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y4g-Pz-q4E">
+                                                <rect key="frame" x="370" y="455" width="34" height="34"/>
+                                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" image="xmark.circle.fill" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="linkDeleteButtonTapped:" destination="JJB-WO-I4Y" eventType="touchUpInside" id="Pmo-ew-vNg"/>
+                                                </connections>
+                                            </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="장소 입력" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zJH-f4-SPt">
                                                 <rect key="frame" x="10" y="499" width="394" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -130,9 +140,10 @@
                                             <constraint firstItem="v59-v7-y9Z" firstAttribute="top" secondItem="bhS-g4-2L1" secondAttribute="bottom" id="HKd-Tw-rRT"/>
                                             <constraint firstAttribute="trailing" secondItem="bhS-g4-2L1" secondAttribute="trailing" id="LGs-je-Aih"/>
                                             <constraint firstItem="pgR-27-lNV" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" id="LIm-dV-ssp"/>
+                                            <constraint firstItem="Y4g-Pz-q4E" firstAttribute="leading" secondItem="pGI-ju-CcE" secondAttribute="trailing" constant="5" id="Luq-Z2-8am"/>
                                             <constraint firstItem="vlc-Op-in8" firstAttribute="top" secondItem="v59-v7-y9Z" secondAttribute="bottom" constant="8" symbolic="YES" id="M3A-9n-Hep"/>
-                                            <constraint firstAttribute="trailing" secondItem="pGI-ju-CcE" secondAttribute="trailing" constant="10" id="OEg-m7-u0R"/>
                                             <constraint firstItem="zJH-f4-SPt" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" constant="10" id="V4t-Bn-xxt"/>
+                                            <constraint firstItem="Y4g-Pz-q4E" firstAttribute="bottom" secondItem="pGI-ju-CcE" secondAttribute="bottom" id="XHP-bq-pwJ"/>
                                             <constraint firstItem="8cx-zy-nbG" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" constant="10" id="YUD-Ww-yTx"/>
                                             <constraint firstAttribute="bottom" secondItem="2Ir-aZ-3X1" secondAttribute="bottom" id="Zj7-kL-V8B"/>
                                             <constraint firstItem="pgR-27-lNV" firstAttribute="top" secondItem="vlc-Op-in8" secondAttribute="bottom" id="cGK-ti-iIZ"/>
@@ -140,8 +151,11 @@
                                             <constraint firstAttribute="trailing" secondItem="pgR-27-lNV" secondAttribute="trailing" id="fWC-0C-0Cr"/>
                                             <constraint firstItem="bhS-g4-2L1" firstAttribute="top" secondItem="PMR-ia-Zb0" secondAttribute="top" id="h7V-DU-kCY"/>
                                             <constraint firstItem="8cx-zy-nbG" firstAttribute="top" secondItem="pgR-27-lNV" secondAttribute="bottom" constant="5" id="iOr-T5-qMe"/>
+                                            <constraint firstAttribute="trailing" secondItem="Y4g-Pz-q4E" secondAttribute="trailing" constant="10" id="lKu-wd-UEi"/>
                                             <constraint firstItem="yln-jP-01T" firstAttribute="top" secondItem="8cx-zy-nbG" secondAttribute="bottom" constant="5" id="ltE-vN-05P"/>
+                                            <constraint firstItem="Y4g-Pz-q4E" firstAttribute="width" secondItem="zJH-f4-SPt" secondAttribute="height" multiplier="1:1" id="n9c-cW-rDO"/>
                                             <constraint firstAttribute="trailing" secondItem="vlc-Op-in8" secondAttribute="trailing" constant="10" id="nKH-Jz-1k7"/>
+                                            <constraint firstItem="Y4g-Pz-q4E" firstAttribute="top" secondItem="pGI-ju-CcE" secondAttribute="top" id="pi5-a9-Lmk"/>
                                             <constraint firstItem="bhS-g4-2L1" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" id="q3e-zz-6z1"/>
                                             <constraint firstAttribute="trailing" secondItem="yln-jP-01T" secondAttribute="trailing" constant="10" id="qpg-n1-5ih"/>
                                             <constraint firstItem="v59-v7-y9Z" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" constant="10" id="rbe-oS-2dE"/>
@@ -227,6 +241,10 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="648-G1-0AI">
                                                     <rect key="frame" x="0.0" y="2.5" width="130" height="124.5"/>
                                                     <color key="tintColor" red="0.02745098248" green="0.0" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="V2y-k2-qaC"/>
+                                                        <constraint firstAttribute="height" constant="100" id="w0w-tH-e6S"/>
+                                                    </constraints>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z1c-nB-q8B">
@@ -351,14 +369,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="85.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Apple 가로수길" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QoJ-pO-RuI">
-                                                    <rect key="frame" x="10" y="10" width="394" height="26.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple 가로수길" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QoJ-pO-RuI">
+                                                    <rect key="frame" x="10" y="10" width="394" height="27"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="강남구 가로수길 43" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KA6-VB-CsZ">
-                                                    <rect key="frame" x="10" y="46.5" width="394" height="19.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강남구 가로수길 43" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KA6-VB-CsZ">
+                                                    <rect key="frame" x="10" y="47" width="394" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>

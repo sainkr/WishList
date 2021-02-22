@@ -7,6 +7,8 @@
 
 import UIKit
 import Kingfisher
+import MapKit
+import CoreLocation
 
 class SelectWishViewController: UIViewController {
 
@@ -15,6 +17,7 @@ class SelectWishViewController: UIViewController {
     @IBOutlet weak var bar: UINavigationBar!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var mapView: MKMapView!
     
     let wishViewModel = WishViewModel()
     let tagViewModel = TagViewModel()
@@ -22,6 +25,13 @@ class SelectWishViewController: UIViewController {
     var selectTagViewController = SelectTagViewController()
     
     var paramIndex: Int = 0
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "tag" {
+            let destinationVC = segue.destination as? SelectTagViewController
+            selectTagViewController = destinationVC!
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +42,11 @@ class SelectWishViewController: UIViewController {
         
         setNavigationBar()
         setSiwpe()
-        setContent()
-        setPageControl()
+        setMap()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
         setContent()
         setPageControl()
     }
@@ -83,6 +91,20 @@ class SelectWishViewController: UIViewController {
         pageControl.currentPageIndicatorTintColor = UIColor.white
     }
     
+    func setMap(){
+        if wishViewModel.wishs[paramIndex].placeName != "None" {
+            let coordinate = CLLocationCoordinate2D(latitude: wishViewModel.wishs[paramIndex].placeLat, longitude: wishViewModel.wishs[paramIndex].placeLng)
+            let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
+            let region = MKCoordinateRegion(center: coordinate, span: span)
+            self.mapView.setRegion(region, animated: true)
+        
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            annotation.title = wishViewModel.wishs[paramIndex].placeName
+            self.mapView.addAnnotation(annotation)
+        }
+    }
+    
     func changeUIImage(){
         DispatchQueue.global(qos: .userInteractive).async {
             var img: [UIImage] = []
@@ -94,15 +116,10 @@ class SelectWishViewController: UIViewController {
                 let image = UIImage(data : data! as Data)!
                 img.append(image)
             }
-            self.wishViewModel.photoupdateWish(self.paramIndex, Wish(timestamp: self.wishViewModel.wishs[self.paramIndex].timestamp, name: self.wishViewModel.wishs[self.paramIndex].name, tag: self.wishViewModel.wishs[self.paramIndex].tag, tagString: self.wishViewModel.wishs[self.paramIndex].tagString, content: self.wishViewModel.wishs[self.paramIndex].content, photo: img, img: [], link: self.wishViewModel.wishs[self.paramIndex].link))
+            
+            self.wishViewModel.photoupdateWish(self.paramIndex, img)
+            
             print("---> 끝 !!!!!!!")
-        }
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "tag" {
-            let destinationVC = segue.destination as? SelectTagViewController
-            selectTagViewController = destinationVC!
         }
     }
     

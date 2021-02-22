@@ -41,7 +41,7 @@ class DataBaseManager {
                         if imgURL.count == wish.photo.count  {
                             print("--->imgurl..length : \(imgURL.count)")
                             print("---> timestamp : \(String(wish.timestamp))")
-                            db.child(String(wish.timestamp)).setValue([ "timestamp" : wish.timestamp, "name": wish.name ,  "tag" : wish.tag, "img" : imgURL, "tagString" : wish.tagString , "content" : wish.content , "link" : wish.link ])
+                            db.child(String(wish.timestamp)).setValue([ "timestamp" : wish.timestamp, "name": wish.name ,  "tag" : wish.tag, "img" : imgURL, "tagString" : wish.tagString , "content" : wish.content , "link" : wish.link, "placeName" : wish.placeName, "placeLat" : wish.placeLat, "placeLng" : wish.placeLng])
                         }
                     }
                 }
@@ -77,7 +77,7 @@ class DataBaseManager {
                         imgURL.append(url!.absoluteString)
                         if imgURL.count == wish.photo.count  {
                             print("--->imgurl..length : \(imgURL.count)")
-                            db.child(String(wish.timestamp)).updateChildValues([ "timestamp" : wish.timestamp, "name": wish.name ,  "tag" : wish.tag, "img" : imgURL, "tagString" : wish.tagString , "content" : wish.content , "link" : wish.link ])
+                            db.child(String(wish.timestamp)).updateChildValues([ "timestamp" : wish.timestamp, "name": wish.name ,  "tag" : wish.tag, "img" : imgURL, "tagString" : wish.tagString , "content" : wish.content , "link" : wish.link, "placeName" : wish.placeName, "placeLat" : wish.placeLat, "placeLng" : wish.placeLng ])
                         }
                     }
                 }
@@ -109,7 +109,7 @@ class DataBaseManager {
                 var wishList: [Wish] = []
                 let wishCnt = wishDB.count
                 for i in 0..<wishCnt{
-                    wishList.append(Wish(timestamp: wishDB[i].timestamp , name: wishDB[i].name , tag: wishDB[i].tag, tagString: wishDB[i].tagString , content: wishDB[i].content , photo: [] , img: wishDB[i].img, link: wishDB[i].link ))
+                    wishList.append(Wish(timestamp: wishDB[i].timestamp , name: wishDB[i].name , tag: wishDB[i].tag, tagString: wishDB[i].tagString , content: wishDB[i].content , photo: [] , img: wishDB[i].img, link: wishDB[i].link, placeName : wishDB[i].placeName, placeLat : wishDB[i].placeLat, placeLng : wishDB[i].placeLng ))
                 }
                 NotificationCenter.default.post(name: DidReceiveWishsNotification, object: nil, userInfo: ["wishs" :wishList])
             }

@@ -16,11 +16,12 @@ class ShowTagViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupView()
     }
     
     private func setupView() {
-         view.backgroundColor = .white
+         view.backgroundColor = UIColor.clear
          setupCollectionView()
      }
      
@@ -34,7 +35,7 @@ class ShowTagViewController: UIViewController {
         collectionView.setCollectionViewLayout(flowLayout, animated: false)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = UIColor.clear
         collectionView.register(ShowTagCell.self, forCellWithReuseIdentifier: "ShowTagCell")
      }
      
