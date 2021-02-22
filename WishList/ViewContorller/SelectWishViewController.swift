@@ -18,6 +18,8 @@ class SelectWishViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var menuButton: UIButton!
     
     let wishViewModel = WishViewModel()
     let tagViewModel = TagViewModel()
@@ -48,7 +50,16 @@ class SelectWishViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         setContent()
-        setPageControl()
+        // 사진이 없는 경우 체크
+        if wishViewModel.wishs[paramIndex].img.count > 0 || wishViewModel.wishs[paramIndex].photo.count > 0{
+            setPageControl()
+        } else {
+            imageView.isHidden = true
+            pageControl.isHidden = true
+            
+            cancelButton.tintColor = #colorLiteral(red: 0.1158123985, green: 0.1258583069, blue: 0.5349373817, alpha: 1)
+            menuButton.tintColor = #colorLiteral(red: 0.1158123985, green: 0.1258583069, blue: 0.5349373817, alpha: 1)
+        }
     }
     
     func setNavigationBar(){

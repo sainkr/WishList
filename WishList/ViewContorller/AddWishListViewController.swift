@@ -81,29 +81,48 @@ class AddWishListViewController: UIViewController{
         bar.backgroundColor = UIColor.clear
     }
     
-    @IBAction func backButtonTapped(_ sender: Any){
-        dismiss(animated: true, completion: nil)
-        
-        tagViewModel.resetTag()
-        photoViewModel.resetPhoto()
-    }
-    
-    @IBAction func doneButtonTapped(_ sender: Any){
-        if paramIndex > -1{
-            let timestamp = wishViewModel.wishs[paramIndex].timestamp
-            print("---> update")
-            wishViewModel.updateWish(paramIndex, Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString(), content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos , img: [] , link: self.linkTextField.text ?? "-", placeName: placeViewModel.place.name, placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng ))
-        }
-        else{
-            let timestamp = Int(Date().timeIntervalSince1970.rounded())
-            wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString() ,content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos, img: [], link: self.linkTextField.text ?? "-", placeName: placeViewModel.place.name, placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng ))
-        }
-        
+    func resetData(){
         tagViewModel.resetTag()
         photoViewModel.resetPhoto()
         placeViewModel.resetPlace()
-        
+    }
+    
+    @IBAction func backButtonTapped(_ sender: Any){
         dismiss(animated: true, completion: nil)
+        
+        resetData()
+    }
+    
+    @IBAction func doneButtonTapped(_ sender: Any){
+        if nameTextField.text == "" {
+            let alert = UIAlertController(title: nil, message: "이름을 입력하세요.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        }
+        else if tagViewModel.tags.count == 0{
+            let alert = UIAlertController(title: nil, message: "적어도 하나의 태그는 반드시 입력바랍니다.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        }
+        else {
+            if paramIndex > -1{
+                let timestamp = wishViewModel.wishs[paramIndex].timestamp
+                print("---> update")
+                wishViewModel.updateWish(paramIndex, Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString(), content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos , img: [] , link: self.linkTextField.text ?? "-", placeName: placeViewModel.place.name, placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng ))
+            }
+            else{
+                let timestamp = Int(Date().timeIntervalSince1970.rounded())
+                wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString() ,content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos, img: [], link: self.linkTextField.text ?? "-", placeName: placeViewModel.place.name, placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng ))
+                print("--> photos.count \(photoViewModel.photos.count)")
+                print("--> tags.count \(tagViewModel.tags.count)")
+            }
+            
+            resetData()
+            
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func placeAddCompleteNotification(_ noti: Notification){

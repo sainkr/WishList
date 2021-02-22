@@ -21,11 +21,9 @@ class WishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        print("--> 실행")
+    
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReciveWishsNotification(_:)), name: DidReceiveWishsNotification , object: nil)
     }
-        
         
     @objc func didReciveWishsNotification(_ noti: Notification){
         guard let wishs = noti.userInfo?["wishs"] as? [Wish] else { return }
@@ -40,7 +38,6 @@ class WishViewController: UIViewController {
         super.viewWillAppear(animated)
 
         collectionView.reloadData()
-        tagViewModel.resetTag()
     }
     
     @IBAction func searchButtonTapped(_ sender: Any) {
@@ -49,10 +46,6 @@ class WishViewController: UIViewController {
         searchVC.modalPresentationStyle = .fullScreen
         
         present(searchVC, animated: true, completion: nil)
-    }
-    
-    @IBAction func sliderButtonTapped(_ sender: Any) {
-        
     }
     
     @IBAction func addButtonTapped(_ sender: Any) {
@@ -120,10 +113,16 @@ class WishListCell: UICollectionViewCell {
                 let url = URL(string: wish.img[0])
                 thumbnailImageView.kf.setImage(with: url)
             }
+            else {
+                thumbnailImageView.image = #imageLiteral(resourceName: "Image-1")
+            }
         }
         if wish.tag.count > 0{
             tagLabel.text = wish.tagString
+        } else{
+            tagLabel.text = ""
         }
+        
         nameLabel.text = wish.name
     }
 }
