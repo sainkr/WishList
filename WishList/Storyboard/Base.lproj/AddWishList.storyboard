@@ -351,7 +351,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="LNp-95-iM9">
+                            <searchBar contentMode="redraw" placeholder="장소를 입력하세요" translatesAutoresizingMaskIntoConstraints="NO" id="LNp-95-iM9">
                                 <rect key="frame" x="0.0" y="44" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>

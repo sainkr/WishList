@@ -69,6 +69,9 @@ extension WishViewController: UICollectionViewDataSource{
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WishListCell", for: indexPath) as? WishListCell else {
             return UICollectionViewCell()
         }
+        if indexPath.item ==  wishListViewModel.wishs.count - 1{
+            cell.hiddenLine()
+        }
         
         cell.updateUI(wishListViewModel.wishs[indexPath.item])
         
@@ -103,6 +106,11 @@ class WishListCell: UICollectionViewCell {
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var tagLabel: UILabel!
+    @IBOutlet weak var lineView: UIView!
+    
+    func hiddenLine(){
+        lineView.isHidden = true
+    }
     
     func updateUI(_ wish: Wish){
         if wish.photo.count > 0 {
@@ -124,5 +132,6 @@ class WishListCell: UICollectionViewCell {
         }
         
         nameLabel.text = wish.name
+        lineView.isHidden = false
     }
 }

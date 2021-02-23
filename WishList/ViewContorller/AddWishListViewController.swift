@@ -29,6 +29,7 @@ class AddWishListViewController: UIViewController{
     let placeViewModel = PlaceViewModel()
 
     let PlaceAddCompleteNotification: Notification.Name = Notification.Name("PlaceAddCompleteNotification")
+    let WishAddCompleteNotification: Notification.Name = Notification.Name("WishAddCompleteNotification")
     
     let annotation = MKPointAnnotation()
     
@@ -58,8 +59,10 @@ class AddWishListViewController: UIViewController{
         
         if paramIndex > -1 {
             setContent()
+        } else if paramIndex == -2 {
+            setMap()
         }
-        
+        WishAddCompleteNotification
         NotificationCenter.default.addObserver(self, selector: #selector(placeAddCompleteNotification(_:)), name: PlaceAddCompleteNotification, object: nil)
     }
     
@@ -120,6 +123,8 @@ class AddWishListViewController: UIViewController{
             }
             
             resetData()
+            
+            NotificationCenter.default.post(name: self.WishAddCompleteNotification, object: nil, userInfo: nil)
             
             dismiss(animated: true, completion: nil)
         }

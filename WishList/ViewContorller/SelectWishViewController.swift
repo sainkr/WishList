@@ -20,6 +20,7 @@ class SelectWishViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
+    @IBOutlet weak var linkButton: UIButton!
     
     let wishViewModel = WishViewModel()
     let tagViewModel = TagViewModel()
@@ -59,6 +60,21 @@ class SelectWishViewController: UIViewController {
             
             cancelButton.tintColor = #colorLiteral(red: 0.1158123985, green: 0.1258583069, blue: 0.5349373817, alpha: 1)
             menuButton.tintColor = #colorLiteral(red: 0.1158123985, green: 0.1258583069, blue: 0.5349373817, alpha: 1)
+        }
+        
+        // 링크 설정 안한 경우 체크
+        if wishViewModel.wishs[paramIndex].link == ""
+        {
+            linkButton.isHidden = true
+        } else {
+            linkButton.isHidden = false
+        }
+        
+        // 장소 설정 안한 경우 체크
+        if wishViewModel.wishs[paramIndex].placeName == "None"{
+            mapView.isHidden = true
+        } else {
+            mapView.isHidden = false
         }
     }
     
