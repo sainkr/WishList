@@ -144,7 +144,7 @@ class SelectWishViewController: UIViewController {
                 img.append(image)
             }
             
-            self.wishViewModel.photoupdateWish(self.paramIndex, img)
+            self.wishViewModel.updatePhoto(self.paramIndex, img)
             
             print("---> 끝 !!!!!!!")
         }

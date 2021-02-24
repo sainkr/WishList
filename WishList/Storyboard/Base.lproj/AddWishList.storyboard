@@ -218,37 +218,28 @@
             <objects>
                 <viewController id="yvn-eA-eYc" customClass="AddPhotoViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0Yu-LY-unl">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iLp-fe-zoZ">
-                                <rect key="frame" x="0.0" y="44" width="414" height="86"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="156"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8yq-7j-QuB">
-                                    <size key="itemSize" width="130" height="130"/>
+                                    <size key="itemSize" width="141" height="138"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="HBv-0K-KV9" customClass="PhotoCell" customModule="WishList" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="-22" width="130" height="130"/>
+                                        <rect key="frame" x="0.0" y="28" width="120" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ZrX-Ka-Rrn">
-                                            <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="648-G1-0AI">
-                                                    <rect key="frame" x="0.0" y="2.5" width="130" height="124.5"/>
-                                                    <color key="tintColor" red="0.02745098248" green="0.0" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="V2y-k2-qaC"/>
-                                                        <constraint firstAttribute="height" constant="100" id="w0w-tH-e6S"/>
-                                                    </constraints>
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
-                                                </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z1c-nB-q8B">
-                                                    <rect key="frame" x="109" y="0.0" width="21" height="22"/>
+                                                    <rect key="frame" x="99" y="0.0" width="21" height="22"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" image="xmark.circle.fill" catalog="system">
                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="bold"/>
@@ -257,16 +248,26 @@
                                                         <action selector="deleteButonTapped:" destination="HBv-0K-KV9" eventType="touchUpInside" id="abF-j1-0kh"/>
                                                     </connections>
                                                 </button>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="648-G1-0AI">
+                                                    <rect key="frame" x="20" y="2.5" width="100" height="94.5"/>
+                                                    <color key="tintColor" red="0.02745098248" green="0.0" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="MT9-Sq-JvH"/>
+                                                        <constraint firstAttribute="height" constant="100" id="uzI-f9-x0k"/>
+                                                    </constraints>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="648-G1-0AI" secondAttribute="trailing" id="2uJ-lt-R4S"/>
-                                                <constraint firstItem="648-G1-0AI" firstAttribute="top" secondItem="ZrX-Ka-Rrn" secondAttribute="top" id="44x-jd-Ryo"/>
-                                                <constraint firstAttribute="bottom" secondItem="648-G1-0AI" secondAttribute="bottom" id="4qX-FE-Q2k"/>
+                                                <constraint firstItem="648-G1-0AI" firstAttribute="leading" secondItem="ZrX-Ka-Rrn" secondAttribute="leading" constant="20" id="Z6M-v1-BMV"/>
+                                                <constraint firstItem="648-G1-0AI" firstAttribute="top" secondItem="ZrX-Ka-Rrn" secondAttribute="top" id="gDO-nP-NVC"/>
                                                 <constraint firstItem="Z1c-nB-q8B" firstAttribute="top" secondItem="ZrX-Ka-Rrn" secondAttribute="top" id="hjz-DX-5J9"/>
-                                                <constraint firstItem="648-G1-0AI" firstAttribute="leading" secondItem="ZrX-Ka-Rrn" secondAttribute="leading" id="mVO-7Z-uRg"/>
+                                                <constraint firstAttribute="trailing" secondItem="648-G1-0AI" secondAttribute="trailing" id="tV2-QP-EWV"/>
+                                                <constraint firstAttribute="bottom" secondItem="648-G1-0AI" secondAttribute="bottom" id="us9-HB-50A"/>
                                                 <constraint firstAttribute="trailing" secondItem="Z1c-nB-q8B" secondAttribute="trailing" id="vWA-jT-0Tt"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <size key="customSize" width="120" height="100"/>
                                         <connections>
                                             <outlet property="deleteButton" destination="Z1c-nB-q8B" id="R2j-ms-W2E"/>
                                             <outlet property="thumbnailImageView" destination="648-G1-0AI" id="wKf-hO-oZo"/>
@@ -288,6 +289,7 @@
                             <constraint firstItem="iLp-fe-zoZ" firstAttribute="top" secondItem="hkq-wT-T6o" secondAttribute="top" id="gXh-dA-Nfk"/>
                         </constraints>
                     </view>
+                    <size key="freeformSize" width="414" height="200"/>
                     <connections>
                         <outlet property="collectionView" destination="iLp-fe-zoZ" id="JLl-0U-bsZ"/>
                     </connections>

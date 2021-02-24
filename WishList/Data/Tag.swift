@@ -16,8 +16,8 @@ class TagManager {
         tags.append(tag)
     }
     
-    func deleteTag(_ tag: String){
-        tags = tags.filter { $0 != tag}
+    func deleteTag(_ index: Int){
+        tags.remove(at: index)
     }
     
     func resetTag(){
@@ -50,8 +50,8 @@ class TagViewModel {
         manager.addTag(tag)
     }
     
-    func deleteTag(_ tag: String){
-        manager.deleteTag(tag)
+    func deleteTag(_ index: Int){
+        manager.deleteTag(index)
     }
     
     func resetTag(){

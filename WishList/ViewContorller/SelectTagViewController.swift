@@ -57,7 +57,7 @@ extension SelectTagViewController: UICollectionViewDataSource{
         cell.configure(tag: tag)
         
         cell.deleteButtonTapHandler = {
-            self.tagViewModel.deleteTag(tag)
+            self.tagViewModel.deleteTag(indexPath.item)
             self.collectionView.reloadData()
         }
         
@@ -102,7 +102,10 @@ class TagCell: UICollectionViewCell{
         titleLabel.textAlignment = .center
         titleLabel.textColor = .white
         titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.labelFontSize)
-        deleteButton.setBackgroundImage(#imageLiteral(resourceName: "Image"), for: UIControl.State.normal)
+        
+        deleteButton.setBackgroundImage(UIImage(systemName: "xmark.circle.fill"), for: UIControl.State.normal)
+        deleteButton.tintColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        
         deleteButton.addTarget(self, action:#selector(TagCell.deleteButtonTapped(_:)), for: .touchUpInside)
 
         contentView.addSubview(titleBackView)
@@ -119,10 +122,10 @@ class TagCell: UICollectionViewCell{
         }
         deleteButton.snp.makeConstraints {(make) in
             make.width.equalTo(30)
-            make.top.equalToSuperview().inset(9)
+            make.top.equalToSuperview().inset(7)
             make.leading.equalTo(titleBackView.snp.trailing).offset(3)
             make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().inset(9)
+            make.bottom.equalToSuperview().inset(7)
         }
     }
     

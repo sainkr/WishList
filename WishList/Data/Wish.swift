@@ -20,10 +20,12 @@ struct Wish: Equatable{
     var placeName: String
     var placeLat: Double
     var placeLng : Double
+    var favorite: Int
     
     mutating func update(_ wish: Wish) {
         self.name = wish.name
         self.tag = wish.tag
+        self.tagString = wish.tagString
         self.content = wish.content
         self.photo = wish.photo
         self.img = wish.img
@@ -36,6 +38,10 @@ struct Wish: Equatable{
     mutating func updatePhoto(_ photo: [UIImage]){
         self.photo = photo
         self.img = []
+    }
+    
+    mutating func updateFavorite(){
+        self.favorite *= -1
     }
 }
 
@@ -50,6 +56,7 @@ struct WishDB: Codable{
     var placeName: String
     var placeLat: Double
     var placeLng : Double
+    var favorite: Int
 }
 
 class WishManager {
@@ -76,8 +83,16 @@ class WishManager {
         DataBaseManager.shared.updateWish(wish, imgCnt)
     }
     
-    func photoupdateWish(_ index: Int, _ photo : [UIImage]){
+    func updatePhotoWish(_ index: Int, _ photo : [UIImage]){
         wishs[index].updatePhoto(photo)
+    }
+    
+    func updateFavorite(_ index: Int){
+        wishs[index].updateFavorite()
+    }
+    
+    func favoriteWishs()-> [Wish]{
+        return wishs.filter{ $0.favorite == 1}
     }
     
     func sortedWish(){
@@ -109,12 +124,20 @@ class WishViewModel {
         manager.deleteWish(wish)
     }
     
-    func photoupdateWish(_ index: Int, _ photo: [UIImage]){
-        manager.photoupdateWish(index, photo)
+    func updateFavorite(_ index: Int){
+        manager.updateFavorite(index)
+    }
+    
+    func updatePhoto(_ index: Int, _ photo: [UIImage]){
+        manager.updatePhotoWish(index, photo)
     }
     
     func updateWish(_ index: Int, _ wish: Wish){
         manager.updateWish(index, wish)
+    }
+    
+    func favoriteWishs()-> [Wish]{
+        return manager.favoriteWishs()
     }
     
     func setWish(_ wish: [Wish]){

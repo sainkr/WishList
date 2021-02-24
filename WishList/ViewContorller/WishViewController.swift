@@ -11,7 +11,6 @@ import Kingfisher
 class WishViewController: UIViewController {
     
     @IBOutlet weak var searchButton: UIButton!
-    @IBOutlet weak var sliderButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var addButton: UIButton!
     
@@ -22,6 +21,8 @@ class WishViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     
+        // favoriteButton.backgroun
+        view.addSubview(addButton)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReciveWishsNotification(_:)), name: DidReceiveWishsNotification , object: nil)
     }
         
@@ -36,7 +37,7 @@ class WishViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         collectionView.reloadData()
     }
     
@@ -60,22 +61,73 @@ class WishViewController: UIViewController {
 }
 
 extension WishViewController: UICollectionViewDataSource{
+    
+    // 섹션 몇개
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
     // 아이템 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return wishListViewModel.wishs.count
+        if section == 0 {
+            return wishListViewModel.favoriteWishs().count
+        }
+        else {
+            return wishListViewModel.wishs.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WishListCell", for: indexPath) as? WishListCell else {
-            return UICollectionViewCell()
-        }
-        if indexPath.item ==  wishListViewModel.wishs.count - 1{
-            cell.hiddenLine()
-        }
         
-        cell.updateUI(wishListViewModel.wishs[indexPath.item])
-        
-        return cell
+        if indexPath.section == 0 {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WishListCell", for: indexPath) as? WishListCell else {
+                return UICollectionViewCell()
+            }
+            
+            /*cell.favoriteButtonTapHandler = {
+                cell.updateFavorite(self.wishListViewModel.wishs[indexPath.item].favorite)
+                self.wishListViewModel.updateFavorite(indexPath.item)
+            }*/
+            
+            cell.updateUI(wishListViewModel.favoriteWishs()[indexPath.item])
+            
+            return cell
+        }
+        else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WishListCell", for: indexPath) as? WishListCell else {
+                return UICollectionViewCell()
+            }
+            
+            cell.favoriteButtonTapHandler = {
+                cell.updateFavorite(self.wishListViewModel.wishs[indexPath.item].favorite)
+                self.wishListViewModel.updateFavorite(indexPath.item)
+                collectionView.reloadData()
+            }
+            
+            cell.updateUI(wishListViewModel.wishs[indexPath.item])
+            
+            return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "WishListHeaderView", for: indexPath) as? WishListHeaderView else {
+                return UICollectionReusableView()
+            }
+            
+            if indexPath.section == 0{
+                header.updateUI("즐겨찾는 Wish")
+            }
+            else {
+                header.updateUI("나의 Wish")
+            }
+            
+            return header
+        default:
+            return UICollectionReusableView ()
+        }
     }
     
 }
@@ -102,17 +154,27 @@ extension WishViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+class WishListHeaderView: UICollectionReusableView{
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    func updateUI(_ title: String){
+        titleLabel.text = title
+    }
+}
+
+
 class WishListCell: UICollectionViewCell {
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var tagLabel: UILabel!
     @IBOutlet weak var lineView: UIView!
+    @IBOutlet weak var favoriteButton: UIButton!
     
-    func hiddenLine(){
-        lineView.isHidden = true
-    }
+    var favoriteButtonTapHandler: (() -> Void )?
     
     func updateUI(_ wish: Wish){
+        thumbnailImageView.layer.cornerRadius = 10
+        
         if wish.photo.count > 0 {
             thumbnailImageView.image = wish.photo[0]
         }
@@ -132,6 +194,26 @@ class WishListCell: UICollectionViewCell {
         }
         
         nameLabel.text = wish.name
-        lineView.isHidden = false
+        
+        favoriteButton.addTarget(self, action:#selector(WishListCell.favoriteButtonTapped(_:)), for: .touchUpInside)
+        
+        if wish.favorite == 1{
+            favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+    }
+    
+    func updateFavorite(_ current: Int){
+        if current == 1{
+            favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        } else {
+            favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        }
+    }
+    
+    @objc func favoriteButtonTapped(_ sender:UIButton!){
+        // print("---> 클릭")
+        favoriteButtonTapHandler?()
     }
 }

@@ -113,11 +113,11 @@ class AddWishListViewController: UIViewController{
             if paramIndex > -1{
                 let timestamp = wishViewModel.wishs[paramIndex].timestamp
                 print("---> update")
-                wishViewModel.updateWish(paramIndex, Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString(), content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos , img: [] , link: self.linkTextField.text ?? "-", placeName: placeViewModel.place.name, placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng ))
+                wishViewModel.updateWish(paramIndex, Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString(), content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos , img: [] , link: self.linkTextField.text ?? "-", placeName: placeViewModel.place.name, placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng, favorite:  wishViewModel.wishs[paramIndex].favorite ))
             }
             else{
                 let timestamp = Int(Date().timeIntervalSince1970.rounded())
-                wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString() ,content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos, img: [], link: self.linkTextField.text ?? "-", placeName: placeViewModel.place.name, placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng ))
+                wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString() ,content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos, img: [], link: self.linkTextField.text ?? "-", placeName: placeViewModel.place.name, placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng, favorite: -1 ))
                 print("--> photos.count \(photoViewModel.photos.count)")
                 print("--> tags.count \(tagViewModel.tags.count)")
             }
@@ -178,9 +178,7 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
     
     // textfield 엔터하면 append
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print("---> 엔터")
         if textField == tagSelectTextField{
-            print("---> 엔터")
             guard let tag = tagSelectTextField.text, tag.isEmpty == false else { return false }
             let tagText = tag
             selectTagViewController.tagViewModel.addTag(tagText)
