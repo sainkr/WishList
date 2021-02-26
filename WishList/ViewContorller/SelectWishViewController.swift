@@ -24,6 +24,7 @@ class SelectWishViewController: UIViewController {
     
     let wishViewModel = WishViewModel()
     let tagViewModel = TagViewModel()
+    let photoViewModel = PhotoViewModel()
     
     var selectTagViewController = SelectTagViewController()
     
@@ -44,7 +45,7 @@ class SelectWishViewController: UIViewController {
         }
         
         setNavigationBar()
-        setSiwpe()
+        setGesture()
         setMap()
     }
     
@@ -53,6 +54,12 @@ class SelectWishViewController: UIViewController {
         setContent()
         // 사진이 없는 경우 체크
         if wishViewModel.wishs[paramIndex].img.count > 0 || wishViewModel.wishs[paramIndex].photo.count > 0{
+            imageView.isHidden = false
+            pageControl.isHidden = false
+            
+            cancelButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            menuButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            
             setPageControl()
         } else {
             imageView.isHidden = true
@@ -60,6 +67,8 @@ class SelectWishViewController: UIViewController {
             
             cancelButton.tintColor = #colorLiteral(red: 0.1158123985, green: 0.1258583069, blue: 0.5349373817, alpha: 1)
             menuButton.tintColor = #colorLiteral(red: 0.1158123985, green: 0.1258583069, blue: 0.5349373817, alpha: 1)
+            
+            photoViewModel.setPhoto(wishViewModel.wishs[paramIndex].photo)
         }
         
         // 링크 설정 안한 경우 체크
@@ -90,7 +99,7 @@ class SelectWishViewController: UIViewController {
         self.contentLabel.text = wishViewModel.wishs[paramIndex].content
     }
     
-    func setSiwpe(){
+    func setGesture(){
         imageView.isUserInteractionEnabled = true
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(SelectWishViewController.respondToSwipeGesture(_:)))
         swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
@@ -99,6 +108,10 @@ class SelectWishViewController: UIViewController {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(SelectWishViewController.respondToSwipeGesture(_:)))
         swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         self.imageView.addGestureRecognizer(swipeRight)
+        
+        let imageViewTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped(_:)))
+        self.imageView.addGestureRecognizer(imageViewTap)
+        
     }
     
     func setPageControl(){
@@ -144,6 +157,7 @@ class SelectWishViewController: UIViewController {
                 img.append(image)
             }
             
+            self.photoViewModel.setPhoto(img)
             self.wishViewModel.updatePhoto(self.paramIndex, img)
             
             print("---> 끝 !!!!!!!")
@@ -185,6 +199,22 @@ class SelectWishViewController: UIViewController {
 
     }
     
+    @objc func imageViewTapped(_ gesture: UITapGestureRecognizer) {
+        if photoViewModel.photos.count > 0 {
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            guard let showImageVC = storyboard.instantiateViewController(identifier: "ShowImageViewController") as? ShowImageViewController else { return }
+            showImageVC.modalPresentationStyle = .fullScreen
+            showImageVC.currentIndex = pageControl.currentPage
+            
+            
+            present(showImageVC, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func pageChanged(_ sender: Any) {
+        imageView.image = wishViewModel.wishs[paramIndex].photo[pageControl.currentPage]
+    }
+    
     @IBAction func linkButtonTapped(_ sender: Any) {
         //사파리로 링크열기
         guard let url = URL(string: wishViewModel.wishs[paramIndex].link),
@@ -200,12 +230,8 @@ class SelectWishViewController: UIViewController {
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
-    @IBAction func pageChanged(_ sender: Any) {
-        imageView.image = wishViewModel.wishs[paramIndex].photo[pageControl.currentPage]
-    }
-    
     @IBAction func backButtonTapped(_ sender: Any) {
-        tagViewModel.resetTag()
+        resetData()
         dismiss(animated: true, completion: nil)
     }
     
@@ -227,6 +253,7 @@ class SelectWishViewController: UIViewController {
         
         let deleteWish = UIAlertAction(title: "삭제", style: .destructive, handler: { action in
             self.wishViewModel.deleteWish(self.wishViewModel.wishs[self.paramIndex])
+            self.resetData()
             self.dismiss(animated: true, completion: nil)
         })
 
@@ -238,6 +265,11 @@ class SelectWishViewController: UIViewController {
         actionsheetController.addAction(actionCancel)
         
         self.present(actionsheetController, animated: true)
+    }
+    
+    func resetData(){
+        tagViewModel.resetTag()
+        photoViewModel.resetPhoto()
     }
 
 }

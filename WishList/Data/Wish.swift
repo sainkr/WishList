@@ -37,7 +37,6 @@ struct Wish: Equatable{
     
     mutating func updatePhoto(_ photo: [UIImage]){
         self.photo = photo
-        self.img = []
     }
     
     mutating func updateFavorite(){
@@ -80,7 +79,7 @@ class WishManager {
         let imgCnt = wishs[index].photo.count
         wishs[index].update(wish)
         
-        DataBaseManager.shared.updateWish(wish, imgCnt)
+        DataBaseManager.shared.updateWish(wish)
     }
     
     func updatePhotoWish(_ index: Int, _ photo : [UIImage]){
@@ -89,6 +88,8 @@ class WishManager {
     
     func updateFavorite(_ index: Int){
         wishs[index].updateFavorite()
+ 
+        DataBaseManager.shared.updateWish(wishs[index])
     }
     
     func favoriteWishs()-> [Wish]{

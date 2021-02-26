@@ -272,6 +272,7 @@
                     <tabBarItem key="tabBarItem" title="Map" image="mappin.and.ellipse" catalog="system" selectedImage="map" id="Jcg-Py-3bU"/>
                     <connections>
                         <outlet property="addPlaceButton" destination="tWk-jB-fvf" id="I7U-Br-cNY"/>
+                        <outlet property="currentLoacaionButton" destination="xFh-uZ-1oo" id="y4r-kr-buk"/>
                         <outlet property="deleteButon" destination="MEY-7D-Q20" id="b3q-uU-PqW"/>
                         <outlet property="mapView" destination="4W0-Yt-dC5" id="Pbf-yN-4Hb"/>
                         <outlet property="placeLabel" destination="Xr4-nm-XMg" id="ScS-yf-77m"/>
@@ -529,6 +530,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sgi-vU-a3k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1694" y="615"/>
+        </scene>
+        <!--Show Image View Controller-->
+        <scene sceneID="afi-th-Ahj">
+            <objects>
+                <viewController storyboardIdentifier="ShowImageViewController" id="Zyc-oK-Iqj" customClass="ShowImageViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fh3-Li-aA6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VRs-M6-rQK">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIW-m4-5cz">
+                                <rect key="frame" x="362" y="64" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="HIW-m4-5cz" secondAttribute="height" multiplier="1:1" id="dRx-iB-VPu"/>
+                                </constraints>
+                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="xmark.circle.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="27"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteButtonTapped:" destination="Zyc-oK-Iqj" eventType="touchUpInside" id="HmG-vh-Qwb"/>
+                                </connections>
+                            </button>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="zad-a4-hL5">
+                                <rect key="frame" x="145.5" y="814" width="123" height="28"/>
+                                <connections>
+                                    <action selector="pageChanged:" destination="Zyc-oK-Iqj" eventType="valueChanged" id="1PD-9p-2DX"/>
+                                </connections>
+                            </pageControl>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="78V-KA-Sj1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="78V-KA-Sj1" firstAttribute="bottom" secondItem="zad-a4-hL5" secondAttribute="bottom" constant="20" id="0Ok-Bi-GAH"/>
+                            <constraint firstItem="VRs-M6-rQK" firstAttribute="top" secondItem="78V-KA-Sj1" secondAttribute="top" id="CMh-lt-hst"/>
+                            <constraint firstItem="78V-KA-Sj1" firstAttribute="bottom" secondItem="VRs-M6-rQK" secondAttribute="bottom" id="SQI-kq-F0y"/>
+                            <constraint firstItem="HIW-m4-5cz" firstAttribute="top" secondItem="78V-KA-Sj1" secondAttribute="top" constant="20" id="W1m-xB-PXO"/>
+                            <constraint firstItem="78V-KA-Sj1" firstAttribute="trailing" secondItem="VRs-M6-rQK" secondAttribute="trailing" id="eLJ-1L-LDz"/>
+                            <constraint firstItem="zad-a4-hL5" firstAttribute="centerX" secondItem="78V-KA-Sj1" secondAttribute="centerX" id="l79-oF-eny"/>
+                            <constraint firstItem="78V-KA-Sj1" firstAttribute="trailing" secondItem="HIW-m4-5cz" secondAttribute="trailing" constant="20" id="m0m-W3-kgR"/>
+                            <constraint firstItem="VRs-M6-rQK" firstAttribute="leading" secondItem="78V-KA-Sj1" secondAttribute="leading" id="uCM-fP-fN5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="VRs-M6-rQK" id="Idv-lD-zfs"/>
+                        <outlet property="pageControl" destination="zad-a4-hL5" id="rQR-5O-HGA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GTa-ce-qde" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-923" y="846"/>
         </scene>
     </scenes>
     <resources>

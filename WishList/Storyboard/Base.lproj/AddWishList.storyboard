@@ -238,6 +238,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="120" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="648-G1-0AI">
+                                                    <rect key="frame" x="20" y="2.5" width="100" height="94.5"/>
+                                                    <color key="tintColor" red="0.02745098248" green="0.0" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="MT9-Sq-JvH"/>
+                                                        <constraint firstAttribute="height" constant="100" id="uzI-f9-x0k"/>
+                                                    </constraints>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
+                                                </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z1c-nB-q8B">
                                                     <rect key="frame" x="99" y="0.0" width="21" height="22"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -248,15 +257,6 @@
                                                         <action selector="deleteButonTapped:" destination="HBv-0K-KV9" eventType="touchUpInside" id="abF-j1-0kh"/>
                                                     </connections>
                                                 </button>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="648-G1-0AI">
-                                                    <rect key="frame" x="20" y="2.5" width="100" height="94.5"/>
-                                                    <color key="tintColor" red="0.02745098248" green="0.0" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="MT9-Sq-JvH"/>
-                                                        <constraint firstAttribute="height" constant="100" id="uzI-f9-x0k"/>
-                                                    </constraints>
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
-                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="648-G1-0AI" firstAttribute="leading" secondItem="ZrX-Ka-Rrn" secondAttribute="leading" constant="20" id="Z6M-v1-BMV"/>

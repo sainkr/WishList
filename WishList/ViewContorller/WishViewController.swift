@@ -84,11 +84,6 @@ extension WishViewController: UICollectionViewDataSource{
                 return UICollectionViewCell()
             }
             
-            /*cell.favoriteButtonTapHandler = {
-                cell.updateFavorite(self.wishListViewModel.wishs[indexPath.item].favorite)
-                self.wishListViewModel.updateFavorite(indexPath.item)
-            }*/
-            
             cell.updateUI(wishListViewModel.favoriteWishs()[indexPath.item])
             
             return cell

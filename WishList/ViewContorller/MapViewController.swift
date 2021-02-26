@@ -16,6 +16,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var deleteButon: UIButton!
     @IBOutlet weak var placeLabel: UILabel!
     @IBOutlet weak var searchImage: UIImageView!
+    @IBOutlet weak var currentLoacaionButton: UIButton!
     
     var locationManager: CLLocationManager = CLLocationManager() // location manager
     var currentLocation: CLLocation! // 내 위치 저장.
@@ -31,7 +32,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
     
         setMapView()
-        setSearchView()
+        setView()
         
         NotificationCenter.default.addObserver(self, selector: #selector(placeAddCompleteNotification(_:)), name: PlaceAddCompleteNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(wishAddCompleteNotification(_:)), name: WishAddCompleteNotification, object: nil)
@@ -75,7 +76,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         self.mapView.setUserTrackingMode(.follow, animated: true)
     }
     
-    func setSearchView(){
+    func setView(){
         let searchViewGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(searchViewTapped(_:)))
         searchView.addGestureRecognizer(searchViewGesture)
         
@@ -92,6 +93,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         addPlaceButton.layer.shadowOffset = CGSize(width: 0, height: 4) // 반경에 대해서 너무 적용이 되어서 4point 정도 ㅐ림.
         addPlaceButton.layer.shadowRadius = 8 // 반경?
         addPlaceButton.layer.shadowOpacity = 0.3 // alpha값입니다.
+        
+        currentLoacaionButton.layer.cornerRadius = 15
+        currentLoacaionButton.layer.shadowColor = UIColor.black.cgColor // 검정색 사용
+        currentLoacaionButton.layer.masksToBounds = false
+        currentLoacaionButton.layer.shadowOffset = CGSize(width: 0, height: 4) // 반경에 대해서 너무 적용이 되어서 4point 정도 ㅐ림.
+        currentLoacaionButton.layer.shadowRadius = 8 // 반경?
+        currentLoacaionButton.layer.shadowOpacity = 0.3 // alpha값입니다.
     }
     
     func setMap(){
