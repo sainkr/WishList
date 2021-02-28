@@ -94,7 +94,7 @@ class DataBaseManager {
             }
         }
         else {
-            db.child(String(wish.timestamp)).updateChildValues([ "timestamp" : wish.timestamp, "name": wish.name ,  "tag" : wish.tag, "img" : ["-"], "tagString" : wish.tagString , "content" : wish.content , "link" : wish.link, "placeName" : wish.placeName, "placeLat" : wish.placeLat, "placeLng" : wish.placeLng, "favorite": wish.favorite ])
+            db.child(String(wish.timestamp)).updateChildValues([ "timestamp" : wish.timestamp, "name": wish.name ,  "tag" : wish.tag, "img" : wish.img, "tagString" : wish.tagString , "content" : wish.content , "link" : wish.link, "placeName" : wish.placeName, "placeLat" : wish.placeLat, "placeLng" : wish.placeLng, "favorite": wish.favorite ])
         }
     }
     

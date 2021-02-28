@@ -19,6 +19,7 @@ class AddWishListViewController: UIViewController{
     @IBOutlet weak var memoTextView: UITextView!
     @IBOutlet weak var placeTextField: UITextField!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var tagViewHeight: NSLayoutConstraint!
     
     var selectTagViewController: SelectTagViewController!
     var selectPhotoViewController: AddPhotoViewController!
@@ -30,6 +31,7 @@ class AddWishListViewController: UIViewController{
 
     let PlaceAddCompleteNotification: Notification.Name = Notification.Name("PlaceAddCompleteNotification")
     let WishAddCompleteNotification: Notification.Name = Notification.Name("WishAddCompleteNotification")
+    let TagNotingNotification: Notification.Name = Notification.Name("TagNotingNotification")
     
     let annotation = MKPointAnnotation()
     
@@ -48,11 +50,13 @@ class AddWishListViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         
-        // self.mapView.showsUserLocation = true
         
+        memoTextView.delegate = self
         placeTextField.delegate = self
         tagSelectTextField.delegate = self
+        
+        memoTextView.text = "간단 메모"
+        memoTextView.textColor = .lightGray
         
         gestureRecognizer.cancelsTouchesInView = false
         setNavigationBar()
@@ -62,8 +66,19 @@ class AddWishListViewController: UIViewController{
         } else if paramIndex == -2 {
             setMap()
         }
-        WishAddCompleteNotification
+        
+        mapView.layer.cornerRadius = 15
+       
         NotificationCenter.default.addObserver(self, selector: #selector(placeAddCompleteNotification(_:)), name: PlaceAddCompleteNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(tagNotingNotification(_:)), name: TagNotingNotification, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        if tagViewModel.tags.count == 0 {
+            tagViewHeight.constant = 0
+        }
     }
     
     func setContent(){
@@ -134,6 +149,10 @@ class AddWishListViewController: UIViewController{
        setMap()
     }
     
+    @objc func tagNotingNotification(_ noti: Notification){
+        tagViewHeight.constant = 0
+    }
+    
     func setMap(){
         if placeViewModel.place.name != "None" {
             let coordinate = CLLocationCoordinate2D(latitude: placeViewModel.place.lat, longitude: placeViewModel.place.lng)
@@ -176,16 +195,54 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
         }
     }
     
+    
     // textfield 엔터하면 append
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == tagSelectTextField{
+            
+            if tagViewModel.tags.count == 5 {
+                let alert = UIAlertController(title: nil, message: "태그는 최대 5개까지 입력하실 수 있습니다.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.default, handler: nil)
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)
+                
+                tagSelectTextField.text = ""
+                
+                return false
+            }
+            
             guard let tag = tagSelectTextField.text, tag.isEmpty == false else { return false }
+            
             let tagText = tag
             selectTagViewController.tagViewModel.addTag(tagText)
+            if tagViewHeight.constant == 0 {
+                tagViewHeight.constant = 65
+            }
+        
             selectTagViewController.collectionView.reloadData()
             
             tagSelectTextField.text = ""
         }
         return true
+    }
+}
+
+extension AddWishListViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = ""
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "간단 메모"
+            textView.textColor = UIColor.lightGray
+            
+            let newPosition = textView.beginningOfDocument
+            textView.selectedTextRange = textView.textRange(from: newPosition, to: newPosition)
+        }
     }
 }

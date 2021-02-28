@@ -22,7 +22,7 @@ class WishViewController: UIViewController {
         // Do any additional setup after loading the view.
     
         // favoriteButton.backgroun
-        view.addSubview(addButton)
+        setaddButton()
         NotificationCenter.default.addObserver(self, selector: #selector(self.didReciveWishsNotification(_:)), name: DidReceiveWishsNotification , object: nil)
     }
         
@@ -39,6 +39,17 @@ class WishViewController: UIViewController {
         super.viewWillAppear(animated)
         
         collectionView.reloadData()
+    }
+    
+    func setaddButton(){
+        
+        view.addSubview(addButton)
+        
+        addButton.layer.shadowColor = UIColor.black.cgColor // 검정색 사용
+        addButton.layer.masksToBounds = false
+        addButton.layer.shadowOffset = CGSize(width: 0, height: 1) // 반경에 대해서 너무 적용이 되어서 4point 정도 ㅐ림.
+        addButton.layer.shadowRadius = 2 // 반경?
+        addButton.layer.shadowOpacity = 0.3 // alpha값입니다.
     }
     
     @IBAction func searchButtonTapped(_ sender: Any) {

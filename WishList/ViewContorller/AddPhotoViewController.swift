@@ -123,7 +123,7 @@ class PhotoCell: UICollectionViewCell{
     }
     
     func updateUI(){
-        thumbnailImageView.image = UIImage(systemName: "photo")
+        thumbnailImageView.image = UIImage(systemName: "camera.circle")
         deleteButton.isHidden = true
     }
     

@@ -14,6 +14,8 @@ class SelectTagViewController: UIViewController {
 
     let tagViewModel = TagViewModel()
     
+    let TagNotingNotification: Notification.Name = Notification.Name("TagNotingNotification")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -37,8 +39,6 @@ class SelectTagViewController: UIViewController {
         collectionView.backgroundColor = UIColor.clear
         collectionView.register(TagCell.self, forCellWithReuseIdentifier: "TagCell")
     }
-    
-
 }
 
 extension SelectTagViewController: UICollectionViewDataSource{
@@ -59,6 +59,10 @@ extension SelectTagViewController: UICollectionViewDataSource{
         cell.deleteButtonTapHandler = {
             self.tagViewModel.deleteTag(indexPath.item)
             self.collectionView.reloadData()
+            
+            if self.tagViewModel.tags.count == 0{
+                NotificationCenter.default.post(name: self.TagNotingNotification, object: nil, userInfo: nil)
+            }
         }
         
         return cell
