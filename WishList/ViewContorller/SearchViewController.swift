@@ -19,6 +19,8 @@ class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        filterWish = wishViewModel.wishs
     }
 
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -35,6 +37,16 @@ extension SearchViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WishListCell", for: indexPath) as? WishListCell else {
             return UICollectionViewCell()
+        }
+        
+        cell.favoriteButtonTapHandler = {
+            cell.updateFavorite(self.filterWish[indexPath.item].favorite)
+            self.wishViewModel.updateFavorite(self.filterWish[indexPath.item])
+            
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+            
         }
         
         cell.updateUI(filterWish[indexPath.item])
@@ -84,15 +96,16 @@ extension SearchViewController: UISearchBarDelegate{
     private func searchWish(){
         guard let searchTerm = searchBar.text,
               searchTerm.isEmpty == false else {
-            self.filterWish = []
+            self.filterWish = wishViewModel.wishs
             collectionView.reloadData()
             return }
         
-        print("")
+        print("--> searchTerm : \(searchTerm)")
   
         if nameSwitch.isOn && tagSwitch.isOn { // 둘 다 선택되어있을 때
+            
             self.filterWish = self.wishViewModel.wishs.filter{
-                $0.name.localizedStandardContains(searchTerm) && $0.tagString.localizedStandardContains(searchTerm)
+                $0.name.localizedStandardContains(searchTerm) || $0.tagString.localizedStandardContains(searchTerm)
             }
         }
         else {
@@ -118,7 +131,6 @@ extension SearchViewController: UISearchBarDelegate{
     // 키보드 search 버튼 누른 후
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         dismissKeyboard()
-        
         searchWish()
     }
 }

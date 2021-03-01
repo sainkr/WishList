@@ -67,9 +67,9 @@ class SelectWishViewController: UIViewController {
             
             cancelButton.tintColor = #colorLiteral(red: 0.1158123985, green: 0.1258583069, blue: 0.5349373817, alpha: 1)
             menuButton.tintColor = #colorLiteral(red: 0.1158123985, green: 0.1258583069, blue: 0.5349373817, alpha: 1)
-            
-            photoViewModel.setPhoto(wishViewModel.wishs[paramIndex].photo)
         }
+        
+        photoViewModel.setPhoto(wishViewModel.wishs[paramIndex].photo)
         
         // 링크 설정 안한 경우 체크
         if wishViewModel.wishs[paramIndex].link == ""

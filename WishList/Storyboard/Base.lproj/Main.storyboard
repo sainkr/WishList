@@ -543,7 +543,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIW-m4-5cz">
-                                <rect key="frame" x="362" y="64" width="32" height="32"/>
+                                <rect key="frame" x="367" y="59" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="HIW-m4-5cz" secondAttribute="height" multiplier="1:1" id="dRx-iB-VPu"/>
                                 </constraints>
@@ -568,10 +568,10 @@
                             <constraint firstItem="78V-KA-Sj1" firstAttribute="bottom" secondItem="zad-a4-hL5" secondAttribute="bottom" constant="20" id="0Ok-Bi-GAH"/>
                             <constraint firstItem="VRs-M6-rQK" firstAttribute="top" secondItem="78V-KA-Sj1" secondAttribute="top" id="CMh-lt-hst"/>
                             <constraint firstItem="78V-KA-Sj1" firstAttribute="bottom" secondItem="VRs-M6-rQK" secondAttribute="bottom" id="SQI-kq-F0y"/>
-                            <constraint firstItem="HIW-m4-5cz" firstAttribute="top" secondItem="78V-KA-Sj1" secondAttribute="top" constant="20" id="W1m-xB-PXO"/>
+                            <constraint firstItem="HIW-m4-5cz" firstAttribute="top" secondItem="78V-KA-Sj1" secondAttribute="top" constant="15" id="W1m-xB-PXO"/>
                             <constraint firstItem="78V-KA-Sj1" firstAttribute="trailing" secondItem="VRs-M6-rQK" secondAttribute="trailing" id="eLJ-1L-LDz"/>
                             <constraint firstItem="zad-a4-hL5" firstAttribute="centerX" secondItem="78V-KA-Sj1" secondAttribute="centerX" id="l79-oF-eny"/>
-                            <constraint firstItem="78V-KA-Sj1" firstAttribute="trailing" secondItem="HIW-m4-5cz" secondAttribute="trailing" constant="20" id="m0m-W3-kgR"/>
+                            <constraint firstItem="78V-KA-Sj1" firstAttribute="trailing" secondItem="HIW-m4-5cz" secondAttribute="trailing" constant="15" id="m0m-W3-kgR"/>
                             <constraint firstItem="VRs-M6-rQK" firstAttribute="leading" secondItem="78V-KA-Sj1" secondAttribute="leading" id="uCM-fP-fN5"/>
                         </constraints>
                     </view>

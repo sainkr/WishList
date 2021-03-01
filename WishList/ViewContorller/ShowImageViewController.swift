@@ -19,6 +19,8 @@ class ShowImageViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .black
+        
+        setGesture()
         setPageControl()
     }
     

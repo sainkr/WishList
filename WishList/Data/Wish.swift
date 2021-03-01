@@ -76,7 +76,6 @@ class WishManager {
     }
     
     func updateWish(_ index: Int,_ wish: Wish){
-        let imgCnt = wishs[index].photo.count
         wishs[index].update(wish)
         
         DataBaseManager.shared.updateWish(wish)
@@ -86,7 +85,17 @@ class WishManager {
         wishs[index].updatePhoto(photo)
     }
     
-    func updateFavorite(_ index: Int){
+    func updateFavorite(_ wish: Wish){
+        var index = 0
+        let wishCnt = wishs.count
+        
+        for i in 0..<wishCnt{
+            if wishs[i].timestamp == wish.timestamp {
+                index = i
+                break
+            }
+        }
+        
         wishs[index].updateFavorite()
  
         DataBaseManager.shared.updateWish(wishs[index])
@@ -125,8 +134,8 @@ class WishViewModel {
         manager.deleteWish(wish)
     }
     
-    func updateFavorite(_ index: Int){
-        manager.updateFavorite(index)
+    func updateFavorite(_ wish: Wish){
+        manager.updateFavorite(wish)
     }
     
     func updatePhoto(_ index: Int, _ photo: [UIImage]){

@@ -93,15 +93,29 @@
                                                         <constraint firstAttribute="height" constant="1" id="cWS-hd-wU6"/>
                                                     </constraints>
                                                 </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="THO-Pe-Bkv">
+                                                    <rect key="frame" x="360" y="84" width="34" height="34"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="34" id="8Lt-vi-3QM"/>
+                                                        <constraint firstAttribute="height" constant="34" id="Fs9-GV-ux8"/>
+                                                    </constraints>
+                                                    <color key="tintColor" red="0.02745098248" green="0.0" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <state key="normal" image="heart" catalog="system">
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="8kT-GF-NUv" firstAttribute="leading" secondItem="3U3-kq-CV0" secondAttribute="leading" id="7iy-Oe-Tmw"/>
+                                                <constraint firstAttribute="trailing" secondItem="THO-Pe-Bkv" secondAttribute="trailing" constant="20" id="JJx-qv-Eui"/>
                                                 <constraint firstAttribute="trailing" secondItem="xcT-NT-nE8" secondAttribute="trailing" constant="10" id="K3I-wX-a8W"/>
                                                 <constraint firstItem="3U3-kq-CV0" firstAttribute="leading" secondItem="RZO-oA-cqA" secondAttribute="trailing" constant="20" id="Kat-PY-tug"/>
                                                 <constraint firstAttribute="bottom" secondItem="RZO-oA-cqA" secondAttribute="bottom" constant="10" id="P2G-BE-x98"/>
                                                 <constraint firstItem="RZO-oA-cqA" firstAttribute="leading" secondItem="rkS-tg-BAH" secondAttribute="leading" constant="10" id="PBs-1M-Jus"/>
+                                                <constraint firstItem="THO-Pe-Bkv" firstAttribute="width" secondItem="THO-Pe-Bkv" secondAttribute="height" multiplier="1:1" id="SRQ-KA-2El"/>
                                                 <constraint firstAttribute="trailing" secondItem="8kT-GF-NUv" secondAttribute="trailing" constant="20" id="TuH-ce-MW4"/>
                                                 <constraint firstItem="8kT-GF-NUv" firstAttribute="top" secondItem="3U3-kq-CV0" secondAttribute="bottom" constant="11" id="UQo-Vn-L2Q"/>
+                                                <constraint firstAttribute="bottom" secondItem="THO-Pe-Bkv" secondAttribute="bottom" constant="10" id="ZZO-Ok-w5B"/>
                                                 <constraint firstItem="RZO-oA-cqA" firstAttribute="centerY" secondItem="rkS-tg-BAH" secondAttribute="centerY" id="aJk-Bx-abQ"/>
                                                 <constraint firstItem="RZO-oA-cqA" firstAttribute="top" secondItem="rkS-tg-BAH" secondAttribute="top" constant="10" id="lF0-Ux-CjR"/>
                                                 <constraint firstAttribute="bottom" secondItem="xcT-NT-nE8" secondAttribute="bottom" id="qOK-8i-DWR"/>
@@ -110,6 +124,7 @@
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
+                                            <outlet property="favoriteButton" destination="THO-Pe-Bkv" id="aMk-Gk-Ehb"/>
                                             <outlet property="nameLabel" destination="3U3-kq-CV0" id="Vxo-Pc-s5J"/>
                                             <outlet property="tagLabel" destination="8kT-GF-NUv" id="Iyo-ay-bZq"/>
                                             <outlet property="thumbnailImageView" destination="RZO-oA-cqA" id="JZv-es-ySb"/>
@@ -117,8 +132,8 @@
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="hrA-4g-8MQ" id="1ud-Qh-AgF"/>
-                                    <outlet property="delegate" destination="hrA-4g-8MQ" id="d2z-9L-0nc"/>
+                                    <outlet property="dataSource" destination="hrA-4g-8MQ" id="aws-zL-HVz"/>
+                                    <outlet property="delegate" destination="hrA-4g-8MQ" id="vu1-Hu-s80"/>
                                 </connections>
                             </collectionView>
                             <searchBar contentMode="redraw" placeholder="검색어를 입력하세요" translatesAutoresizingMaskIntoConstraints="NO" id="zMn-W3-Oqg">
@@ -168,6 +183,7 @@
     </scenes>
     <resources>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

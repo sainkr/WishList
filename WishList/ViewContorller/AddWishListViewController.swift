@@ -199,7 +199,6 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
     // textfield 엔터하면 append
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == tagSelectTextField{
-            
             if tagViewModel.tags.count == 5 {
                 let alert = UIAlertController(title: nil, message: "태그는 최대 5개까지 입력하실 수 있습니다.", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.default, handler: nil)
@@ -215,6 +214,7 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
             
             let tagText = tag
             selectTagViewController.tagViewModel.addTag(tagText)
+            
             if tagViewHeight.constant == 0 {
                 tagViewHeight.constant = 65
             }
@@ -228,14 +228,13 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
 }
 
 extension AddWishListViewController: UITextViewDelegate {
-    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = ""
             textView.textColor = UIColor.black
         }
     }
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = "간단 메모"

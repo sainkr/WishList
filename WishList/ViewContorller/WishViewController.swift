@@ -95,6 +95,12 @@ extension WishViewController: UICollectionViewDataSource{
                 return UICollectionViewCell()
             }
             
+            cell.favoriteButtonTapHandler = {
+                cell.updateFavorite(self.wishListViewModel.favoriteWishs()[indexPath.item].favorite)
+                self.wishListViewModel.updateFavorite(self.wishListViewModel.favoriteWishs()[indexPath.item])
+                collectionView.reloadData()
+            }
+            
             cell.updateUI(wishListViewModel.favoriteWishs()[indexPath.item])
             
             return cell
@@ -106,7 +112,8 @@ extension WishViewController: UICollectionViewDataSource{
             
             cell.favoriteButtonTapHandler = {
                 cell.updateFavorite(self.wishListViewModel.wishs[indexPath.item].favorite)
-                self.wishListViewModel.updateFavorite(indexPath.item)
+                self.wishListViewModel.updateFavorite(self.wishListViewModel.wishs[indexPath.item])
+                
                 collectionView.reloadData()
             }
             
@@ -219,7 +226,6 @@ class WishListCell: UICollectionViewCell {
     }
     
     @objc func favoriteButtonTapped(_ sender:UIButton!){
-        // print("---> 클릭")
         favoriteButtonTapHandler?()
     }
 }
