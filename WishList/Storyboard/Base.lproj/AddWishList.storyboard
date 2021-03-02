@@ -120,12 +120,20 @@
                                                 </constraints>
                                             </view>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="링크 입력" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pGI-ju-CcE">
-                                                <rect key="frame" x="20" y="480" width="341" height="27"/>
+                                                <rect key="frame" x="20" y="480" width="341" height="28"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="linkTextFieldChange:" destination="JJB-WO-I4Y" eventType="editingChanged" id="RrK-ep-w20"/>
+                                                    <action selector="linkTextFiledDidEnd:" destination="JJB-WO-I4Y" eventType="editingDidEnd" id="RE9-nO-qXa"/>
+                                                </connections>
                                             </textField>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y4g-Pz-q4E">
-                                                <rect key="frame" x="366" y="480" width="28" height="27"/>
+                                                <rect key="frame" x="366" y="480" width="28" height="28"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="28" id="azw-ta-byy"/>
+                                                    <constraint firstAttribute="height" constant="28" id="euZ-hG-7Su"/>
+                                                </constraints>
                                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" image="xmark.circle.fill" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
@@ -135,14 +143,14 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zOj-zm-g1a">
-                                                <rect key="frame" x="20" y="517" width="374" height="1"/>
+                                                <rect key="frame" x="20" y="518" width="374" height="1"/>
                                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="rvB-qR-mDf"/>
                                                 </constraints>
                                             </view>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="장소 입력" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zJH-f4-SPt">
-                                                <rect key="frame" x="20" y="528" width="374" height="28"/>
+                                                <rect key="frame" x="20" y="529" width="374" height="28"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -154,7 +162,7 @@
                                                 </constraints>
                                             </view>
                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2Ir-aZ-3X1">
-                                                <rect key="frame" x="20" y="566" width="374" height="434"/>
+                                                <rect key="frame" x="20" y="567" width="374" height="433"/>
                                             </mapView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -239,6 +247,7 @@
                         <outlet property="bar" destination="2Kv-Kr-45p" id="sCF-N1-30j"/>
                         <outlet property="gestureRecognizer" destination="4bV-qh-Lab" id="1Nh-t7-Jwh"/>
                         <outlet property="linkTextField" destination="pGI-ju-CcE" id="7Oo-8X-Chi"/>
+                        <outlet property="linkdeleteButton" destination="Y4g-Pz-q4E" id="2ax-nc-Fnr"/>
                         <outlet property="mapView" destination="2Ir-aZ-3X1" id="jcQ-Fu-yQf"/>
                         <outlet property="memoTextView" destination="yln-jP-01T" id="18V-yk-EeS"/>
                         <outlet property="nameTextField" destination="v59-v7-y9Z" id="KI9-qT-lDy"/>

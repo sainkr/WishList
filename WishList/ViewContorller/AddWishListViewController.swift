@@ -20,6 +20,7 @@ class AddWishListViewController: UIViewController{
     @IBOutlet weak var placeTextField: UITextField!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var tagViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var linkdeleteButton: UIButton!
     
     var selectTagViewController: SelectTagViewController!
     var selectPhotoViewController: AddPhotoViewController!
@@ -150,7 +151,7 @@ class AddWishListViewController: UIViewController{
     }
     
     @objc func tagNotingNotification(_ noti: Notification){
-        tagViewHeight.constant = 0
+       tagViewHeight.constant = 0
     }
     
     func setMap(){
@@ -179,6 +180,21 @@ class AddWishListViewController: UIViewController{
         linkTextField.resignFirstResponder()
         placeTextField.resignFirstResponder()
     }
+    
+    @IBAction func linkTextFieldChange(_ sender: Any) {
+        if linkTextField.text?.isEmpty == false{
+            linkdeleteButton.isHidden = false
+        } else {
+            linkdeleteButton.isHidden = true
+        }
+    }
+    
+    @IBAction func linkTextFiledDidEnd(_ sender: Any) {
+        if linkTextField.text?.isEmpty == true {
+            linkdeleteButton.isHidden = true
+        }
+        
+    }
 }
 extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelegate{
     
@@ -191,10 +207,8 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
             guard let searchPlaceVC = addWishListStoryboard.instantiateViewController(identifier: "SearchPlaceViewController") as? SearchPlaceViewController else { return }
 
             present(searchPlaceVC, animated: true, completion: nil)
-           
         }
     }
-    
     
     // textfield 엔터하면 append
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -218,7 +232,7 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
             if tagViewHeight.constant == 0 {
                 tagViewHeight.constant = 65
             }
-        
+            
             selectTagViewController.collectionView.reloadData()
             
             tagSelectTextField.text = ""

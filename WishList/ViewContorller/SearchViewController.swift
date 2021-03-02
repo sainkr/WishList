@@ -15,12 +15,10 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var tagSwitch: UISwitch!
     
     let wishViewModel = WishViewModel()
-    var filterWish: [Wish] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        filterWish = wishViewModel.wishs
+        wishViewModel.filterWish("", "", 0)
     }
 
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -31,7 +29,7 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UICollectionViewDataSource{
     // 아이템 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filterWish.count
+        return wishViewModel.filterWishs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -40,16 +38,13 @@ extension SearchViewController: UICollectionViewDataSource{
         }
         
         cell.favoriteButtonTapHandler = {
-            cell.updateFavorite(self.filterWish[indexPath.item].favorite)
-            self.wishViewModel.updateFavorite(self.filterWish[indexPath.item])
-            
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-            
+            cell.updateFavorite(self.wishViewModel.filterWishs[indexPath.item].favorite)
+            self.wishViewModel.updateFavorite(self.wishViewModel.filterWishs[indexPath.item])
+            self.wishViewModel.updateFilterWish(self.wishViewModel.filterWishs[indexPath.item])
+            self.collectionView.reloadData()
         }
         
-        cell.updateUI(filterWish[indexPath.item])
+        cell.updateUI(self.wishViewModel.filterWishs[indexPath.item])
         
         return cell
     }
@@ -66,7 +61,7 @@ extension SearchViewController: UICollectionViewDelegate{
         var index = -1
         
         for i in 0..<wishViewModel.wishs.count{
-            if wishViewModel.wishs[i].timestamp == filterWish[indexPath.item].timestamp{
+            if wishViewModel.wishs[i].timestamp == wishViewModel.filterWishs[indexPath.item].timestamp{
                 index = i
                 break
             }
@@ -96,27 +91,20 @@ extension SearchViewController: UISearchBarDelegate{
     private func searchWish(){
         guard let searchTerm = searchBar.text,
               searchTerm.isEmpty == false else {
-            self.filterWish = wishViewModel.wishs
+            wishViewModel.filterWish("", "", 0)
             collectionView.reloadData()
             return }
         
         print("--> searchTerm : \(searchTerm)")
   
         if nameSwitch.isOn && tagSwitch.isOn { // 둘 다 선택되어있을 때
-            
-            self.filterWish = self.wishViewModel.wishs.filter{
-                $0.name.localizedStandardContains(searchTerm) || $0.tagString.localizedStandardContains(searchTerm)
-            }
+            self.wishViewModel.filterWish(searchTerm, searchTerm, 3)
         }
         else {
             if nameSwitch.isOn { // 이름만 선택되어 있을 때
-                self.filterWish = self.wishViewModel.wishs.filter{
-                    $0.name.localizedStandardContains(searchTerm)
-                }
+                self.wishViewModel.filterWish(searchTerm, searchTerm, 1)
             } else if tagSwitch.isOn { // 태그만 선택되어 있을 때
-                self.filterWish = self.wishViewModel.wishs.filter{
-                    $0.tagString.localizedStandardContains(searchTerm)
-                }
+                self.wishViewModel.filterWish(searchTerm, searchTerm, 2)
             }
         }
         

@@ -62,6 +62,7 @@ class WishManager {
     static let shareed = WishManager()
     
     var wishs: [Wish] = []
+    var filterWishs: [Wish] = []
     
     func addWish(_ wish: Wish){
         wishs.append(wish)
@@ -109,6 +110,40 @@ class WishManager {
         wishs = wishs.sorted{ $0.timestamp > $1.timestamp}
     }
     
+    func filterWish(_ name: String, _ tag: String, _ type: Int)-> [Wish]{
+        if type == 0 { // 아무것도 입력 X
+            filterWishs = wishs
+            
+        } else if type == 1 { // 이름만
+            filterWishs = wishs.filter{
+                $0.name.localizedStandardContains(name)
+            }
+            
+        } else if type == 2 { // 태그만
+            filterWishs = wishs.filter{
+                $0.tagString.localizedStandardContains(tag)
+            }
+        }
+        else { // 이름 태그 둘다 
+            filterWishs = wishs.filter{
+                $0.name.localizedStandardContains(name) ||  $0.tagString.localizedStandardContains(tag)
+            }
+        }
+        
+        return filterWishs
+        
+    }
+    
+    func updateFilterWish(_ wish: Wish){
+        let filterwishsCnt = filterWishs.count
+        for i in 0..<filterwishsCnt{
+            if wish.timestamp == filterWishs[i].timestamp{
+                filterWishs[i] = Wish(timestamp: wish.timestamp, name: wish.name, tag: wish.tag, tagString: wish.tagString, content: wish.content, photo: wish.photo, img: wish.img, link: wish.link, placeName: wish.placeName, placeLat: wish.placeLat, placeLng: wish.placeLng, favorite: wish.favorite * (-1))
+                break
+            }
+        }
+    }
+    
     func setWish(_ wish: [Wish]){
         wishs = wish
     }
@@ -124,6 +159,10 @@ class WishViewModel {
     
     var wishs: [Wish]{
         return manager.wishs
+    }
+    
+    var filterWishs: [Wish]{
+        return manager.filterWishs
     }
     
     func addWish(_ wish: Wish){
@@ -148,6 +187,14 @@ class WishViewModel {
     
     func favoriteWishs()-> [Wish]{
         return manager.favoriteWishs()
+    }
+    
+    func filterWish(_ name: String, _ tag: String, _ type: Int)-> [Wish]{
+        return manager.filterWish(name, tag, type)
+    }
+    
+    func updateFilterWish(_ wish: Wish){
+        return manager.updateFilterWish(wish)
     }
     
     func setWish(_ wish: [Wish]){

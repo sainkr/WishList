@@ -160,6 +160,25 @@ class SelectWishViewController: UIViewController {
             self.photoViewModel.setPhoto(img)
             self.wishViewModel.updatePhoto(self.paramIndex, img)
             
+            DispatchQueue.main.async {
+                LoadingHUD.hide()
+                if LoadingHUD.sharedInstance.type == 1 {
+                    let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+                    guard let showImageVC = storyboard.instantiateViewController(identifier: "ShowImageViewController") as? ShowImageViewController else { return }
+                    showImageVC.modalPresentationStyle = .fullScreen
+                    showImageVC.currentIndex = self.pageControl.currentPage
+                    
+                    self.present(showImageVC, animated: true, completion: nil)
+                } else if LoadingHUD.sharedInstance.type == 2 {
+                    let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
+                    guard let addWishListVC = addWishListStoryboard.instantiateViewController(identifier: "AddWishListViewController") as? AddWishListViewController else { return }
+                    addWishListVC.modalPresentationStyle = .fullScreen
+                    addWishListVC.paramIndex = self.paramIndex
+                    
+                    self.present(addWishListVC, animated: true, completion: nil)
+                }
+            }
+            
             print("---> 끝 !!!!!!!")
         }
     }
@@ -206,8 +225,9 @@ class SelectWishViewController: UIViewController {
             showImageVC.modalPresentationStyle = .fullScreen
             showImageVC.currentIndex = pageControl.currentPage
             
-            
             present(showImageVC, animated: true, completion: nil)
+        } else {
+            LoadingHUD.show(1)
         }
     }
     
@@ -243,12 +263,17 @@ class SelectWishViewController: UIViewController {
         // handler : 액션 발생시 호출
         let editWish = UIAlertAction(title: "수정", style: .default) { action in
             
-            let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
-            guard let addWishListVC = addWishListStoryboard.instantiateViewController(identifier: "AddWishListViewController") as? AddWishListViewController else { return }
-            addWishListVC.modalPresentationStyle = .fullScreen
-            addWishListVC.paramIndex = self.paramIndex
+            if self.photoViewModel.photos.count > 0 {
+                let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
+                guard let addWishListVC = addWishListStoryboard.instantiateViewController(identifier: "AddWishListViewController") as? AddWishListViewController else { return }
+                addWishListVC.modalPresentationStyle = .fullScreen
+                addWishListVC.paramIndex = self.paramIndex
+                
+                self.present(addWishListVC, animated: true, completion: nil)
+            } else {
+                LoadingHUD.show(2)
+            }
             
-            self.present(addWishListVC, animated: true, completion: nil)
         }
         
         let deleteWish = UIAlertAction(title: "삭제", style: .destructive, handler: { action in
@@ -272,4 +297,44 @@ class SelectWishViewController: UIViewController {
         photoViewModel.resetPhoto()
     }
 
+}
+
+class LoadingHUD: NSObject {
+    static let sharedInstance = LoadingHUD()
+    private var popupView: UIImageView?
+    var type: Int = 0
+
+    class func show(_ type : Int) {
+        sharedInstance.type = type
+        let popupView = UIImageView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+        
+        popupView.backgroundColor = UIColor.clear
+        popupView.animationImages = LoadingHUD.getAnimationImageArray()
+        popupView.animationDuration = 0.8
+        popupView.animationRepeatCount = 0
+
+        if let window = UIApplication.shared.keyWindow {
+            window.addSubview(popupView)
+            popupView.center = window.center
+            popupView.startAnimating()
+            sharedInstance.popupView?.removeFromSuperview()
+            sharedInstance.popupView = popupView
+        }
+    }
+
+    class func hide() {
+        if let popupView = sharedInstance.popupView {
+            popupView.stopAnimating()
+            popupView.removeFromSuperview()
+        }
+    }
+
+    private class func getAnimationImageArray() -> [UIImage] {
+        var animationArray: [UIImage] = []
+        animationArray.append(UIImage(named: "Loading1")!)
+        animationArray.append(UIImage(named: "Loading2")!)
+        animationArray.append(UIImage(named: "Loading3")!)
+
+        return animationArray
+    }
 }

@@ -138,7 +138,6 @@ class TagCell: UICollectionViewCell{
     }
     
     @objc func deleteButtonTapped(_ sender:UIButton!){
-        // print("---> 클릭")
         deleteButtonTapHandler?()
     }
 }
