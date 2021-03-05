@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		360B5A4C25EF497600647860 /* InnerDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B5A4B25EF497600647860 /* InnerDB.swift */; };
 		360CBB0F25DF90BB009C0DEE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 360CBB0E25DF90BB009C0DEE /* GoogleService-Info.plist */; };
 		363D489B25E2710200FF2210 /* SearchPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363D489A25E2710200FF2210 /* SearchPlaceViewController.swift */; };
 		364526E525DE447300F438AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364526E425DE447300F438AE /* AppDelegate.swift */; };
@@ -27,7 +28,6 @@
 		3645276F25DE49BC00F438AE /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645276E25DE49BC00F438AE /* Tag.swift */; };
 		3645277725DE49C600F438AE /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645277625DE49C600F438AE /* Photo.swift */; };
 		3645277C25DE49CC00F438AE /* Wish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645277B25DE49CC00F438AE /* Wish.swift */; };
-		3645278125DE49E000F438AE /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645278025DE49E000F438AE /* DataBase.swift */; };
 		364527CD25DE56BC00F438AE /* Pods_WishList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBEC0588425850E59444A9E /* Pods_WishList.framework */; };
 		36A06D7F25DEBFE900FA19BA /* AddWishList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D7D25DEBFE900FA19BA /* AddWishList.storyboard */; };
 		36A06D8725DEBFF200FA19BA /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D8625DEBFF200FA19BA /* Search.storyboard */; };
@@ -56,6 +56,7 @@
 
 /* Begin PBXFileReference section */
 		0E03650F63E4F292BB9A9774 /* Pods-WishListTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishListTests.release.xcconfig"; path = "Target Support Files/Pods-WishListTests/Pods-WishListTests.release.xcconfig"; sourceTree = "<group>"; };
+		360B5A4B25EF497600647860 /* InnerDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerDB.swift; sourceTree = "<group>"; };
 		360CBB0E25DF90BB009C0DEE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		363D489A25E2710200FF2210 /* SearchPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewController.swift; sourceTree = "<group>"; };
 		364526E125DE447300F438AE /* WishList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WishList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,7 +83,6 @@
 		3645276E25DE49BC00F438AE /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		3645277625DE49C600F438AE /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		3645277B25DE49CC00F438AE /* Wish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wish.swift; sourceTree = "<group>"; };
-		3645278025DE49E000F438AE /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		36A06D7E25DEBFE900FA19BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../WishList/WishList/Storyboard/Base.lproj/AddWishList.storyboard; sourceTree = "<group>"; };
 		36A06D8625DEBFF200FA19BA /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Search.storyboard; path = ../../../WishList/WishList/Storyboard/Search.storyboard; sourceTree = "<group>"; };
 		36B48B5825E389D000BD927D /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
@@ -157,8 +157,8 @@
 				364526E625DE447300F438AE /* SceneDelegate.swift */,
 				364526F225DE447400F438AE /* Info.plist */,
 				364526E425DE447300F438AE /* AppDelegate.swift */,
-				3645278025DE49E000F438AE /* DataBase.swift */,
 				360CBB0E25DF90BB009C0DEE /* GoogleService-Info.plist */,
+				360B5A4B25EF497600647860 /* InnerDB.swift */,
 			);
 			path = WishList;
 			sourceTree = "<group>";
@@ -488,7 +488,7 @@
 				3645276925DE498F00F438AE /* SearchViewController.swift in Sources */,
 				3645276425DE498300F438AE /* SelectWishViewController.swift in Sources */,
 				3645275525DE495D00F438AE /* ShowTagViewController.swift in Sources */,
-				3645278125DE49E000F438AE /* DataBase.swift in Sources */,
+				360B5A4C25EF497600647860 /* InnerDB.swift in Sources */,
 				3645277C25DE49CC00F438AE /* Wish.swift in Sources */,
 				364526E525DE447300F438AE /* AppDelegate.swift in Sources */,
 				3645275A25DE496C00F438AE /* AddWishListViewController.swift in Sources */,

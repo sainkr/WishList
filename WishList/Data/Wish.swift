@@ -6,7 +6,7 @@
 //
 
 import UIKit
-// import Kingfisher
+import CoreLocation
 
 struct Wish: Equatable{
     var timestamp: Int
@@ -44,13 +44,13 @@ struct Wish: Equatable{
     }
 }
 
-struct WishDB: Codable{
+struct WishInnerDB: Codable{
     var timestamp: Int
     var name: String
     var tag: [String]
     var tagString: String
     var content: String
-    var img: [String]
+    var img: [Data]
     var link: String
     var placeName: String
     var placeLat: Double
@@ -67,19 +67,20 @@ class WishManager {
     func addWish(_ wish: Wish){
         wishs.append(wish)
         sortedWish()
-        DataBaseManager.shared.saveWish(wish)
+        
+        saveWish()
     }
     
     func deleteWish(_ wish: Wish){
-        DataBaseManager.shared.deleteWish(wish)
-        
         wishs = wishs.filter { $0 != wish}
+        
+        saveWish()
     }
     
     func updateWish(_ index: Int,_ wish: Wish){
         wishs[index].update(wish)
         
-        DataBaseManager.shared.updateWish(wish)
+        saveWish()
     }
     
     func updatePhotoWish(_ index: Int, _ photo : [UIImage]){
@@ -98,8 +99,8 @@ class WishManager {
         }
         
         wishs[index].updateFavorite()
- 
-        DataBaseManager.shared.updateWish(wishs[index])
+        
+        saveWish()
     }
     
     func favoriteWishs()-> [Wish]{
@@ -148,10 +149,47 @@ class WishManager {
         wishs = wish
     }
     
-    func retrieveWish(){
-        DataBaseManager.shared.loadData()
+    func findWish(_ coordinate: CLLocationCoordinate2D)-> Int{
+        let wishsCnt = wishs.count
+        for i in 0..<wishsCnt {
+            if (wishs[i].placeLat == coordinate.latitude) && (wishs[i].placeLng == coordinate.longitude){
+                return i
+            }
+        }
+        
+        return -1
     }
     
+    func saveWish(){
+        var wishInnerDB: [WishInnerDB] = []
+        
+        for i in wishs{
+            var img: [Data] = []
+            for j in i.photo{
+                guard let data: Data
+                    = j.jpegData(compressionQuality: 1)
+                      ?? j.pngData() else { return }
+                   img.append(data)
+            }
+            
+            wishInnerDB.append(WishInnerDB(timestamp: i.timestamp, name: i.name, tag: i.tag, tagString: i.tagString, content: i.content, img: img, link: i.link, placeName: i.placeName, placeLat: i.placeLat, placeLng: i.placeLng, favorite: i.favorite))
+        }
+        
+        InnerDB.store(wishInnerDB, to: .documents, as: "wishs.json")
+    }
+    
+    func retrieveWish(){
+        let wishInnerDB: [WishInnerDB] = InnerDB.retrive("wishs.json", from: .documents, as: [WishInnerDB].self) ?? []
+        print("--> wishInnerDB : \(wishInnerDB)")
+        for i in wishInnerDB {
+            var img: [UIImage] = []
+            for j in i.img {
+                img.append(UIImage(data: j)!)
+            }
+                
+            wishs.append(Wish(timestamp: i.timestamp, name: i.name, tag: i.tag, tagString: i.tagString, content: i.content, photo: img, img: [], link: i.link, placeName: i.placeName, placeLat: i.placeLat, placeLng: i.placeLng, favorite: i.favorite))
+        }
+    }
 }
 
 class WishViewModel {
@@ -199,6 +237,10 @@ class WishViewModel {
     
     func setWish(_ wish: [Wish]){
         manager.setWish(wish)
+    }
+
+    func findWish(_ coordinate: CLLocationCoordinate2D)-> Int{
+        manager.findWish(coordinate)
     }
     
     func loadTasks(){

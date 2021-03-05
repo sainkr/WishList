@@ -31,6 +31,7 @@ PODS:
   - GTMSessionFetcher/Core (1.5.0)
   - Kingfisher (6.1.1)
   - leveldb-library (1.22)
+  - Mantis (1.4.13)
   - nanopb (2.30907.0):
     - nanopb/decode (= 2.30907.0)
     - nanopb/encode (= 2.30907.0)
@@ -43,6 +44,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - Kingfisher (~> 6.0)
+  - Mantis (~> 1.4.13)
   - SnapKit (~> 5.0.0)
 
 SPEC REPOS:
@@ -57,6 +59,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - Kingfisher
     - leveldb-library
+    - Mantis
     - nanopb
     - PromisesObjC
     - SnapKit
@@ -72,10 +75,11 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   Kingfisher: 676d63307fbef6ed5d5ed400bff36983480d7500
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
+  Mantis: 5d93257edc89b07dc6898c4133b3838e37ee01ea
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 42293d998d3fd262d53a4afa438691c2ee3361fc
+PODFILE CHECKSUM: 7c0b6bf2121b4003c213c4bd9835d986fb0167a4
 
 COCOAPODS: 1.10.1

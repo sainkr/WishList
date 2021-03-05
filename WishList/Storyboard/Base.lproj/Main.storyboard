@@ -228,11 +228,11 @@
                                     <constraint firstAttribute="height" constant="45" id="wkL-iS-sUc"/>
                                 </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tWk-jB-fvf">
-                                <rect key="frame" x="158" y="139" width="98" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tWk-jB-fvf">
+                                <rect key="frame" x="140.5" y="139" width="133" height="34"/>
                                 <color key="backgroundColor" red="0.02745098248" green="0.0" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
-                                <state key="normal" title="    장소 추가    ">
+                                <state key="normal" title="    현재 위치 추가    ">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -409,7 +409,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uWJ-mK-mku">
-                                                <rect key="frame" x="0.0" y="220" width="414" height="248.5"/>
+                                                <rect key="frame" x="20" y="220" width="374" height="224.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="uWJ-mK-mku" secondAttribute="height" multiplier="10:6" id="7wx-z7-i1y"/>
                                                 </constraints>
@@ -423,7 +423,7 @@
                                             <constraint firstItem="6kf-Pz-mbj" firstAttribute="top" secondItem="Zre-cQ-TiG" secondAttribute="bottom" constant="10" id="H87-bN-Aiv"/>
                                             <constraint firstAttribute="trailing" secondItem="6kf-Pz-mbj" secondAttribute="trailing" constant="20" id="IhR-ck-TeW"/>
                                             <constraint firstItem="Zre-cQ-TiG" firstAttribute="top" secondItem="Ufm-mV-LOi" secondAttribute="top" constant="20" id="M8m-dm-HI7"/>
-                                            <constraint firstItem="uWJ-mK-mku" firstAttribute="leading" secondItem="Ufm-mV-LOi" secondAttribute="leading" id="Sec-5f-bom"/>
+                                            <constraint firstItem="uWJ-mK-mku" firstAttribute="leading" secondItem="Ufm-mV-LOi" secondAttribute="leading" constant="20" id="Sec-5f-bom"/>
                                             <constraint firstItem="Vdc-tP-sy1" firstAttribute="top" secondItem="6kf-Pz-mbj" secondAttribute="bottom" constant="10" id="TOy-ej-Nyf"/>
                                             <constraint firstAttribute="trailing" secondItem="Vdc-tP-sy1" secondAttribute="trailing" constant="10" id="Vcm-u4-KF8"/>
                                             <constraint firstItem="Zre-cQ-TiG" firstAttribute="leading" secondItem="Ufm-mV-LOi" secondAttribute="leading" constant="20" id="WLL-vN-7bc"/>
@@ -431,7 +431,7 @@
                                             <constraint firstItem="6kf-Pz-mbj" firstAttribute="leading" secondItem="Ufm-mV-LOi" secondAttribute="leading" constant="20" id="blx-i1-EdF"/>
                                             <constraint firstAttribute="trailing" secondItem="3zg-0F-Uhs" secondAttribute="trailing" constant="20" id="bxF-34-mWm"/>
                                             <constraint firstItem="hge-93-KJf" firstAttribute="top" secondItem="Ufm-mV-LOi" secondAttribute="top" constant="20" id="fEq-eR-xam"/>
-                                            <constraint firstAttribute="trailing" secondItem="uWJ-mK-mku" secondAttribute="trailing" id="g5u-hm-bKa"/>
+                                            <constraint firstAttribute="trailing" secondItem="uWJ-mK-mku" secondAttribute="trailing" constant="20" id="g5u-hm-bKa"/>
                                             <constraint firstItem="3zg-0F-Uhs" firstAttribute="leading" secondItem="Ufm-mV-LOi" secondAttribute="leading" constant="20" id="iQz-Yx-ofk"/>
                                             <constraint firstAttribute="trailing" secondItem="hge-93-KJf" secondAttribute="trailing" constant="20" id="kSS-ce-5zD"/>
                                             <constraint firstItem="uWJ-mK-mku" firstAttribute="top" secondItem="3zg-0F-Uhs" secondAttribute="bottom" constant="10" id="oVo-JH-Hjj"/>

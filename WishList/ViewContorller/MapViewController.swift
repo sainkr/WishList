@@ -30,13 +30,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         setMapView()
         setView()
         
+        mapView.delegate = self
+        
         NotificationCenter.default.addObserver(self, selector: #selector(placeAddCompleteNotification(_:)), name: PlaceAddCompleteNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(wishAddCompleteNotification(_:)), name: WishAddCompleteNotification, object: nil)
-     
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,7 +73,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         self.currentLocation = locationManager.location
-
+        
         self.mapView.showsUserLocation = true
         self.mapView.setUserTrackingMode(.follow, animated: true)
     }
@@ -86,7 +88,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         searchView.layer.shadowOffset = CGSize(width: 0, height: 4) // 반경에 대해서 너무 적용이 되어서 4point 정도 ㅐ림.
         searchView.layer.shadowRadius = 8 // 반경?
         searchView.layer.shadowOpacity = 0.3 // alpha값입니다.
-
+        
         addPlaceButton.layer.cornerRadius = 15
         addPlaceButton.layer.shadowColor = UIColor.black.cgColor // 검정색 사용
         addPlaceButton.layer.masksToBounds = false
@@ -110,7 +112,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         for i in wishViewModel.wishs {
             if i.placeName != "None" {
                 let coordinate = CLLocationCoordinate2D(latitude: i.placeLat, longitude: i.placeLng)
-               
+                
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = coordinate
                 annotation.title = i.placeName
@@ -127,7 +129,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
             let region = MKCoordinateRegion(center: coordinate, span: span)
             self.mapView.setRegion(region, animated: true)
-        
+            
             placeAnnotation.coordinate = coordinate
             placeAnnotation.title = placeViewModel.place.name
             self.mapView.addAnnotation(placeAnnotation)
@@ -139,7 +141,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         placeLabel.text = "여기서 검색"
         placeLabel.textColor = .darkGray
         searchImage.isHidden = false
-        addPlaceButton.isHidden = true
+        addPlaceButton.setTitle("    현재 위치 추가    ", for: .normal)
         deleteButon.isHidden = true
         self.mapView.removeAnnotation(placeAnnotation)
     }
@@ -150,7 +152,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             placeLabel.text = placeViewModel.place.name
             placeLabel.textColor = .black
             searchImage.isHidden = true
-            addPlaceButton.isHidden = false
+            addPlaceButton.setTitle("    장소 추가    ", for: .normal)
             deleteButon.isHidden = false
         }
     }
@@ -159,7 +161,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
         guard let searchPlaceVC = addWishListStoryboard.instantiateViewController(identifier: "SearchPlaceViewController") as? SearchPlaceViewController else { return }
         searchPlaceVC.modalPresentationStyle = .fullScreen
-
+        
         present(searchPlaceVC, animated: true, completion: nil)
     }
     
@@ -168,8 +170,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         placeLabel.text = "여기서 검색"
         placeLabel.textColor = .darkGray
         searchImage.isHidden = false
-        addPlaceButton.isHidden = true
+        addPlaceButton.setTitle("    현재 위치 추가    ", for: .normal)
         deleteButon.isHidden = true
+        placeViewModel.resetPlace()
         self.mapView.removeAnnotation(placeAnnotation)
     }
     
@@ -179,13 +182,33 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         addWishListVC.modalPresentationStyle = .fullScreen
         addWishListVC.paramIndex = -2
         
+        if placeViewModel.place.name == "None" {
+            placeViewModel.addPlace(Place(name: "", lat: currentLocation.coordinate.latitude, lng: currentLocation.coordinate.longitude))
+        }
+        
         present(addWishListVC, animated: true, completion: nil)
     }
     
     @IBAction func currentLoacaionButtonTapped(_ sender: Any) {
         self.currentLocation = locationManager.location
-
+        
         self.mapView.showsUserLocation = true
         self.mapView.setUserTrackingMode(.follow, animated: true)
+    }
+}
+
+extension MapViewController: MKMapViewDelegate{
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let index = wishViewModel.findWish((view.annotation?.coordinate)!)
+        
+        if index > -1 {
+            let selectWishStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+            guard let selectWishVC = selectWishStoryboard.instantiateViewController(identifier: "SelectWishViewController") as? SelectWishViewController else { return }
+            selectWishVC.modalPresentationStyle = .fullScreen
+            
+            selectWishVC.paramIndex = index
+            
+            present(selectWishVC, animated: true, completion: nil)
+        }
     }
 }

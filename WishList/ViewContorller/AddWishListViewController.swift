@@ -21,6 +21,7 @@ class AddWishListViewController: UIViewController{
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var tagViewHeight: NSLayoutConstraint!
     @IBOutlet weak var linkdeleteButton: UIButton!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     var selectTagViewController: SelectTagViewController!
     var selectPhotoViewController: AddPhotoViewController!
@@ -59,17 +60,23 @@ class AddWishListViewController: UIViewController{
         memoTextView.text = "간단 메모"
         memoTextView.textColor = .lightGray
         
+        mapView.layer.cornerRadius = 15
+        
         gestureRecognizer.cancelsTouchesInView = false
         setNavigationBar()
         
-        if paramIndex > -1 {
+        navigationBar.titleTextAttributes = [ NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18, weight: .bold) ]
+        
+        if paramIndex > -1 { // 글 수정
             setContent()
-        } else if paramIndex == -2 {
-            setMap()
+            navigationBar.topItem?.title = "Wish 수정"
+        } else {
+            if paramIndex == -2 { // 장소 추가 누른 경우
+                setMap()
+            }
+            navigationBar.topItem?.title = "Wish 추가"
         }
         
-        mapView.layer.cornerRadius = 15
-       
         NotificationCenter.default.addObserver(self, selector: #selector(placeAddCompleteNotification(_:)), name: PlaceAddCompleteNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(tagNotingNotification(_:)), name: TagNotingNotification, object: nil)
     }
@@ -129,11 +136,11 @@ class AddWishListViewController: UIViewController{
             if paramIndex > -1{
                 let timestamp = wishViewModel.wishs[paramIndex].timestamp
                 print("---> update")
-                wishViewModel.updateWish(paramIndex, Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString(), content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos , img: [] , link: self.linkTextField.text ?? "-", placeName: placeViewModel.place.name, placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng, favorite:  wishViewModel.wishs[paramIndex].favorite ))
+                wishViewModel.updateWish(paramIndex, Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString(), content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos , img: [] , link: self.linkTextField.text ?? "-", placeName: self.nameTextField.text ?? "-", placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng, favorite:  wishViewModel.wishs[paramIndex].favorite ))
             }
             else{
                 let timestamp = Int(Date().timeIntervalSince1970.rounded())
-                wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString() ,content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos, img: [], link: self.linkTextField.text ?? "-", placeName: placeViewModel.place.name, placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng, favorite: -1 ))
+                wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString() ,content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos, img: [], link: self.linkTextField.text ?? "-", placeName: self.nameTextField.text ?? "-" , placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng, favorite: -1 ))
                 print("--> photos.count \(photoViewModel.photos.count)")
                 print("--> tags.count \(tagViewModel.tags.count)")
             }
@@ -165,8 +172,26 @@ class AddWishListViewController: UIViewController{
             annotation.title = placeViewModel.place.name
             self.mapView.addAnnotation(annotation)
             
-            self.placeTextField.text = placeViewModel.place.name
+            if placeViewModel.place.name == ""{
+                convertToAddressWith(coordinate: CLLocation(latitude: placeViewModel.place.lat, longitude: placeViewModel.place.lng))
+            } else {
+                self.placeTextField.text = placeViewModel.place.name
+            }
         }
+    }
+    
+    func convertToAddressWith(coordinate: CLLocation){
+        let geoCoder = CLGeocoder()
+        let locale = Locale(identifier: "Ko-kr") //원하는 언어의 나라 코드를 넣어주시면 됩니다.
+        geoCoder.reverseGeocodeLocation(coordinate, preferredLocale: locale, completionHandler: {(placemarks, error) in
+            if let address: [CLPlacemark] = placemarks {
+                if let name: String = address.last?.name {
+                    DispatchQueue.main.async {
+                        self.placeTextField.text = name
+                    }
+                }
+            }
+        })
     }
     
     @IBAction func linkDeleteButtonTapped(_ sender: Any) {
@@ -175,6 +200,10 @@ class AddWishListViewController: UIViewController{
     
     // 탭 했을때, 키보드 내려옴
     @IBAction func tapBG(_ sender: Any) {
+        lowerKeyboard()
+    }
+    
+    func lowerKeyboard() {
         nameTextField.resignFirstResponder()
         tagSelectTextField.resignFirstResponder()
         linkTextField.resignFirstResponder()
@@ -201,7 +230,7 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
     // textfield 클릭하면
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == placeTextField {
-            placeTextField.resignFirstResponder()
+            lowerKeyboard()
             
             let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
             guard let searchPlaceVC = addWishListStoryboard.instantiateViewController(identifier: "SearchPlaceViewController") as? SearchPlaceViewController else { return }

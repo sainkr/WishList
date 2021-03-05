@@ -20,11 +20,10 @@ class SearchPlaceViewController: UIViewController, MKLocalSearchCompleterDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.searchBar.showsCancelButton = true
-        //self.searchBar.becomeFirstResponder()
         self.searchCompleter.delegate = self
-        // self.completer.region = self.myMapView.region
-        // self.searchCompleter.resultTypes = .pointOfInteres
+        self.searchBar.becomeFirstResponder()
     }
 }
 

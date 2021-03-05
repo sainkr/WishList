@@ -28,7 +28,10 @@ class SelectWishViewController: UIViewController {
     
     var selectTagViewController = SelectTagViewController()
     
+    var wishType: Int = -1
     var paramIndex: Int = 0
+    
+    var wish: Wish!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "tag" {
@@ -39,6 +42,12 @@ class SelectWishViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if wishType == 0 { //favorite wish
+            wish = wishViewModel.favoriteWishs()[paramIndex]
+        } else if wishType == 1 { // my wish
+            wish = wishViewModel.wishs[paramIndex]
+        }
         
         if wishViewModel.wishs[paramIndex].img.count > 0 {
             changeUIImage()
@@ -53,7 +62,7 @@ class SelectWishViewController: UIViewController {
         super.viewWillAppear(true)
         setContent()
         // 사진이 없는 경우 체크
-        if wishViewModel.wishs[paramIndex].img.count > 0 || wishViewModel.wishs[paramIndex].photo.count > 0{
+        if wish.img.count > 0 || wish.photo.count > 0{
             imageView.isHidden = false
             pageControl.isHidden = false
             
@@ -69,10 +78,10 @@ class SelectWishViewController: UIViewController {
             menuButton.tintColor = #colorLiteral(red: 0.1158123985, green: 0.1258583069, blue: 0.5349373817, alpha: 1)
         }
         
-        photoViewModel.setPhoto(wishViewModel.wishs[paramIndex].photo)
+        photoViewModel.setPhoto(wish.photo)
         
         // 링크 설정 안한 경우 체크
-        if wishViewModel.wishs[paramIndex].link == ""
+        if wish.link == ""
         {
             linkButton.isHidden = true
         } else {
@@ -80,7 +89,7 @@ class SelectWishViewController: UIViewController {
         }
         
         // 장소 설정 안한 경우 체크
-        if wishViewModel.wishs[paramIndex].placeName == "None"{
+        if wish.placeName == "None"{
             mapView.isHidden = true
         } else {
             mapView.isHidden = false
@@ -94,9 +103,9 @@ class SelectWishViewController: UIViewController {
     }
     
     func setContent(){
-        tagViewModel.setTag(wishViewModel.wishs[paramIndex].tag)
-        self.nameLabel.text = wishViewModel.wishs[paramIndex].name
-        self.contentLabel.text = wishViewModel.wishs[paramIndex].content
+        tagViewModel.setTag(wish.tag)
+        self.nameLabel.text = wish.name
+        self.contentLabel.text = wish.content
     }
     
     func setGesture(){
@@ -115,14 +124,14 @@ class SelectWishViewController: UIViewController {
     }
     
     func setPageControl(){
-        if wishViewModel.wishs[paramIndex].photo.count > 0 {
-            pageControl.numberOfPages = wishViewModel.wishs[paramIndex].photo.count
-            imageView.image = wishViewModel.wishs[paramIndex].photo[0]
+        if wish.photo.count > 0 {
+            pageControl.numberOfPages = wish.photo.count
+            imageView.image = wish.photo[0]
         }
         else {
-            if wishViewModel.wishs[paramIndex].img.count > 0 {
-                pageControl.numberOfPages = wishViewModel.wishs[paramIndex].img.count
-                let url = URL(string: wishViewModel.wishs[paramIndex].img[0])
+            if wish.img.count > 0 {
+                pageControl.numberOfPages = wish.img.count
+                let url = URL(string: wish.img[0])
                 imageView.kf.setImage(with: url)
             }
         }
@@ -132,15 +141,17 @@ class SelectWishViewController: UIViewController {
     }
     
     func setMap(){
-        if wishViewModel.wishs[paramIndex].placeName != "None" {
-            let coordinate = CLLocationCoordinate2D(latitude: wishViewModel.wishs[paramIndex].placeLat, longitude: wishViewModel.wishs[paramIndex].placeLng)
+        mapView.layer.cornerRadius = 15
+        
+        if wish.placeName != "None" {
+            let coordinate = CLLocationCoordinate2D(latitude: wish.placeLat, longitude: wish.placeLng)
             let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
             let region = MKCoordinateRegion(center: coordinate, span: span)
             self.mapView.setRegion(region, animated: true)
         
             let annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
-            annotation.title = wishViewModel.wishs[paramIndex].placeName
+            annotation.title = wish.placeName
             self.mapView.addAnnotation(annotation)
         }
     }
@@ -148,10 +159,10 @@ class SelectWishViewController: UIViewController {
     func changeUIImage(){
         DispatchQueue.global(qos: .userInteractive).async {
             var img: [UIImage] = []
-            let imgCnt = self.wishViewModel.wishs[self.paramIndex].img.count
+            let imgCnt = self.wish.img.count
             // UIImage로 바꾸는 작업
             for i in 0..<imgCnt{
-                guard let url = URL(string: self.wishViewModel.wishs[self.paramIndex].img[i]) else { return  }
+                guard let url = URL(string: self.wish.img[i]) else { return  }
                 let data = NSData(contentsOf: url)
                 let image = UIImage(data : data! as Data)!
                 img.append(image)
@@ -190,23 +201,23 @@ class SelectWishViewController: UIViewController {
             switch swipeGesture.direction {
                 case UISwipeGestureRecognizer.Direction.left :
                     pageControl.currentPage += 1
-                    if wishViewModel.wishs[paramIndex].photo.count > 0 {
-                        imageView.image = wishViewModel.wishs[paramIndex].photo[pageControl.currentPage]
+                    if wish.photo.count > 0 {
+                        imageView.image = wish.photo[pageControl.currentPage]
                     }
                     else {
-                        if wishViewModel.wishs[paramIndex].img.count > 0 {
-                            let url = URL(string: wishViewModel.wishs[paramIndex].img[pageControl.currentPage])
+                        if wish.img.count > 0 {
+                            let url = URL(string: wish.img[pageControl.currentPage])
                             imageView.kf.setImage(with: url)
                         }
                     }
                 case UISwipeGestureRecognizer.Direction.right :
                     pageControl.currentPage -= 1
-                    if wishViewModel.wishs[paramIndex].photo.count > 0 {
-                        imageView.image = wishViewModel.wishs[paramIndex].photo[pageControl.currentPage]
+                    if wish.photo.count > 0 {
+                        imageView.image = wish.photo[pageControl.currentPage]
                     }
                     else {
-                        if wishViewModel.wishs[paramIndex].img.count > 0 {
-                            let url = URL(string:  wishViewModel.wishs[paramIndex].img[pageControl.currentPage])
+                        if wish.img.count > 0 {
+                            let url = URL(string:  wish.img[pageControl.currentPage])
                             imageView.kf.setImage(with: url)
                         }
                     }
@@ -227,17 +238,19 @@ class SelectWishViewController: UIViewController {
             
             present(showImageVC, animated: true, completion: nil)
         } else {
-            LoadingHUD.show(1)
+            if self.wish.photo.count > 0{
+                LoadingHUD.show(1)
+            }
         }
     }
     
     @IBAction func pageChanged(_ sender: Any) {
-        imageView.image = wishViewModel.wishs[paramIndex].photo[pageControl.currentPage]
+        imageView.image = wish.photo[pageControl.currentPage]
     }
     
     @IBAction func linkButtonTapped(_ sender: Any) {
         //사파리로 링크열기
-        guard let url = URL(string: wishViewModel.wishs[paramIndex].link),
+        guard let url = URL(string: wish.link),
         UIApplication.shared.canOpenURL(url) else {
             
             let alert = UIAlertController(title: nil, message: "유효하지 않은 링크 입니다.", preferredStyle: UIAlertController.Style.alert)
@@ -263,7 +276,7 @@ class SelectWishViewController: UIViewController {
         // handler : 액션 발생시 호출
         let editWish = UIAlertAction(title: "수정", style: .default) { action in
             
-            if self.photoViewModel.photos.count > 0 {
+            if self.photoViewModel.photos.count > 0 || self.wish.photo.count == 0{
                 let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
                 guard let addWishListVC = addWishListStoryboard.instantiateViewController(identifier: "AddWishListViewController") as? AddWishListViewController else { return }
                 addWishListVC.modalPresentationStyle = .fullScreen
@@ -271,13 +284,15 @@ class SelectWishViewController: UIViewController {
                 
                 self.present(addWishListVC, animated: true, completion: nil)
             } else {
-                LoadingHUD.show(2)
+                if self.wish.photo.count > 0{
+                    LoadingHUD.show(2)
+                }
             }
             
         }
         
         let deleteWish = UIAlertAction(title: "삭제", style: .destructive, handler: { action in
-            self.wishViewModel.deleteWish(self.wishViewModel.wishs[self.paramIndex])
+            self.wishViewModel.deleteWish(self.wish)
             self.resetData()
             self.dismiss(animated: true, completion: nil)
         })

@@ -21,9 +21,7 @@ class WishViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     
-        // favoriteButton.backgroun
         setaddButton()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.didReciveWishsNotification(_:)), name: DidReceiveWishsNotification , object: nil)
     }
         
     @objc func didReciveWishsNotification(_ noti: Notification){
@@ -42,7 +40,6 @@ class WishViewController: UIViewController {
     }
     
     func setaddButton(){
-        
         view.addSubview(addButton)
         
         addButton.layer.shadowColor = UIColor.black.cgColor // 검정색 사용
@@ -147,13 +144,18 @@ extension WishViewController: UICollectionViewDataSource{
 
 extension WishViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         let selectWishStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
         guard let selectWishVC = selectWishStoryboard.instantiateViewController(identifier: "SelectWishViewController") as? SelectWishViewController else { return }
         selectWishVC.modalPresentationStyle = .fullScreen
         
-        selectWishVC.paramIndex = indexPath.item
+        if indexPath.section == 0 { // favorite wish
+            selectWishVC.wishType = 0
+        }
+        else { // my wish
+            selectWishVC.wishType = 1
+        }
         
+        selectWishVC.paramIndex = indexPath.item
         present(selectWishVC, animated: true, completion: nil)
     }
 }
@@ -197,7 +199,8 @@ class WishListCell: UICollectionViewCell {
                 thumbnailImageView.kf.setImage(with: url)
             }
             else {
-                thumbnailImageView.image = #imageLiteral(resourceName: "Image-1")
+                thumbnailImageView.image = UIImage(systemName: "face.smiling")
+                thumbnailImageView.tintColor = #colorLiteral(red: 0.03379072994, green: 0, blue: 0.9970340133, alpha: 1)
             }
         }
         if wish.tag.count > 0{
