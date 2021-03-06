@@ -7,8 +7,9 @@
 
 import UIKit
 import PhotosUI
+import Mantis
 
-class AddPhotoViewController: UIViewController {
+class AddPhotoViewController: UIViewController{
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -17,8 +18,16 @@ class AddPhotoViewController: UIViewController {
     var itemProviders: [NSItemProvider] = []
     var iterator: IndexingIterator<[NSItemProvider]>?
     
+    let DoneEditNotification: Notification.Name = Notification.Name("DoneEditNotification")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.doneEditNotification(_:)), name: DoneEditNotification , object: nil)
+    }
+    
+    @objc func doneEditNotification(_ noti: Notification){
+        collectionView.reloadData()
     }
 }
 
@@ -62,15 +71,16 @@ extension AddPhotoViewController: UICollectionViewDelegate{
                 
                 let picker = PHPickerViewController(configuration: configuration)
                 picker.delegate = self
+                picker.modalPresentationStyle = .fullScreen
                 self.present(picker, animated: true, completion: nil)
             } else {
-                // Fallback on earlier versions
             }
         }
     }
 }
 
 extension AddPhotoViewController: PHPickerViewControllerDelegate {
+    
     @available(iOS 14, *)
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true) // 1
@@ -89,15 +99,18 @@ extension AddPhotoViewController: PHPickerViewControllerDelegate {
                     itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
                         guard let self = self, let image = image as? UIImage else {return}
                         self.photoViewModel.addPhoto(image)
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
                     }
-                } else {
+                }
+                else {
                     break
                 }
             }
             
+            let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
+            guard let editImageVC = addWishListStoryboard.instantiateViewController(identifier: "EditImageViewController") as? EditImageViewController else { return }
+            editImageVC.modalPresentationStyle = .fullScreen
+            
+            self.present(editImageVC, animated: true, completion: nil)
         }
     }
 }
@@ -132,3 +145,12 @@ class PhotoCell: UICollectionViewCell{
     }
 }
 
+extension AddPhotoViewController: CropViewControllerDelegate {
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage, transformation: Transformation) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func cropViewControllerDidCancel(_ cropViewController: CropViewController, original: UIImage) {
+        dismiss(animated: true, completion: nil)
+    }
+}

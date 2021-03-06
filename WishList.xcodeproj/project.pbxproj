@@ -29,6 +29,7 @@
 		3645277725DE49C600F438AE /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645277625DE49C600F438AE /* Photo.swift */; };
 		3645277C25DE49CC00F438AE /* Wish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645277B25DE49CC00F438AE /* Wish.swift */; };
 		364527CD25DE56BC00F438AE /* Pods_WishList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBEC0588425850E59444A9E /* Pods_WishList.framework */; };
+		364FC40E25F34BCC00B49C17 /* EditImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364FC40D25F34BCC00B49C17 /* EditImageViewController.swift */; };
 		36A06D7F25DEBFE900FA19BA /* AddWishList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D7D25DEBFE900FA19BA /* AddWishList.storyboard */; };
 		36A06D8725DEBFF200FA19BA /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D8625DEBFF200FA19BA /* Search.storyboard */; };
 		36B48B5925E389D000BD927D /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B48B5825E389D000BD927D /* Place.swift */; };
@@ -83,6 +84,7 @@
 		3645276E25DE49BC00F438AE /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		3645277625DE49C600F438AE /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		3645277B25DE49CC00F438AE /* Wish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wish.swift; sourceTree = "<group>"; };
+		364FC40D25F34BCC00B49C17 /* EditImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageViewController.swift; sourceTree = "<group>"; };
 		36A06D7E25DEBFE900FA19BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../WishList/WishList/Storyboard/Base.lproj/AddWishList.storyboard; sourceTree = "<group>"; };
 		36A06D8625DEBFF200FA19BA /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Search.storyboard; path = ../../../WishList/WishList/Storyboard/Search.storyboard; sourceTree = "<group>"; };
 		36B48B5825E389D000BD927D /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				3645276825DE498F00F438AE /* SearchViewController.swift */,
 				363D489A25E2710200FF2210 /* SearchPlaceViewController.swift */,
 				36FD361525E9346F00D0AB2E /* ShowImageViewController.swift */,
+				364FC40D25F34BCC00B49C17 /* EditImageViewController.swift */,
 			);
 			path = ViewContorller;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 			files = (
 				3645277725DE49C600F438AE /* Photo.swift in Sources */,
 				3645276925DE498F00F438AE /* SearchViewController.swift in Sources */,
+				364FC40E25F34BCC00B49C17 /* EditImageViewController.swift in Sources */,
 				3645276425DE498300F438AE /* SelectWishViewController.swift in Sources */,
 				3645275525DE495D00F438AE /* ShowTagViewController.swift in Sources */,
 				360B5A4C25EF497600647860 /* InnerDB.swift in Sources */,

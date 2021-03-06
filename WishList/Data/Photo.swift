@@ -24,6 +24,10 @@ class PhotoManager {
         photos = []
     }
     
+    func setPhoto(_ index: Int, _ photo: UIImage){
+        photos[index] = photo
+    }
+    
     func setPhoto(_ photo: [UIImage]){
         photos = photo
     }
@@ -47,6 +51,10 @@ class PhotoViewModel {
 
     func resetPhoto(){
         manager.resetPhoto()
+    }
+    
+    func setPhoto(_ index: Int, _ photo: UIImage){
+        manager.setPhoto(index, photo)
     }
     
     func setPhoto(_ photos: [UIImage]){
