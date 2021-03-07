@@ -43,16 +43,7 @@ class SelectWishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if wishType == 0 { //favorite wish
-            wish = wishViewModel.favoriteWishs()[paramIndex]
-        } else if wishType == 1 { // my wish
-            wish = wishViewModel.wishs[paramIndex]
-        }
-        
-        if wishViewModel.wishs[paramIndex].img.count > 0 {
-            changeUIImage()
-        }
-        
+        setWish()
         setNavigationBar()
         setGesture()
         setMap()
@@ -61,6 +52,8 @@ class SelectWishViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         setContent()
+        setWish()
+        
         // 사진이 없는 경우 체크
         if wish.img.count > 0 || wish.photo.count > 0{
             imageView.isHidden = false
@@ -81,8 +74,7 @@ class SelectWishViewController: UIViewController {
         photoViewModel.setPhoto(wish.photo)
         
         // 링크 설정 안한 경우 체크
-        if wish.link == ""
-        {
+        if wish.link == "" {
             linkButton.isHidden = true
         } else {
             linkButton.isHidden = false
@@ -93,6 +85,18 @@ class SelectWishViewController: UIViewController {
             mapView.isHidden = true
         } else {
             mapView.isHidden = false
+        }
+    }
+    
+    func setWish(){
+        if wishType == 0 { //favorite wish
+            wish = wishViewModel.favoriteWishs()[paramIndex]
+        } else if wishType == 1 { // my wish
+            wish = wishViewModel.wishs[paramIndex]
+        }
+        
+        if wishViewModel.wishs[paramIndex].img.count > 0 {
+            changeUIImage()
         }
     }
     
