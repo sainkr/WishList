@@ -270,7 +270,7 @@
         <!--Add Photo View Controller-->
         <scene sceneID="gXx-ku-cLQ">
             <objects>
-                <viewController id="yvn-eA-eYc" customClass="AddPhotoViewController" customModule="Share" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="yvn-eA-eYc" customClass="AddPhotoViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0Yu-LY-unl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -285,7 +285,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="HBv-0K-KV9" customClass="PhotoCell" customModule="Share" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="HBv-0K-KV9" customClass="PhotoCell" customModule="WishList" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="18" width="110" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ZrX-Ka-Rrn">
@@ -355,7 +355,7 @@
         <!--Select Tag View Controller-->
         <scene sceneID="6io-yC-Mhx">
             <objects>
-                <viewController id="RCV-8C-U3R" customClass="SelectTagViewController" customModule="Share" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="RCV-8C-U3R" customClass="SelectTagViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mbd-QW-HZL">
                         <rect key="frame" x="0.0" y="0.0" width="384" height="65"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -369,7 +369,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="TagCell" reuseIdentifier="TagCell" id="IuS-qI-5h1" customClass="TagCell" customModule="Share" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="TagCell" reuseIdentifier="TagCell" id="IuS-qI-5h1" customClass="TagCell" customModule="WishList" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="14.5" width="87" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Zsk-nd-CAm">
@@ -402,7 +402,7 @@
         <!--Edit Image View Controller-->
         <scene sceneID="bU8-OW-Azx">
             <objects>
-                <viewController storyboardIdentifier="EditImageViewController" id="14M-J8-7A2" customClass="EditImageViewController" customModule="Share" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditImageViewController" id="14M-J8-7A2" customClass="EditImageViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2UW-zh-Zj2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -477,7 +477,7 @@
         <!--Search Place View Controller-->
         <scene sceneID="fDa-iB-fmF">
             <objects>
-                <viewController storyboardIdentifier="SearchPlaceViewController" id="KHO-d3-7jW" customClass="SearchPlaceViewController" customModule="Share" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchPlaceViewController" id="KHO-d3-7jW" customClass="SearchPlaceViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0BF-y3-pZO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -493,7 +493,7 @@
                                 <rect key="frame" x="0.0" y="100" width="414" height="762"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SearchPlaceCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchPlaceCell" rowHeight="85.5" id="LRm-a0-qEK" customClass="SearchPlaceCell" customModule="Share" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SearchPlaceCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchPlaceCell" rowHeight="85.5" id="LRm-a0-qEK" customClass="SearchPlaceCell" customModule="WishList" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="85.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LRm-a0-qEK" id="KRx-09-gOn">

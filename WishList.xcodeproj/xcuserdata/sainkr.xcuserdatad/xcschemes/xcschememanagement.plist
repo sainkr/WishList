@@ -6,6 +6,8 @@
 	<dict>
 		<key>Share.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>19</integer>
 		</dict>
@@ -17,6 +19,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>360EC2F425F5F9B900FAB92A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>364526E025DE447300F438AE</key>
 		<dict>
 			<key>primary</key>

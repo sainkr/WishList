@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		360B5A4C25EF497600647860 /* InnerDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B5A4B25EF497600647860 /* InnerDB.swift */; };
 		360CBB0F25DF90BB009C0DEE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 360CBB0E25DF90BB009C0DEE /* GoogleService-Info.plist */; };
+		360EC2F825F5F9B900FAB92A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360EC2F725F5F9B900FAB92A /* ShareViewController.swift */; };
+		360EC2FB25F5F9B900FAB92A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 360EC2F925F5F9B900FAB92A /* MainInterface.storyboard */; };
+		360EC2FF25F5F9B900FAB92A /* Share.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 360EC2F525F5F9B900FAB92A /* Share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		360EC30C25F5FA7900FAB92A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 360EC2F925F5F9B900FAB92A /* MainInterface.storyboard */; };
+		360EC31A25F600A200FAB92A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360EC2F725F5F9B900FAB92A /* ShareViewController.swift */; };
 		363D489B25E2710200FF2210 /* SearchPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 363D489A25E2710200FF2210 /* SearchPlaceViewController.swift */; };
 		364526E525DE447300F438AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364526E425DE447300F438AE /* AppDelegate.swift */; };
 		364526E725DE447300F438AE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364526E625DE447300F438AE /* SceneDelegate.swift */; };
@@ -29,11 +34,6 @@
 		3645277C25DE49CC00F438AE /* Wish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645277B25DE49CC00F438AE /* Wish.swift */; };
 		364527CD25DE56BC00F438AE /* Pods_WishList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBEC0588425850E59444A9E /* Pods_WishList.framework */; };
 		364FC40E25F34BCC00B49C17 /* EditImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364FC40D25F34BCC00B49C17 /* EditImageViewController.swift */; };
-		365CCC5525F4EAEF0040713E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 364526ED25DE447400F438AE /* Assets.xcassets */; };
-		365CCC6425F4EDBE0040713E /* AddWishList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D7D25DEBFE900FA19BA /* AddWishList.storyboard */; };
-		368DFA0A25F4E05F0089C01D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368DFA0925F4E05F0089C01D /* ShareViewController.swift */; };
-		368DFA0D25F4E05F0089C01D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 368DFA0B25F4E05F0089C01D /* MainInterface.storyboard */; };
-		368DFA1125F4E05F0089C01D /* Share.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 368DFA0725F4E05F0089C01D /* Share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		368DFA2325F4E6450089C01D /* AddWishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645275925DE496C00F438AE /* AddWishListViewController.swift */; };
 		36A06D7F25DEBFE900FA19BA /* AddWishList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D7D25DEBFE900FA19BA /* AddWishList.storyboard */; };
 		36A06D8725DEBFF200FA19BA /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D8625DEBFF200FA19BA /* Search.storyboard */; };
@@ -44,6 +44,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		360EC2FD25F5F9B900FAB92A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 364526D925DE447300F438AE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 360EC2F425F5F9B900FAB92A;
+			remoteInfo = Share;
+		};
 		364526F825DE447400F438AE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 364526D925DE447300F438AE /* Project object */;
@@ -58,13 +65,6 @@
 			remoteGlobalIDString = 364526E025DE447300F438AE;
 			remoteInfo = WishList;
 		};
-		368DFA0F25F4E05F0089C01D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 364526D925DE447300F438AE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 368DFA0625F4E05F0089C01D;
-			remoteInfo = Share;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -74,7 +74,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				368DFA1125F4E05F0089C01D /* Share.appex in Embed App Extensions */,
+				360EC2FF25F5F9B900FAB92A /* Share.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -85,6 +85,11 @@
 		0E03650F63E4F292BB9A9774 /* Pods-WishListTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishListTests.release.xcconfig"; path = "Target Support Files/Pods-WishListTests/Pods-WishListTests.release.xcconfig"; sourceTree = "<group>"; };
 		360B5A4B25EF497600647860 /* InnerDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerDB.swift; sourceTree = "<group>"; };
 		360CBB0E25DF90BB009C0DEE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		360EC2F525F5F9B900FAB92A /* Share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Share.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		360EC2F725F5F9B900FAB92A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		360EC2FA25F5F9B900FAB92A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		360EC2FC25F5F9B900FAB92A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		360EC31125F5FAD100FAB92A /* Share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Share.entitlements; sourceTree = "<group>"; };
 		363D489A25E2710200FF2210 /* SearchPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewController.swift; sourceTree = "<group>"; };
 		364526E125DE447300F438AE /* WishList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WishList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		364526E425DE447300F438AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -111,12 +116,7 @@
 		3645277625DE49C600F438AE /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		3645277B25DE49CC00F438AE /* Wish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wish.swift; sourceTree = "<group>"; };
 		364FC40D25F34BCC00B49C17 /* EditImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageViewController.swift; sourceTree = "<group>"; };
-		365CCC5A25F4EBB20040713E /* Share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Share.entitlements; sourceTree = "<group>"; };
 		365CCC5F25F4EC330040713E /* WishList.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WishList.entitlements; sourceTree = "<group>"; };
-		368DFA0725F4E05F0089C01D /* Share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Share.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		368DFA0925F4E05F0089C01D /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		368DFA0C25F4E05F0089C01D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		368DFA0E25F4E05F0089C01D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36A06D7E25DEBFE900FA19BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../WishList/WishList/Storyboard/Base.lproj/AddWishList.storyboard; sourceTree = "<group>"; };
 		36A06D8625DEBFF200FA19BA /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Search.storyboard; path = ../../../WishList/WishList/Storyboard/Search.storyboard; sourceTree = "<group>"; };
 		36B48B5825E389D000BD927D /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
@@ -132,6 +132,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		360EC2F225F5F9B900FAB92A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		364526DE25DE447300F438AE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -156,23 +163,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		368DFA0425F4E05F0089C01D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		360EC2F625F5F9B900FAB92A /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				360EC31125F5FAD100FAB92A /* Share.entitlements */,
+				360EC2F725F5F9B900FAB92A /* ShareViewController.swift */,
+				360EC2F925F5F9B900FAB92A /* MainInterface.storyboard */,
+				360EC2FC25F5F9B900FAB92A /* Info.plist */,
+			);
+			path = Share;
+			sourceTree = "<group>";
+		};
 		364526D825DE447300F438AE = {
 			isa = PBXGroup;
 			children = (
 				364526E325DE447300F438AE /* WishList */,
-				368DFA0825F4E05F0089C01D /* Share */,
 				364526FA25DE447400F438AE /* WishListTests */,
 				3645270525DE447400F438AE /* WishListUITests */,
+				360EC2F625F5F9B900FAB92A /* Share */,
 				364526E225DE447300F438AE /* Products */,
 				3BBCB7CF0DB9CFB59B6E2E94 /* Frameworks */,
 				7B27F746EAB05E54C4C6386B /* Pods */,
@@ -185,7 +196,7 @@
 				364526E125DE447300F438AE /* WishList.app */,
 				364526F725DE447400F438AE /* WishListTests.xctest */,
 				3645270225DE447400F438AE /* WishListUITests.xctest */,
-				368DFA0725F4E05F0089C01D /* Share.appex */,
+				360EC2F525F5F9B900FAB92A /* Share.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -265,17 +276,6 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		368DFA0825F4E05F0089C01D /* Share */ = {
-			isa = PBXGroup;
-			children = (
-				365CCC5A25F4EBB20040713E /* Share.entitlements */,
-				368DFA0925F4E05F0089C01D /* ShareViewController.swift */,
-				368DFA0B25F4E05F0089C01D /* MainInterface.storyboard */,
-				368DFA0E25F4E05F0089C01D /* Info.plist */,
-			);
-			path = Share;
-			sourceTree = "<group>";
-		};
 		3BBCB7CF0DB9CFB59B6E2E94 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -302,6 +302,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		360EC2F425F5F9B900FAB92A /* Share */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 360EC30025F5F9B900FAB92A /* Build configuration list for PBXNativeTarget "Share" */;
+			buildPhases = (
+				360EC2F125F5F9B900FAB92A /* Sources */,
+				360EC2F225F5F9B900FAB92A /* Frameworks */,
+				360EC2F325F5F9B900FAB92A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Share;
+			productName = Share;
+			productReference = 360EC2F525F5F9B900FAB92A /* Share.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		364526E025DE447300F438AE /* WishList */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3645270B25DE447400F438AE /* Build configuration list for PBXNativeTarget "WishList" */;
@@ -316,7 +333,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				368DFA1025F4E05F0089C01D /* PBXTargetDependency */,
+				360EC2FE25F5F9B900FAB92A /* PBXTargetDependency */,
 			);
 			name = WishList;
 			productName = WishList;
@@ -362,23 +379,6 @@
 			productReference = 3645270225DE447400F438AE /* WishListUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		368DFA0625F4E05F0089C01D /* Share */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 368DFA1525F4E05F0089C01D /* Build configuration list for PBXNativeTarget "Share" */;
-			buildPhases = (
-				368DFA0325F4E05F0089C01D /* Sources */,
-				368DFA0425F4E05F0089C01D /* Frameworks */,
-				368DFA0525F4E05F0089C01D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Share;
-			productName = Share;
-			productReference = 368DFA0725F4E05F0089C01D /* Share.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -388,6 +388,9 @@
 				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1230;
 				TargetAttributes = {
+					360EC2F425F5F9B900FAB92A = {
+						CreatedOnToolsVersion = 12.3;
+					};
 					364526E025DE447300F438AE = {
 						CreatedOnToolsVersion = 12.3;
 					};
@@ -398,9 +401,6 @@
 					3645270125DE447400F438AE = {
 						CreatedOnToolsVersion = 12.3;
 						TestTargetID = 364526E025DE447300F438AE;
-					};
-					368DFA0625F4E05F0089C01D = {
-						CreatedOnToolsVersion = 12.3;
 					};
 				};
 			};
@@ -420,16 +420,25 @@
 				364526E025DE447300F438AE /* WishList */,
 				364526F625DE447400F438AE /* WishListTests */,
 				3645270125DE447400F438AE /* WishListUITests */,
-				368DFA0625F4E05F0089C01D /* Share */,
+				360EC2F425F5F9B900FAB92A /* Share */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		360EC2F325F5F9B900FAB92A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				360EC2FB25F5F9B900FAB92A /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		364526DF25DE447300F438AE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				360EC30C25F5FA7900FAB92A /* MainInterface.storyboard in Resources */,
 				364526F125DE447400F438AE /* LaunchScreen.storyboard in Resources */,
 				364526EE25DE447400F438AE /* Assets.xcassets in Resources */,
 				36A06D7F25DEBFE900FA19BA /* AddWishList.storyboard in Resources */,
@@ -450,16 +459,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		368DFA0525F4E05F0089C01D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				365CCC6425F4EDBE0040713E /* AddWishList.storyboard in Resources */,
-				365CCC5525F4EAEF0040713E /* Assets.xcassets in Resources */,
-				368DFA0D25F4E05F0089C01D /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,6 +568,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		360EC2F125F5F9B900FAB92A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				360EC2F825F5F9B900FAB92A /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		364526DD25DE447300F438AE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -579,6 +586,7 @@
 				3645276425DE498300F438AE /* SelectWishViewController.swift in Sources */,
 				3645275525DE495D00F438AE /* ShowTagViewController.swift in Sources */,
 				360B5A4C25EF497600647860 /* InnerDB.swift in Sources */,
+				360EC31A25F600A200FAB92A /* ShareViewController.swift in Sources */,
 				3645277C25DE49CC00F438AE /* Wish.swift in Sources */,
 				364526E525DE447300F438AE /* AppDelegate.swift in Sources */,
 				3645274B25DE493A00F438AE /* AddPhotoViewController.swift in Sources */,
@@ -610,17 +618,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		368DFA0325F4E05F0089C01D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				368DFA0A25F4E05F0089C01D /* ShareViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		360EC2FE25F5F9B900FAB92A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 360EC2F425F5F9B900FAB92A /* Share */;
+			targetProxy = 360EC2FD25F5F9B900FAB92A /* PBXContainerItemProxy */;
+		};
 		364526F925DE447400F438AE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 364526E025DE447300F438AE /* WishList */;
@@ -631,14 +636,17 @@
 			target = 364526E025DE447300F438AE /* WishList */;
 			targetProxy = 3645270325DE447400F438AE /* PBXContainerItemProxy */;
 		};
-		368DFA1025F4E05F0089C01D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 368DFA0625F4E05F0089C01D /* Share */;
-			targetProxy = 368DFA0F25F4E05F0089C01D /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		360EC2F925F5F9B900FAB92A /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				360EC2FA25F5F9B900FAB92A /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		364526EA25DE447300F438AE /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -655,14 +663,6 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		368DFA0B25F4E05F0089C01D /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				368DFA0C25F4E05F0089C01D /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 		36A06D7D25DEBFE900FA19BA /* AddWishList.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -674,6 +674,50 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		360EC30125F5F9B900FAB92A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CODE_SIGN_ENTITLEMENTS = Share/Share.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SG72AH33ZM;
+				INFOPLIST_FILE = Share/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sainkr.WishList.Share;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		360EC30225F5F9B900FAB92A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CODE_SIGN_ENTITLEMENTS = Share/Share.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SG72AH33ZM;
+				INFOPLIST_FILE = Share/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sainkr.WishList.Share;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		3645270925DE447400F438AE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -929,51 +973,18 @@
 			};
 			name = Release;
 		};
-		368DFA1325F4E05F0089C01D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Share/Share.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SG72AH33ZM;
-				INFOPLIST_FILE = Share/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sainkr.WishList.Share;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		368DFA1425F4E05F0089C01D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Share/Share.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SG72AH33ZM;
-				INFOPLIST_FILE = Share/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sainkr.WishList.Share;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		360EC30025F5F9B900FAB92A /* Build configuration list for PBXNativeTarget "Share" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				360EC30125F5F9B900FAB92A /* Debug */,
+				360EC30225F5F9B900FAB92A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		364526DC25DE447300F438AE /* Build configuration list for PBXProject "WishList" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1006,15 +1017,6 @@
 			buildConfigurations = (
 				3645271225DE447400F438AE /* Debug */,
 				3645271325DE447400F438AE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		368DFA1525F4E05F0089C01D /* Build configuration list for PBXNativeTarget "Share" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				368DFA1325F4E05F0089C01D /* Debug */,
-				368DFA1425F4E05F0089C01D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

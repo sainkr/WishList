@@ -20,7 +20,7 @@ class WishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-    
+        addShareWish()
         setaddButton()
     }
         
@@ -35,8 +35,29 @@ class WishViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        collectionView.reloadData()
+    }
+    
+    func addShareWish(){
+        let defaults = UserDefaults(suiteName: "group.com.sainkr.WishList")
+        guard let name = defaults?.string(forKey: "Name") else { return }
+        guard let memo = defaults?.string(forKey: "Memo") else { return }
+        guard let tags = defaults?.stringArray(forKey: "Tag") else { return }
+        guard let url = defaults?.string(forKey: "URL") else { return }
+        
+        let timestamp = Int(Date().timeIntervalSince1970.rounded())
+        var tagString = ""
+        for i in tags {
+            tagString += "# \(i) "
+        }
+        wishListViewModel.addWish(Wish(timestamp: timestamp, name: name , tag: tags , tagString : tagString ,content: memo, photo: [] , img: [], link: url, placeName: "None" , placeLat: 0, placeLng : 0, favorite: -1 ))
         
         collectionView.reloadData()
+        
+        defaults?.removeObject(forKey: "Name")
+        defaults?.removeObject(forKey: "Memo")
+        defaults?.removeObject(forKey: "Tag")
+        defaults?.removeObject(forKey: "URL")
     }
     
     func setaddButton(){
