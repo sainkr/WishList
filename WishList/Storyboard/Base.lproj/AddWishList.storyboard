@@ -141,10 +141,25 @@
                                                 </constraints>
                                             </view>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="장소 입력" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zJH-f4-SPt">
-                                                <rect key="frame" x="20" y="499" width="374" height="28"/>
+                                                <rect key="frame" x="20" y="499" width="341" height="28"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Blr-aS-bXq">
+                                                <rect key="frame" x="366" y="499" width="28" height="28"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="28" id="6p3-sK-QZS"/>
+                                                    <constraint firstAttribute="height" constant="28" id="reT-KA-Vgi"/>
+                                                </constraints>
+                                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" image="xmark.circle.fill" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="linkDeleteButtonTapped:" destination="JJB-WO-I4Y" eventType="touchUpInside" id="TDz-CJ-zBg"/>
+                                                    <action selector="placeDeleteButtonTapped:" destination="JJB-WO-I4Y" eventType="touchUpInside" id="CRL-Vv-Mzc"/>
+                                                </connections>
+                                            </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EO1-pV-QRG">
                                                 <rect key="frame" x="20" y="156.5" width="374" height="1"/>
                                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
@@ -172,7 +187,6 @@
                                             <constraint firstItem="vlc-Op-in8" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" constant="20" id="2Ad-jC-scR"/>
                                             <constraint firstItem="vlc-Op-in8" firstAttribute="top" secondItem="EO1-pV-QRG" secondAttribute="bottom" constant="10" id="5YV-wC-P5N"/>
                                             <constraint firstItem="zOj-zm-g1a" firstAttribute="top" secondItem="pGI-ju-CcE" secondAttribute="bottom" constant="10" id="5l9-F8-X49"/>
-                                            <constraint firstAttribute="trailing" secondItem="zJH-f4-SPt" secondAttribute="trailing" constant="20" id="8AR-zS-50h"/>
                                             <constraint firstItem="5FJ-74-8e6" firstAttribute="top" secondItem="pgR-27-lNV" secondAttribute="bottom" constant="10" id="9Yo-p3-tjE"/>
                                             <constraint firstItem="4j0-bY-oTD" firstAttribute="top" secondItem="yln-jP-01T" secondAttribute="bottom" constant="10" id="9dZ-G1-fSu"/>
                                             <constraint firstItem="2Ir-aZ-3X1" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" constant="20" id="Ad1-LV-OnD"/>
@@ -189,10 +203,13 @@
                                             <constraint firstAttribute="trailing" secondItem="v59-v7-y9Z" secondAttribute="trailing" constant="20" id="R7Q-YE-AAG"/>
                                             <constraint firstItem="yln-jP-01T" firstAttribute="top" secondItem="5FJ-74-8e6" secondAttribute="bottom" constant="10" id="UhI-0H-4aF"/>
                                             <constraint firstItem="zJH-f4-SPt" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" constant="20" id="V4t-Bn-xxt"/>
+                                            <constraint firstItem="Blr-aS-bXq" firstAttribute="leading" secondItem="zJH-f4-SPt" secondAttribute="trailing" constant="5" id="VYF-oe-htM"/>
                                             <constraint firstItem="Y4g-Pz-q4E" firstAttribute="bottom" secondItem="pGI-ju-CcE" secondAttribute="bottom" id="XHP-bq-pwJ"/>
                                             <constraint firstAttribute="trailing" secondItem="4bg-dw-Zul" secondAttribute="trailing" constant="20" id="YmE-ho-1Hk"/>
                                             <constraint firstItem="4bg-dw-Zul" firstAttribute="top" secondItem="bhS-g4-2L1" secondAttribute="bottom" constant="10" id="ZAg-7L-A1p"/>
                                             <constraint firstAttribute="bottom" secondItem="2Ir-aZ-3X1" secondAttribute="bottom" id="Zj7-kL-V8B"/>
+                                            <constraint firstItem="Blr-aS-bXq" firstAttribute="top" secondItem="zJH-f4-SPt" secondAttribute="top" id="aHp-OO-t2H"/>
+                                            <constraint firstItem="Blr-aS-bXq" firstAttribute="bottom" secondItem="zJH-f4-SPt" secondAttribute="bottom" id="bu3-aS-0ZB"/>
                                             <constraint firstItem="pgR-27-lNV" firstAttribute="top" secondItem="vlc-Op-in8" secondAttribute="bottom" id="cGK-ti-iIZ"/>
                                             <constraint firstItem="v59-v7-y9Z" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" constant="20" id="d4m-0l-MNB"/>
                                             <constraint firstItem="2Ir-aZ-3X1" firstAttribute="top" secondItem="zJH-f4-SPt" secondAttribute="bottom" constant="10" id="fR5-eh-zMk"/>
@@ -203,6 +220,7 @@
                                             <constraint firstAttribute="trailing" secondItem="Y4g-Pz-q4E" secondAttribute="trailing" constant="20" id="lKu-wd-UEi"/>
                                             <constraint firstItem="Y4g-Pz-q4E" firstAttribute="width" secondItem="zJH-f4-SPt" secondAttribute="height" multiplier="1:1" id="n9c-cW-rDO"/>
                                             <constraint firstAttribute="trailing" secondItem="vlc-Op-in8" secondAttribute="trailing" constant="20" id="nKH-Jz-1k7"/>
+                                            <constraint firstAttribute="trailing" secondItem="Blr-aS-bXq" secondAttribute="trailing" constant="20" id="oWl-6m-e54"/>
                                             <constraint firstItem="EO1-pV-QRG" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" constant="20" id="p3W-V6-Gqf"/>
                                             <constraint firstItem="zOj-zm-g1a" firstAttribute="leading" secondItem="PMR-ia-Zb0" secondAttribute="leading" constant="20" id="pKq-HK-swo"/>
                                             <constraint firstItem="Y4g-Pz-q4E" firstAttribute="top" secondItem="pGI-ju-CcE" secondAttribute="top" id="pi5-a9-Lmk"/>
@@ -254,6 +272,7 @@
                         <outlet property="nameTextField" destination="v59-v7-y9Z" id="KI9-qT-lDy"/>
                         <outlet property="navigationBar" destination="2Kv-Kr-45p" id="Hy8-B5-jPM"/>
                         <outlet property="placeTextField" destination="zJH-f4-SPt" id="KqK-S0-TOM"/>
+                        <outlet property="placedeleteButton" destination="Blr-aS-bXq" id="XfL-mv-UQU"/>
                         <outlet property="tagSelectTextField" destination="vlc-Op-in8" id="dAg-Ie-qQV"/>
                         <outlet property="tagViewHeight" destination="Mvz-UE-LOl" id="hiy-SR-pdq"/>
                     </connections>

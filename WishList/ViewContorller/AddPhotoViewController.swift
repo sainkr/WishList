@@ -94,23 +94,28 @@ extension AddPhotoViewController: PHPickerViewControllerDelegate {
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)
         } else {
+            var count = 0
             while true {
                 if let itemProvider = iterator?.next(), itemProvider.canLoadObject(ofClass: UIImage.self) {
                     itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
                         guard let self = self, let image = image as? UIImage else {return}
                         self.photoViewModel.addPhoto(image)
+                        count += 1
+                        if count == results.count {
+                            DispatchQueue.main.async {
+                                let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
+                                guard let editImageVC = addWishListStoryboard.instantiateViewController(identifier: "EditImageViewController") as? EditImageViewController else { return }
+                                editImageVC.modalPresentationStyle = .fullScreen
+                                
+                                self.present(editImageVC, animated: true, completion: nil)
+                            }
+                        }
                     }
                 }
                 else {
                     break
                 }
             }
-            
-            let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
-            guard let editImageVC = addWishListStoryboard.instantiateViewController(identifier: "EditImageViewController") as? EditImageViewController else { return }
-            editImageVC.modalPresentationStyle = .fullScreen
-            
-            self.present(editImageVC, animated: true, completion: nil)
         }
     }
 }

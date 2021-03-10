@@ -22,6 +22,10 @@ class PlaceManager {
         self.place = place
     }
     
+    func setPlace(_ name: String){
+        self.place.name = name
+    }
+    
     func resetPlace(){
         place = Place(name: "None", lat: 0, lng: 0)
     }
@@ -36,6 +40,10 @@ class PlaceViewModel {
     
     func addPlace(_ place: Place){
         manager.addPlace(place)
+    }
+    
+    func setPlace(_ name: String){
+        manager.setPlace(name)
     }
     
     func resetPlace(){

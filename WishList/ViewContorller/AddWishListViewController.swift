@@ -21,6 +21,7 @@ class AddWishListViewController: UIViewController{
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var tagViewHeight: NSLayoutConstraint!
     @IBOutlet weak var linkdeleteButton: UIButton!
+    @IBOutlet weak var placedeleteButton: UIButton!
     @IBOutlet weak var navigationBar: UINavigationBar!
     
     var selectTagViewController: SelectTagViewController!
@@ -39,6 +40,9 @@ class AddWishListViewController: UIViewController{
     
     // 받아온 데이터
     var paramIndex = -1
+    var wishType = -1
+    
+    var wish: Wish!
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "tag" {
@@ -68,6 +72,7 @@ class AddWishListViewController: UIViewController{
         navigationBar.titleTextAttributes = [ NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18, weight: .bold) ]
         
         if paramIndex > -1 { // 글 수정
+            setWish()
             setContent()
             navigationBar.topItem?.title = "Wish 수정"
         } else {
@@ -89,14 +94,23 @@ class AddWishListViewController: UIViewController{
         }
     }
     
+    func setWish(){
+        if wishType == 0 { //favorite wish
+            wish = wishViewModel.favoriteWishs()[paramIndex]
+        } else { // my wish
+            wish = wishViewModel.wishs[paramIndex]
+        }
+    }
+    
     func setContent(){
-        nameTextField.text = wishViewModel.wishs[paramIndex].name
-        memoTextView.text = wishViewModel.wishs[paramIndex].content
-        linkTextField.text = wishViewModel.wishs[paramIndex].link
+        nameTextField.text = wish.name
+        memoTextView.text = wish.content
+        memoTextView.textColor = .black
+        linkTextField.text = wish.link
         
-        placeViewModel.addPlace(Place(name: wishViewModel.wishs[paramIndex].placeName, lat: wishViewModel.wishs[paramIndex].placeLat, lng: wishViewModel.wishs[paramIndex].placeLng ))
-        photoViewModel.setPhoto(wishViewModel.wishs[paramIndex].photo)
-        tagViewModel.setTag(wishViewModel.wishs[paramIndex].tag)
+        placeViewModel.addPlace(Place(name: wish.placeName, lat: wish.placeLat, lng: wish.placeLng ))
+        photoViewModel.setPhoto(wish.photo)
+        tagViewModel.setTag(wish.tag)
         
         setMap()
     }
@@ -133,16 +147,21 @@ class AddWishListViewController: UIViewController{
             self.present(alert, animated: true, completion: nil)
         }
         else {
+            if placeViewModel.place.name != "None"{
+                placeViewModel.setPlace(nameTextField.text!)
+            }
+            
+            if self.memoTextView.text == "간단 메모"{
+                self.memoTextView.text = ""
+            }
+            
             if paramIndex > -1{
-                let timestamp = wishViewModel.wishs[paramIndex].timestamp
-                print("---> update")
-                wishViewModel.updateWish(paramIndex, Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString(), content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos , img: [] , link: self.linkTextField.text ?? "-", placeName: self.nameTextField.text ?? "-", placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng, favorite:  wishViewModel.wishs[paramIndex].favorite ))
+                let timestamp = wish.timestamp
+                wishViewModel.updateWish(paramIndex, Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString(), content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos , img: [] , link: self.linkTextField.text ?? "-", placeName: placeViewModel.place.name, placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng, favorite:  wishViewModel.wishs[paramIndex].favorite ))
             }
             else{
                 let timestamp = Int(Date().timeIntervalSince1970.rounded())
-                wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString() ,content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos, img: [], link: self.linkTextField.text ?? "-", placeName: self.nameTextField.text ?? "-" , placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng, favorite: -1 ))
-                print("--> photos.count \(photoViewModel.photos.count)")
-                print("--> tags.count \(tagViewModel.tags.count)")
+                wishViewModel.addWish(Wish(timestamp: timestamp, name: self.nameTextField.text ?? "-", tag: tagViewModel.tags, tagString : tagViewModel.getTagString() ,content: self.memoTextView.text ?? "-" , photo: self.photoViewModel.photos, img: [], link: self.linkTextField.text ?? "-", placeName: placeViewModel.place.name, placeLat: placeViewModel.place.lat, placeLng : placeViewModel.place.lng, favorite: -1 ))
             }
             
             resetData()
@@ -154,7 +173,8 @@ class AddWishListViewController: UIViewController{
     }
     
     @objc func placeAddCompleteNotification(_ noti: Notification){
-       setMap()
+        setMap()
+        placedeleteButton.isHidden = false
     }
     
     @objc func tagNotingNotification(_ noti: Notification){
@@ -198,6 +218,14 @@ class AddWishListViewController: UIViewController{
         linkTextField.text = ""
     }
     
+    @IBAction func placeDeleteButtonTapped(_ sender: Any) {
+        placeViewModel.resetPlace()
+        placeTextField.text = ""
+        setMap()
+        mapView.removeAnnotation(annotation)
+        placedeleteButton.isHidden = true
+    }
+    
     // 탭 했을때, 키보드 내려옴
     @IBAction func tapBG(_ sender: Any) {
         lowerKeyboard()
@@ -224,9 +252,10 @@ class AddWishListViewController: UIViewController{
         }
         
     }
+
 }
 extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelegate{
-    
+
     // textfield 클릭하면
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == placeTextField {
@@ -256,14 +285,14 @@ extension AddWishListViewController: UITextFieldDelegate, UICollectionViewDelega
             guard let tag = tagSelectTextField.text, tag.isEmpty == false else { return false }
             
             let tagText = tag
-            selectTagViewController.tagViewModel.addTag(tagText)
+            tagViewModel.addTag(tagText)
             
             if tagViewHeight.constant == 0 {
                 tagViewHeight.constant = 65
             }
             
-            selectTagViewController.collectionView.reloadData()
-            
+            self.selectTagViewController.collectionView.reloadData()
+        
             tagSelectTextField.text = ""
         }
         return true

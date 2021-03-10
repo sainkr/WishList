@@ -21,6 +21,7 @@ class EditImageViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       
         imageView.image = photoViewModel.photos[currentPage]
         countLabel.text = "\(currentPage+1) / \(photoViewModel.photos.count)"
         setGesture()

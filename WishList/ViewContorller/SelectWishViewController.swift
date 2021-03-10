@@ -26,7 +26,7 @@ class SelectWishViewController: UIViewController {
     let tagViewModel = TagViewModel()
     let photoViewModel = PhotoViewModel()
     
-    var selectTagViewController = SelectTagViewController()
+    var showTagViewController = SelectTagViewController()
     
     var wishType: Int = -1
     var paramIndex: Int = 0
@@ -36,13 +36,13 @@ class SelectWishViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "tag" {
             let destinationVC = segue.destination as? SelectTagViewController
-            selectTagViewController = destinationVC!
+            showTagViewController = destinationVC!
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         setWish()
         setNavigationBar()
         setGesture()
@@ -51,7 +51,6 @@ class SelectWishViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        setContent()
         setWish()
         
         // 사진이 없는 경우 체크
@@ -85,7 +84,9 @@ class SelectWishViewController: UIViewController {
             mapView.isHidden = true
         } else {
             mapView.isHidden = false
+            setMap()
         }
+        
     }
     
     func setWish(){
@@ -94,6 +95,8 @@ class SelectWishViewController: UIViewController {
         } else if wishType == 1 { // my wish
             wish = wishViewModel.wishs[paramIndex]
         }
+        
+        setContent()
         
         if wishViewModel.wishs[paramIndex].img.count > 0 {
             changeUIImage()
@@ -107,11 +110,11 @@ class SelectWishViewController: UIViewController {
     }
     
     func setContent(){
-        tagViewModel.setTag(wish.tag)
+        self.tagViewModel.setTag(wish.tag)
         self.nameLabel.text = wish.name
         self.contentLabel.text = wish.content
     }
-    
+
     func setGesture(){
         imageView.isUserInteractionEnabled = true
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(SelectWishViewController.respondToSwipeGesture(_:)))
@@ -189,6 +192,7 @@ class SelectWishViewController: UIViewController {
                     guard let addWishListVC = addWishListStoryboard.instantiateViewController(identifier: "AddWishListViewController") as? AddWishListViewController else { return }
                     addWishListVC.modalPresentationStyle = .fullScreen
                     addWishListVC.paramIndex = self.paramIndex
+                    addWishListVC.wishType = self.wishType
                     
                     self.present(addWishListVC, animated: true, completion: nil)
                 }
@@ -285,6 +289,7 @@ class SelectWishViewController: UIViewController {
                 guard let addWishListVC = addWishListStoryboard.instantiateViewController(identifier: "AddWishListViewController") as? AddWishListViewController else { return }
                 addWishListVC.modalPresentationStyle = .fullScreen
                 addWishListVC.paramIndex = self.paramIndex
+                addWishListVC.wishType = self.wishType
                 
                 self.present(addWishListVC, animated: true, completion: nil)
             } else {
@@ -292,7 +297,6 @@ class SelectWishViewController: UIViewController {
                     LoadingHUD.show(2)
                 }
             }
-            
         }
         
         let deleteWish = UIAlertAction(title: "삭제", style: .destructive, handler: { action in

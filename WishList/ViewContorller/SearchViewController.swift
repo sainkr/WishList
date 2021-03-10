@@ -68,6 +68,7 @@ extension SearchViewController: UICollectionViewDelegate{
         }
         
         selectWishVC.paramIndex = index
+        selectWishVC.wishType = 1
         
         present(selectWishVC, animated: true, completion: nil)
     }

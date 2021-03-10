@@ -16,7 +16,7 @@ class ShowTagViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        collectionView.reloadData()
         setupView()
     }
     
@@ -44,7 +44,6 @@ class ShowTagViewController: UIViewController {
         super.viewWillAppear(animated)
         
         collectionView.reloadData()
-        
     }
 
     @IBAction func backButonTapped(_ sender: Any) {

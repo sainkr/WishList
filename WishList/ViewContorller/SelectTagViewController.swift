@@ -18,9 +18,12 @@ class SelectTagViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.reloadData()
+        
         setupView()
+    
     }
-
+    
     private func setupView() {
         view.backgroundColor = UIColor.clear
         setupCollectionView()
@@ -39,6 +42,7 @@ class SelectTagViewController: UIViewController {
         collectionView.backgroundColor = UIColor.clear
         collectionView.register(TagCell.self, forCellWithReuseIdentifier: "TagCell")
     }
+    
 }
 
 extension SelectTagViewController: UICollectionViewDataSource{
@@ -76,7 +80,6 @@ extension SelectTagViewController : UICollectionViewDelegateFlowLayout {
 }
 
 class TagCell: UICollectionViewCell{
-    
     static func fittingSize(availableHeight: CGFloat, tag: String) -> CGSize {
         let cell = TagCell()
         cell.configure(tag: tag)
