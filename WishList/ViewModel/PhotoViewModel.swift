@@ -1,38 +1,11 @@
 //
-//  Photo.swift
+//  PhotoViewModel.swift
 //  WishList
 //
-//  Created by 홍승아 on 2021/02/02.
+//  Created by 홍승아 on 2021/04/01.
 //
 
 import UIKit
-
-class PhotoManager {
-    static let shared = PhotoManager()
-    
-    var photos: [UIImage] = []
-    
-    func addPhoto(_ photo: UIImage){
-        photos.append(photo)
-    }
-    
-    func deletePhoto(_ photo: UIImage){
-        photos = photos.filter { $0 != photo}
-    }
-    
-    func resetPhoto(){
-        photos = []
-    }
-    
-    func setPhoto(_ index: Int, _ photo: UIImage){
-        photos[index] = photo
-    }
-    
-    func setPhoto(_ photo: [UIImage]){
-        photos = photo
-    }
-    
-}
 
 class PhotoViewModel {
     private let manager = PhotoManager.shared
@@ -61,4 +34,3 @@ class PhotoViewModel {
         manager.setPhoto(photos)
     }
 }
-

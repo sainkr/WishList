@@ -34,6 +34,11 @@
 		3645277C25DE49CC00F438AE /* Wish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645277B25DE49CC00F438AE /* Wish.swift */; };
 		364527CD25DE56BC00F438AE /* Pods_WishList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBEC0588425850E59444A9E /* Pods_WishList.framework */; };
 		364FC40E25F34BCC00B49C17 /* EditImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364FC40D25F34BCC00B49C17 /* EditImageViewController.swift */; };
+		365ACF5F261597F500C3BC88 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365ACF5E261597F500C3BC88 /* DataBaseManager.swift */; };
+		365ACF7226159D3100C3BC88 /* WishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365ACF7126159D3100C3BC88 /* WishViewModel.swift */; };
+		365ACF7C26159D5E00C3BC88 /* PlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365ACF7B26159D5E00C3BC88 /* PlaceViewModel.swift */; };
+		365ACF8226159D7000C3BC88 /* PhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365ACF8126159D7000C3BC88 /* PhotoViewModel.swift */; };
+		365ACF8826159D8000C3BC88 /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365ACF8726159D8000C3BC88 /* TagViewModel.swift */; };
 		368DFA2325F4E6450089C01D /* AddWishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645275925DE496C00F438AE /* AddWishListViewController.swift */; };
 		36A06D7F25DEBFE900FA19BA /* AddWishList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D7D25DEBFE900FA19BA /* AddWishList.storyboard */; };
 		36A06D8725DEBFF200FA19BA /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D8625DEBFF200FA19BA /* Search.storyboard */; };
@@ -116,6 +121,11 @@
 		3645277625DE49C600F438AE /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		3645277B25DE49CC00F438AE /* Wish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wish.swift; sourceTree = "<group>"; };
 		364FC40D25F34BCC00B49C17 /* EditImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageViewController.swift; sourceTree = "<group>"; };
+		365ACF5E261597F500C3BC88 /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
+		365ACF7126159D3100C3BC88 /* WishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishViewModel.swift; sourceTree = "<group>"; };
+		365ACF7B26159D5E00C3BC88 /* PlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewModel.swift; sourceTree = "<group>"; };
+		365ACF8126159D7000C3BC88 /* PhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewModel.swift; sourceTree = "<group>"; };
+		365ACF8726159D8000C3BC88 /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
 		365CCC5F25F4EC330040713E /* WishList.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WishList.entitlements; sourceTree = "<group>"; };
 		36A06D7E25DEBFE900FA19BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../WishList/WishList/Storyboard/Base.lproj/AddWishList.storyboard; sourceTree = "<group>"; };
 		36A06D8625DEBFF200FA19BA /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Search.storyboard; path = ../../../WishList/WishList/Storyboard/Search.storyboard; sourceTree = "<group>"; };
@@ -204,16 +214,17 @@
 		364526E325DE447300F438AE /* WishList */ = {
 			isa = PBXGroup;
 			children = (
+				365ACF5D261597E700C3BC88 /* DB */,
 				365CCC5F25F4EC330040713E /* WishList.entitlements */,
 				3645273425DE489200F438AE /* Storyboard */,
 				3645274125DE490100F438AE /* ViewContorller */,
-				3645276D25DE499B00F438AE /* Data */,
+				3645276D25DE499B00F438AE /* Model */,
+				365ACF7026159D1C00C3BC88 /* ViewModel */,
 				364526ED25DE447400F438AE /* Assets.xcassets */,
 				364526E625DE447300F438AE /* SceneDelegate.swift */,
 				364526F225DE447400F438AE /* Info.plist */,
 				364526E425DE447300F438AE /* AppDelegate.swift */,
 				360CBB0E25DF90BB009C0DEE /* GoogleService-Info.plist */,
-				360B5A4B25EF497600647860 /* InnerDB.swift */,
 			);
 			path = WishList;
 			sourceTree = "<group>";
@@ -265,7 +276,7 @@
 			path = ViewContorller;
 			sourceTree = "<group>";
 		};
-		3645276D25DE499B00F438AE /* Data */ = {
+		3645276D25DE499B00F438AE /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				3645276E25DE49BC00F438AE /* Tag.swift */,
@@ -273,7 +284,27 @@
 				3645277B25DE49CC00F438AE /* Wish.swift */,
 				36B48B5825E389D000BD927D /* Place.swift */,
 			);
-			path = Data;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		365ACF5D261597E700C3BC88 /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				360B5A4B25EF497600647860 /* InnerDB.swift */,
+				365ACF5E261597F500C3BC88 /* DataBaseManager.swift */,
+			);
+			path = DB;
+			sourceTree = "<group>";
+		};
+		365ACF7026159D1C00C3BC88 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				365ACF7126159D3100C3BC88 /* WishViewModel.swift */,
+				365ACF7B26159D5E00C3BC88 /* PlaceViewModel.swift */,
+				365ACF8126159D7000C3BC88 /* PhotoViewModel.swift */,
+				365ACF8726159D8000C3BC88 /* TagViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		3BBCB7CF0DB9CFB59B6E2E94 /* Frameworks */ = {
@@ -584,14 +615,19 @@
 				3645276925DE498F00F438AE /* SearchViewController.swift in Sources */,
 				364FC40E25F34BCC00B49C17 /* EditImageViewController.swift in Sources */,
 				3645276425DE498300F438AE /* SelectWishViewController.swift in Sources */,
+				365ACF5F261597F500C3BC88 /* DataBaseManager.swift in Sources */,
+				365ACF8826159D8000C3BC88 /* TagViewModel.swift in Sources */,
+				365ACF8226159D7000C3BC88 /* PhotoViewModel.swift in Sources */,
 				3645275525DE495D00F438AE /* ShowTagViewController.swift in Sources */,
 				360B5A4C25EF497600647860 /* InnerDB.swift in Sources */,
 				360EC31A25F600A200FAB92A /* ShareViewController.swift in Sources */,
 				3645277C25DE49CC00F438AE /* Wish.swift in Sources */,
+				365ACF7226159D3100C3BC88 /* WishViewModel.swift in Sources */,
 				364526E525DE447300F438AE /* AppDelegate.swift in Sources */,
 				3645274B25DE493A00F438AE /* AddPhotoViewController.swift in Sources */,
 				3645276F25DE49BC00F438AE /* Tag.swift in Sources */,
 				364526E725DE447300F438AE /* SceneDelegate.swift in Sources */,
+				365ACF7C26159D5E00C3BC88 /* PlaceViewModel.swift in Sources */,
 				368DFA2325F4E6450089C01D /* AddWishListViewController.swift in Sources */,
 				36B48B5925E389D000BD927D /* Place.swift in Sources */,
 				3645274325DE492A00F438AE /* WishViewController.swift in Sources */,

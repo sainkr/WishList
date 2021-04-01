@@ -22,6 +22,8 @@ class WishViewController: UIViewController {
         // Do any additional setup after loading the view.
         addShareWish()
         setaddButton()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didReciveWishsNotification(_:)), name: DidReceiveWishsNotification , object: nil)
     }
         
     @objc func didReciveWishsNotification(_ noti: Notification){

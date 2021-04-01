@@ -31,23 +31,5 @@ class PlaceManager {
     }
 }
 
-class PlaceViewModel {
-    private let manager = PlaceManager.shareed
-    
-    var place: Place{
-        return manager.place
-    }
-    
-    func addPlace(_ place: Place){
-        manager.addPlace(place)
-    }
-    
-    func setPlace(_ name: String){
-        manager.setPlace(name)
-    }
-    
-    func resetPlace(){
-        manager.resetPlace()
-    }
-}
+
 
