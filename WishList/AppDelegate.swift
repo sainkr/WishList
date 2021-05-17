@@ -15,10 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
-        let wishListViewModel = WishViewModel()
-        wishListViewModel.loadTasks()
+        let wishListViewModel = WishListViewModel()
+        wishListViewModel.loadWish()
         
         sleep(3)
+        
         return true
     }
 

@@ -22,8 +22,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     var currentLocation: CLLocation! // 내 위치 저장.
     let placeAnnotation = MKPointAnnotation()
     
+    let wishListViewModel = WishListViewModel()
     let wishViewModel = WishViewModel()
-    let placeViewModel = PlaceViewModel()
     
     let PlaceAddCompleteNotification: Notification.Name = Notification.Name("PlaceAddCompleteNotification")
     let WishAddCompleteNotification: Notification.Name = Notification.Name("WishAddCompleteNotification")
@@ -109,7 +109,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         for i in mapView.annotations{
             self.mapView.removeAnnotation(i)
         }
-        for i in wishViewModel.wishs {
+        for i in wishListViewModel.wishList {
             if i.placeName != "None" {
                 let coordinate = CLLocationCoordinate2D(latitude: i.placeLat, longitude: i.placeLng)
                 
@@ -119,19 +119,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 self.mapView.addAnnotation(annotation)
             }
         }
-        
         setSearchMap()
     }
     
     func setSearchMap(){
-        if placeViewModel.place.name != "None" {
-            let coordinate = CLLocationCoordinate2D(latitude: placeViewModel.place.lat, longitude: placeViewModel.place.lng)
+        if wishViewModel.wish.placeName != "None" {
+            let coordinate = CLLocationCoordinate2D(latitude: wishViewModel.wish.placeLat , longitude: wishViewModel.wish.placeLng)
             let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
             let region = MKCoordinateRegion(center: coordinate, span: span)
             self.mapView.setRegion(region, animated: true)
             
             placeAnnotation.coordinate = coordinate
-            placeAnnotation.title = placeViewModel.place.name
+            placeAnnotation.title = wishViewModel.wish.placeName
             self.mapView.addAnnotation(placeAnnotation)
         }
     }
@@ -146,10 +145,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         self.mapView.removeAnnotation(placeAnnotation)
     }
     
-    @objc func placeAddCompleteNotification(_ noti: Notification){
+    @objc func placeAddCompleteNotification(_ noti: Notification){ // SearchPlaceVC에서 -->
         setMap()
-        if placeViewModel.place.name != "None" {
-            placeLabel.text = placeViewModel.place.name
+        if wishViewModel.wish.placeName != "None" {
+            placeLabel.text = wishViewModel.wish.placeName
             placeLabel.textColor = .black
             searchImage.isHidden = true
             addPlaceButton.setTitle("    장소 추가    ", for: .normal)
@@ -172,18 +171,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         searchImage.isHidden = false
         addPlaceButton.setTitle("    현재 위치 추가    ", for: .normal)
         deleteButon.isHidden = true
-        placeViewModel.resetPlace()
+
+        wishViewModel.resetWish()
         self.mapView.removeAnnotation(placeAnnotation)
     }
     
     @IBAction func placeAddButtonTapped(_ sender: Any) {
+        wishViewModel.resetWish()
         let addWishListStoryboard = UIStoryboard.init(name: "AddWishList", bundle: nil)
         guard let addWishListVC = addWishListStoryboard.instantiateViewController(identifier: "AddWishListViewController") as? AddWishListViewController else { return }
         addWishListVC.modalPresentationStyle = .fullScreen
-        addWishListVC.paramIndex = -2
+        addWishListVC.wishType = .wishPlaceAdd
         
-        if placeViewModel.place.name == "None" {
-            placeViewModel.addPlace(Place(name: "", lat: currentLocation.coordinate.latitude, lng: currentLocation.coordinate.longitude))
+        if wishViewModel.wish.placeName == "None" {
+            wishViewModel.addPlace(Place(name: "", lat: currentLocation.coordinate.latitude, lng: currentLocation.coordinate.longitude))
         }
         
         present(addWishListVC, animated: true, completion: nil)
@@ -199,14 +200,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
 
 extension MapViewController: MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        let index = wishViewModel.findWish((view.annotation?.coordinate)!)
+        let index = wishListViewModel.findWish((view.annotation?.coordinate)!)
         
         if index > -1 {
             let selectWishStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
             guard let selectWishVC = selectWishStoryboard.instantiateViewController(identifier: "SelectWishViewController") as? SelectWishViewController else { return }
             selectWishVC.modalPresentationStyle = .fullScreen
             
-            selectWishVC.paramIndex = index
+            selectWishVC.selectIndex = index
             
             present(selectWishVC, animated: true, completion: nil)
         }

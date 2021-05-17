@@ -93,7 +93,7 @@
                                                     <constraint firstAttribute="height" constant="1" id="hQp-ME-dEu"/>
                                                 </constraints>
                                             </view>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yln-jP-01T">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yln-jP-01T">
                                                 <rect key="frame" x="20" y="279" width="374" height="150"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
@@ -263,7 +263,6 @@
                     <navigationItem key="navigationItem" id="2dP-4V-W4I"/>
                     <size key="freeformSize" width="414" height="1000"/>
                     <connections>
-                        <outlet property="bar" destination="2Kv-Kr-45p" id="sCF-N1-30j"/>
                         <outlet property="gestureRecognizer" destination="4bV-qh-Lab" id="1Nh-t7-Jwh"/>
                         <outlet property="linkTextField" destination="pGI-ju-CcE" id="7Oo-8X-Chi"/>
                         <outlet property="linkdeleteButton" destination="Y4g-Pz-q4E" id="2ax-nc-Fnr"/>

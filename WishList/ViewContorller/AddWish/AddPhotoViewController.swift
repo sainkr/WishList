@@ -13,8 +13,8 @@ class AddPhotoViewController: UIViewController{
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let photoViewModel = PhotoViewModel()
-
+    let wishViewModel = WishViewModel()
+    
     var itemProviders: [NSItemProvider] = []
     var iterator: IndexingIterator<[NSItemProvider]>?
     
@@ -33,7 +33,7 @@ class AddPhotoViewController: UIViewController{
 
 extension AddPhotoViewController:  UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photoViewModel.photos.count + 1
+        return wishViewModel.wish.photo.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -46,13 +46,12 @@ extension AddPhotoViewController:  UICollectionViewDataSource{
             cell.updateUI()
         }
         else {
-            let photo = photoViewModel.photos[indexPath.item - 1]
+            let photo = wishViewModel.wish.photo[indexPath.item - 1]
             cell.updateUI(photo)
         }
         
         cell.deleteButtonTapHandler = {
-            let photo = self.photoViewModel.photos[indexPath.item - 1]
-            self.photoViewModel.deletePhoto(photo)
+            self.wishViewModel.deletePhoto(indexPath.item)
             self.collectionView.reloadData()
         }
         
@@ -87,8 +86,8 @@ extension AddPhotoViewController: PHPickerViewControllerDelegate {
         
         itemProviders = results.map(\.itemProvider)
         iterator = itemProviders.makeIterator()
-
-        if itemProviders.count + photoViewModel.photos.count > 5{
+        
+        if itemProviders.count + wishViewModel.wish.photo.count > 5{
             let alert = UIAlertController(title: nil, message: "사진은 최대 5개까지 선택  가능합니다.", preferredStyle: UIAlertController.Style.alert)
             let okAction = UIAlertAction(title: "확인", style: .default, handler : nil )
             alert.addAction(okAction)
@@ -99,7 +98,7 @@ extension AddPhotoViewController: PHPickerViewControllerDelegate {
                 if let itemProvider = iterator?.next(), itemProvider.canLoadObject(ofClass: UIImage.self) {
                     itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
                         guard let self = self, let image = image as? UIImage else {return}
-                        self.photoViewModel.addPhoto(image)
+                        self.wishViewModel.addPhoto(image)
                         count += 1
                         if count == results.count {
                             DispatchQueue.main.async {

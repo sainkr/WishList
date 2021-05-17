@@ -13,7 +13,7 @@ class EditImageViewController: UIViewController{
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     
-    let photoViewModel = PhotoViewModel()
+    let wishViewModel = WishViewModel()
     var currentPage: Int = 0
     
     let DoneEditNotification: Notification.Name = Notification.Name("DoneEditNotification")
@@ -21,9 +21,8 @@ class EditImageViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
-        imageView.image = photoViewModel.photos[currentPage]
-        countLabel.text = "\(currentPage+1) / \(photoViewModel.photos.count)"
+        imageView.image = wishViewModel.wish.photo[currentPage]
+        countLabel.text = "\(currentPage+1) / \(wishViewModel.wish.photo.count)"
         setGesture()
     }
     
@@ -32,7 +31,7 @@ class EditImageViewController: UIViewController{
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(SelectWishViewController.respondToSwipeGesture(_:)))
         swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
         self.imageView.addGestureRecognizer(swipeLeft)
-
+        
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(SelectWishViewController.respondToSwipeGesture(_:)))
         swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         self.imageView.addGestureRecognizer(swipeRight)
@@ -44,30 +43,31 @@ class EditImageViewController: UIViewController{
         if let swipeGesture = gesture as? UISwipeGestureRecognizer{
             
             switch swipeGesture.direction {
-                case UISwipeGestureRecognizer.Direction.left :
-                    if currentPage < photoViewModel.photos.count - 1{
-                        currentPage += 1
-                        imageView.image = photoViewModel.photos[currentPage]
-                        self.countLabel.text = "\(currentPage+1) / \(photoViewModel.photos.count)"
-                    }
-                    
-                case UISwipeGestureRecognizer.Direction.right :
-                    if currentPage > 0 {
-                        currentPage -= 1
-                        imageView.image = photoViewModel.photos[currentPage]
-                        self.countLabel.text = "\(currentPage+1) / \(photoViewModel.photos.count)"
-                    }
-                default:
-                  break
+            case UISwipeGestureRecognizer.Direction.left :
+                if currentPage < wishViewModel.wish.photo.count - 1{
+                    currentPage += 1
+                    imageView.image = wishViewModel.wish.photo[currentPage]
+                    self.countLabel.text = "\(currentPage+1) / \(wishViewModel.wish.photo.count)"
+                    setGesture()
+                }
+                
+            case UISwipeGestureRecognizer.Direction.right :
+                if currentPage > 0 {
+                    currentPage -= 1
+                    imageView.image = wishViewModel.wish.photo[currentPage]
+                    self.countLabel.text = "\(currentPage+1) / \(wishViewModel.wish.photo.count)"
+                    setGesture()
+                }
+            default:
+                break
             }
-
+            
         }
-
+        
     }
     
-
+    
     @IBAction func cancleButtonTapped(_ sender: Any) {
-        photoViewModel.resetPhoto()
         dismiss(animated: true, completion: nil)
     }
     
@@ -78,7 +78,7 @@ class EditImageViewController: UIViewController{
     }
     
     @IBAction func editButtonTapped(_ sender: Any) {
-        let cropViewController = Mantis.cropViewController(image: self.photoViewModel.photos[self.currentPage])
+        let cropViewController = Mantis.cropViewController(image: self.wishViewModel.wish.photo[self.currentPage])
         cropViewController.delegate = self
         cropViewController.modalPresentationStyle = .fullScreen
         self.present(cropViewController, animated: true, completion: nil)
@@ -88,8 +88,8 @@ class EditImageViewController: UIViewController{
 
 extension EditImageViewController: CropViewControllerDelegate{
     func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage, transformation: Transformation) {
-        photoViewModel.setPhoto(currentPage, cropped)
-        imageView.image = photoViewModel.photos[currentPage]
+        wishViewModel.setPhoto(currentPage, cropped)
+        imageView.image = wishViewModel.wish.photo[currentPage]
         dismiss(animated: true, completion: nil)
     }
     

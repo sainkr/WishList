@@ -14,8 +14,8 @@ class SearchPlaceViewController: UIViewController, MKLocalSearchCompleterDelegat
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchResultTableView: UITableView!
-    
-    let placeViewModel = PlaceViewModel()
+
+    let wishViewModel = WishViewModel()
     let PlaceAddCompleteNotification: Notification.Name = Notification.Name("PlaceAddCompleteNotification")
     
     override func viewDidLoad() {
@@ -87,9 +87,7 @@ extension SearchPlaceViewController: UITableViewDelegate{
                 return
             }
             
-            self.placeViewModel.addPlace(Place(name: selectedResult.title , lat: placeMark.coordinate.latitude, lng: placeMark.coordinate.longitude))
-
-            print("----> coordinate : \(placeMark.coordinate.latitude) \(placeMark.coordinate.longitude)")
+            self.wishViewModel.addPlace(Place(name: selectedResult.title , lat: placeMark.coordinate.latitude, lng: placeMark.coordinate.longitude))
             
             NotificationCenter.default.post(name: self.PlaceAddCompleteNotification, object: nil, userInfo: nil)
             

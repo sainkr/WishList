@@ -109,35 +109,35 @@ class DataBaseManager {
     }
     
     func loadData(){
-        db.observeSingleEvent(of:.value) { (snapshot) in
-            guard let wishValue = snapshot.value as? [String:Any] else {
-                return
-            }
-            print("---> snapshot : \(wishValue.values)")
-            do {
-                let data = try JSONSerialization.data(withJSONObject: Array(wishValue.values), options: [])
-                let decoder = JSONDecoder()
-                // 현재 data는 Array안에 Dictionary가 있는 형태인데 [Wish]로 디코딩 하기
-                let wish = try decoder.decode([WishDB].self, from: data)
-                let wishDB: [WishDB] = wish.sorted{ $0.timestamp > $1.timestamp}
-                var wishList: [Wish] = []
-               
-                for i in wishDB{
-                    if i.img[0] == "-" {
-                        wishList.append(Wish(timestamp: i.timestamp , name: i.name , tag: i.tag, tagString: i.tagString , content: i.content , photo: [] , img: [] , link: i.link, placeName : i.placeName, placeLat : i.placeLat, placeLng : i.placeLng , favorite: i.favorite))
-                    }
-                    else {
-                        wishList.append(Wish(timestamp: i.timestamp , name: i.name , tag: i.tag, tagString: i.tagString , content: i.content , photo: [] , img: i.img, link: i.link, placeName : i.placeName, placeLat : i.placeLat, placeLng : i.placeLng , favorite: i.favorite ))
-                    }
+        DispatchQueue.global(qos: .userInteractive).async {
+            self.db.observeSingleEvent(of:.value) { (snapshot) in
+                guard let wishValue = snapshot.value as? [String:Any] else {
+                    return
                 }
-                NotificationCenter.default.post(name: DidReceiveWishsNotification, object: nil, userInfo: ["wishs" :wishList])
-            }
-            catch {
-                print("---> error : \(error)")
-            }
+                print("---> snapshot : \(wishValue.values)")
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: Array(wishValue.values), options: [])
+                    let decoder = JSONDecoder()
+                    // 현재 data는 Array안에 Dictionary가 있는 형태인데 [Wish]로 디코딩 하기
+                    let wish = try decoder.decode([WishDB].self, from: data)
+                    let wishDB: [WishDB] = wish.sorted{ $0.timestamp > $1.timestamp}
+                    var wishList: [Wish] = []
+                   
+                    for i in wishDB{
+                        if i.img[0] == "-" {
+                            wishList.append(Wish(timestamp: i.timestamp , name: i.name , tag: i.tag, tagString: i.tagString , content: i.content , photo: [] , img: [] , link: i.link, placeName : i.placeName, placeLat : i.placeLat, placeLng : i.placeLng , favorite: i.favorite))
+                        }
+                        else {
+                            wishList.append(Wish(timestamp: i.timestamp , name: i.name , tag: i.tag, tagString: i.tagString , content: i.content , photo: [] , img: i.img, link: i.link, placeName : i.placeName, placeLat : i.placeLat, placeLng : i.placeLng , favorite: i.favorite ))
+                        }
+                    }
+                    NotificationCenter.default.post(name: DidReceiveWishsNotification, object: nil, userInfo: ["wishs" :wishList])
+                }
+                catch {
+                    print("---> error : \(error)")
+                }
 
+            }
         }
     }
 }
-
-

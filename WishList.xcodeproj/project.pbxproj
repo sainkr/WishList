@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		360A8B76265248D000D107EE /* WishInnerDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360A8B75265248D000D107EE /* WishInnerDB.swift */; };
+		360A8B802652563C00D107EE /* WishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360A8B7F2652563C00D107EE /* WishViewModel.swift */; };
 		360B5A4C25EF497600647860 /* InnerDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B5A4B25EF497600647860 /* InnerDB.swift */; };
-		360CBB0F25DF90BB009C0DEE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 360CBB0E25DF90BB009C0DEE /* GoogleService-Info.plist */; };
 		360EC2F825F5F9B900FAB92A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360EC2F725F5F9B900FAB92A /* ShareViewController.swift */; };
 		360EC2FB25F5F9B900FAB92A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 360EC2F925F5F9B900FAB92A /* MainInterface.storyboard */; };
 		360EC2FF25F5F9B900FAB92A /* Share.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 360EC2F525F5F9B900FAB92A /* Share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -29,20 +30,16 @@
 		3645275F25DE497700F438AE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645275E25DE497700F438AE /* MapViewController.swift */; };
 		3645276425DE498300F438AE /* SelectWishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645276325DE498300F438AE /* SelectWishViewController.swift */; };
 		3645276925DE498F00F438AE /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645276825DE498F00F438AE /* SearchViewController.swift */; };
-		3645276F25DE49BC00F438AE /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645276E25DE49BC00F438AE /* Tag.swift */; };
-		3645277725DE49C600F438AE /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645277625DE49C600F438AE /* Photo.swift */; };
 		3645277C25DE49CC00F438AE /* Wish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645277B25DE49CC00F438AE /* Wish.swift */; };
 		364527CD25DE56BC00F438AE /* Pods_WishList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBEC0588425850E59444A9E /* Pods_WishList.framework */; };
 		364FC40E25F34BCC00B49C17 /* EditImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364FC40D25F34BCC00B49C17 /* EditImageViewController.swift */; };
 		365ACF5F261597F500C3BC88 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365ACF5E261597F500C3BC88 /* DataBaseManager.swift */; };
-		365ACF7226159D3100C3BC88 /* WishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365ACF7126159D3100C3BC88 /* WishViewModel.swift */; };
-		365ACF7C26159D5E00C3BC88 /* PlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365ACF7B26159D5E00C3BC88 /* PlaceViewModel.swift */; };
-		365ACF8226159D7000C3BC88 /* PhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365ACF8126159D7000C3BC88 /* PhotoViewModel.swift */; };
-		365ACF8826159D8000C3BC88 /* TagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365ACF8726159D8000C3BC88 /* TagViewModel.swift */; };
+		365ACF7226159D3100C3BC88 /* WishListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365ACF7126159D3100C3BC88 /* WishListViewModel.swift */; };
 		368DFA2325F4E6450089C01D /* AddWishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645275925DE496C00F438AE /* AddWishListViewController.swift */; };
 		36A06D7F25DEBFE900FA19BA /* AddWishList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D7D25DEBFE900FA19BA /* AddWishList.storyboard */; };
 		36A06D8725DEBFF200FA19BA /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D8625DEBFF200FA19BA /* Search.storyboard */; };
-		36B48B5925E389D000BD927D /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B48B5825E389D000BD927D /* Place.swift */; };
+		36C0B5642650122D00825DF5 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C0B5632650122D00825DF5 /* Loading.swift */; };
+		36ED3064261C435B0058E16E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36ED3063261C435A0058E16E /* GoogleService-Info.plist */; };
 		36FD361625E9346F00D0AB2E /* ShowImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FD361525E9346F00D0AB2E /* ShowImageViewController.swift */; };
 		9D96D6F35562F774C9680A2A /* Pods_WishListTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E163203F763D49F769D82183 /* Pods_WishListTests.framework */; };
 		B4ABC6F0AE8E30FF0E707BC6 /* Pods_WishList_WishListUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30E60BFF157A6793A761B0A /* Pods_WishList_WishListUITests.framework */; };
@@ -88,8 +85,9 @@
 
 /* Begin PBXFileReference section */
 		0E03650F63E4F292BB9A9774 /* Pods-WishListTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishListTests.release.xcconfig"; path = "Target Support Files/Pods-WishListTests/Pods-WishListTests.release.xcconfig"; sourceTree = "<group>"; };
+		360A8B75265248D000D107EE /* WishInnerDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishInnerDB.swift; sourceTree = "<group>"; };
+		360A8B7F2652563C00D107EE /* WishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishViewModel.swift; sourceTree = "<group>"; };
 		360B5A4B25EF497600647860 /* InnerDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerDB.swift; sourceTree = "<group>"; };
-		360CBB0E25DF90BB009C0DEE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		360EC2F525F5F9B900FAB92A /* Share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Share.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		360EC2F725F5F9B900FAB92A /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		360EC2FA25F5F9B900FAB92A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -117,19 +115,15 @@
 		3645275E25DE497700F438AE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		3645276325DE498300F438AE /* SelectWishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWishViewController.swift; sourceTree = "<group>"; };
 		3645276825DE498F00F438AE /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		3645276E25DE49BC00F438AE /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
-		3645277625DE49C600F438AE /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		3645277B25DE49CC00F438AE /* Wish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wish.swift; sourceTree = "<group>"; };
 		364FC40D25F34BCC00B49C17 /* EditImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageViewController.swift; sourceTree = "<group>"; };
 		365ACF5E261597F500C3BC88 /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
-		365ACF7126159D3100C3BC88 /* WishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishViewModel.swift; sourceTree = "<group>"; };
-		365ACF7B26159D5E00C3BC88 /* PlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewModel.swift; sourceTree = "<group>"; };
-		365ACF8126159D7000C3BC88 /* PhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewModel.swift; sourceTree = "<group>"; };
-		365ACF8726159D8000C3BC88 /* TagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewModel.swift; sourceTree = "<group>"; };
+		365ACF7126159D3100C3BC88 /* WishListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewModel.swift; sourceTree = "<group>"; };
 		365CCC5F25F4EC330040713E /* WishList.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WishList.entitlements; sourceTree = "<group>"; };
 		36A06D7E25DEBFE900FA19BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../WishList/WishList/Storyboard/Base.lproj/AddWishList.storyboard; sourceTree = "<group>"; };
 		36A06D8625DEBFF200FA19BA /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Search.storyboard; path = ../../../WishList/WishList/Storyboard/Search.storyboard; sourceTree = "<group>"; };
-		36B48B5825E389D000BD927D /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		36C0B5632650122D00825DF5 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
+		36ED3063261C435A0058E16E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		36FD361525E9346F00D0AB2E /* ShowImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageViewController.swift; sourceTree = "<group>"; };
 		4992E10C4469AAA1C8F35D6C /* Pods-WishList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishList.release.xcconfig"; path = "Target Support Files/Pods-WishList/Pods-WishList.release.xcconfig"; sourceTree = "<group>"; };
 		4E04D392067CE89B676C6BD4 /* Pods-WishList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishList.debug.xcconfig"; path = "Target Support Files/Pods-WishList/Pods-WishList.debug.xcconfig"; sourceTree = "<group>"; };
@@ -224,7 +218,7 @@
 				364526E625DE447300F438AE /* SceneDelegate.swift */,
 				364526F225DE447400F438AE /* Info.plist */,
 				364526E425DE447300F438AE /* AppDelegate.swift */,
-				360CBB0E25DF90BB009C0DEE /* GoogleService-Info.plist */,
+				36ED3063261C435A0058E16E /* GoogleService-Info.plist */,
 			);
 			path = WishList;
 			sourceTree = "<group>";
@@ -261,17 +255,12 @@
 		3645274125DE490100F438AE /* ViewContorller */ = {
 			isa = PBXGroup;
 			children = (
+				36C0B570265013AF00825DF5 /* SearchWish */,
+				36C0B56F2650139500825DF5 /* AddWish */,
+				36C0B56D2650132200825DF5 /* SelectWish */,
 				3645274225DE492A00F438AE /* WishViewController.swift */,
-				3645274A25DE493A00F438AE /* AddPhotoViewController.swift */,
-				3645274F25DE495000F438AE /* SelectTagViewController.swift */,
-				3645275425DE495D00F438AE /* ShowTagViewController.swift */,
-				3645275925DE496C00F438AE /* AddWishListViewController.swift */,
 				3645275E25DE497700F438AE /* MapViewController.swift */,
-				3645276325DE498300F438AE /* SelectWishViewController.swift */,
-				3645276825DE498F00F438AE /* SearchViewController.swift */,
 				363D489A25E2710200FF2210 /* SearchPlaceViewController.swift */,
-				36FD361525E9346F00D0AB2E /* ShowImageViewController.swift */,
-				364FC40D25F34BCC00B49C17 /* EditImageViewController.swift */,
 			);
 			path = ViewContorller;
 			sourceTree = "<group>";
@@ -279,10 +268,8 @@
 		3645276D25DE499B00F438AE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3645276E25DE49BC00F438AE /* Tag.swift */,
-				3645277625DE49C600F438AE /* Photo.swift */,
 				3645277B25DE49CC00F438AE /* Wish.swift */,
-				36B48B5825E389D000BD927D /* Place.swift */,
+				360A8B75265248D000D107EE /* WishInnerDB.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -299,12 +286,40 @@
 		365ACF7026159D1C00C3BC88 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				365ACF7126159D3100C3BC88 /* WishViewModel.swift */,
-				365ACF7B26159D5E00C3BC88 /* PlaceViewModel.swift */,
-				365ACF8126159D7000C3BC88 /* PhotoViewModel.swift */,
-				365ACF8726159D8000C3BC88 /* TagViewModel.swift */,
+				365ACF7126159D3100C3BC88 /* WishListViewModel.swift */,
+				360A8B7F2652563C00D107EE /* WishViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		36C0B56D2650132200825DF5 /* SelectWish */ = {
+			isa = PBXGroup;
+			children = (
+				36C0B5632650122D00825DF5 /* Loading.swift */,
+				36FD361525E9346F00D0AB2E /* ShowImageViewController.swift */,
+				3645275425DE495D00F438AE /* ShowTagViewController.swift */,
+				3645276325DE498300F438AE /* SelectWishViewController.swift */,
+			);
+			path = SelectWish;
+			sourceTree = "<group>";
+		};
+		36C0B56F2650139500825DF5 /* AddWish */ = {
+			isa = PBXGroup;
+			children = (
+				3645275925DE496C00F438AE /* AddWishListViewController.swift */,
+				3645274A25DE493A00F438AE /* AddPhotoViewController.swift */,
+				3645274F25DE495000F438AE /* SelectTagViewController.swift */,
+				364FC40D25F34BCC00B49C17 /* EditImageViewController.swift */,
+			);
+			path = AddWish;
+			sourceTree = "<group>";
+		};
+		36C0B570265013AF00825DF5 /* SearchWish */ = {
+			isa = PBXGroup;
+			children = (
+				3645276825DE498F00F438AE /* SearchViewController.swift */,
+			);
+			path = SearchWish;
 			sourceTree = "<group>";
 		};
 		3BBCB7CF0DB9CFB59B6E2E94 /* Frameworks */ = {
@@ -475,7 +490,7 @@
 				36A06D7F25DEBFE900FA19BA /* AddWishList.storyboard in Resources */,
 				364526EC25DE447300F438AE /* Main.storyboard in Resources */,
 				36A06D8725DEBFF200FA19BA /* Search.storyboard in Resources */,
-				360CBB0F25DF90BB009C0DEE /* GoogleService-Info.plist in Resources */,
+				36ED3064261C435B0058E16E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,26 +626,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3645277725DE49C600F438AE /* Photo.swift in Sources */,
 				3645276925DE498F00F438AE /* SearchViewController.swift in Sources */,
 				364FC40E25F34BCC00B49C17 /* EditImageViewController.swift in Sources */,
 				3645276425DE498300F438AE /* SelectWishViewController.swift in Sources */,
 				365ACF5F261597F500C3BC88 /* DataBaseManager.swift in Sources */,
-				365ACF8826159D8000C3BC88 /* TagViewModel.swift in Sources */,
-				365ACF8226159D7000C3BC88 /* PhotoViewModel.swift in Sources */,
 				3645275525DE495D00F438AE /* ShowTagViewController.swift in Sources */,
 				360B5A4C25EF497600647860 /* InnerDB.swift in Sources */,
 				360EC31A25F600A200FAB92A /* ShareViewController.swift in Sources */,
 				3645277C25DE49CC00F438AE /* Wish.swift in Sources */,
-				365ACF7226159D3100C3BC88 /* WishViewModel.swift in Sources */,
+				360A8B802652563C00D107EE /* WishViewModel.swift in Sources */,
+				365ACF7226159D3100C3BC88 /* WishListViewModel.swift in Sources */,
+				36C0B5642650122D00825DF5 /* Loading.swift in Sources */,
 				364526E525DE447300F438AE /* AppDelegate.swift in Sources */,
 				3645274B25DE493A00F438AE /* AddPhotoViewController.swift in Sources */,
-				3645276F25DE49BC00F438AE /* Tag.swift in Sources */,
 				364526E725DE447300F438AE /* SceneDelegate.swift in Sources */,
-				365ACF7C26159D5E00C3BC88 /* PlaceViewModel.swift in Sources */,
 				368DFA2325F4E6450089C01D /* AddWishListViewController.swift in Sources */,
-				36B48B5925E389D000BD927D /* Place.swift in Sources */,
 				3645274325DE492A00F438AE /* WishViewController.swift in Sources */,
+				360A8B76265248D000D107EE /* WishInnerDB.swift in Sources */,
 				3645275025DE495000F438AE /* SelectTagViewController.swift in Sources */,
 				3645275F25DE497700F438AE /* MapViewController.swift in Sources */,
 				36FD361625E9346F00D0AB2E /* ShowImageViewController.swift in Sources */,

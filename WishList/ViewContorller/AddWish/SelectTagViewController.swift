@@ -9,19 +9,18 @@ import UIKit
 import SnapKit
 
 class SelectTagViewController: UIViewController {
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
-
-    let tagViewModel = TagViewModel()
+    
+    let wishViewModel = WishViewModel()
     
     let TagNotingNotification: Notification.Name = Notification.Name("TagNotingNotification")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.reloadData()
-        
+
         setupView()
-    
+        collectionView.reloadData()
     }
     
     private func setupView() {
@@ -48,7 +47,7 @@ class SelectTagViewController: UIViewController {
 extension SelectTagViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tagViewModel.tags.count
+        return wishViewModel.wish.tag.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -57,14 +56,14 @@ extension SelectTagViewController: UICollectionViewDataSource{
             return UICollectionViewCell()
         }
         
-        let tag = tagViewModel.tags[indexPath.item]
+        let tag = wishViewModel.wish.tag[indexPath.item]
         cell.configure(tag: tag)
         
         cell.deleteButtonTapHandler = {
-            self.tagViewModel.deleteTag(indexPath.item)
+            self.wishViewModel.deleteTag(indexPath.item)
             self.collectionView.reloadData()
             
-            if self.tagViewModel.tags.count == 0{
+            if self.wishViewModel.wish.tag.count == 0{
                 NotificationCenter.default.post(name: self.TagNotingNotification, object: nil, userInfo: nil)
             }
         }
@@ -75,7 +74,7 @@ extension SelectTagViewController: UICollectionViewDataSource{
 
 extension SelectTagViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return TagCell.fittingSize(availableHeight: 45, tag: tagViewModel.tags[indexPath.item])
+        return TagCell.fittingSize(availableHeight: 45, tag: wishViewModel.wish.tag[indexPath.item])
     }
 }
 
@@ -114,7 +113,7 @@ class TagCell: UICollectionViewCell{
         deleteButton.tintColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         
         deleteButton.addTarget(self, action:#selector(TagCell.deleteButtonTapped(_:)), for: .touchUpInside)
-
+        
         contentView.addSubview(titleBackView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(deleteButton)
