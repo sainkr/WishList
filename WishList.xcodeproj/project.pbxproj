@@ -39,6 +39,8 @@
 		36A06D7F25DEBFE900FA19BA /* AddWishList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D7D25DEBFE900FA19BA /* AddWishList.storyboard */; };
 		36A06D8725DEBFF200FA19BA /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D8625DEBFF200FA19BA /* Search.storyboard */; };
 		36C0B5642650122D00825DF5 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C0B5632650122D00825DF5 /* Loading.swift */; };
+		36CBC56A2656434000CF9F5B /* WishListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CBC5682656434000CF9F5B /* WishListCell.swift */; };
+		36CBC56B2656434000CF9F5B /* WishListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36CBC5692656434000CF9F5B /* WishListCell.xib */; };
 		36ED3064261C435B0058E16E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36ED3063261C435A0058E16E /* GoogleService-Info.plist */; };
 		36FD361625E9346F00D0AB2E /* ShowImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FD361525E9346F00D0AB2E /* ShowImageViewController.swift */; };
 		9D96D6F35562F774C9680A2A /* Pods_WishListTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E163203F763D49F769D82183 /* Pods_WishListTests.framework */; };
@@ -123,6 +125,8 @@
 		36A06D7E25DEBFE900FA19BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../WishList/WishList/Storyboard/Base.lproj/AddWishList.storyboard; sourceTree = "<group>"; };
 		36A06D8625DEBFF200FA19BA /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Search.storyboard; path = ../../../WishList/WishList/Storyboard/Search.storyboard; sourceTree = "<group>"; };
 		36C0B5632650122D00825DF5 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
+		36CBC5682656434000CF9F5B /* WishListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListCell.swift; sourceTree = "<group>"; };
+		36CBC5692656434000CF9F5B /* WishListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WishListCell.xib; sourceTree = "<group>"; };
 		36ED3063261C435A0058E16E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		36FD361525E9346F00D0AB2E /* ShowImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageViewController.swift; sourceTree = "<group>"; };
 		4992E10C4469AAA1C8F35D6C /* Pods-WishList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishList.release.xcconfig"; path = "Target Support Files/Pods-WishList/Pods-WishList.release.xcconfig"; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				364526E325DE447300F438AE /* WishList */,
+				36CBC555265642DA00CF9F5B /* CollectionViewCell */,
 				364526FA25DE447400F438AE /* WishListTests */,
 				3645270525DE447400F438AE /* WishListUITests */,
 				360EC2F625F5F9B900FAB92A /* Share */,
@@ -320,6 +325,15 @@
 				3645276825DE498F00F438AE /* SearchViewController.swift */,
 			);
 			path = SearchWish;
+			sourceTree = "<group>";
+		};
+		36CBC555265642DA00CF9F5B /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				36CBC5682656434000CF9F5B /* WishListCell.swift */,
+				36CBC5692656434000CF9F5B /* WishListCell.xib */,
+			);
+			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
 		3BBCB7CF0DB9CFB59B6E2E94 /* Frameworks */ = {
@@ -484,6 +498,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36CBC56B2656434000CF9F5B /* WishListCell.xib in Resources */,
 				360EC30C25F5FA7900FAB92A /* MainInterface.storyboard in Resources */,
 				364526F125DE447400F438AE /* LaunchScreen.storyboard in Resources */,
 				364526EE25DE447400F438AE /* Assets.xcassets in Resources */,
@@ -644,6 +659,7 @@
 				3645274325DE492A00F438AE /* WishViewController.swift in Sources */,
 				360A8B76265248D000D107EE /* WishInnerDB.swift in Sources */,
 				3645275025DE495000F438AE /* SelectTagViewController.swift in Sources */,
+				36CBC56A2656434000CF9F5B /* WishListCell.swift in Sources */,
 				3645275F25DE497700F438AE /* MapViewController.swift in Sources */,
 				36FD361625E9346F00D0AB2E /* ShowImageViewController.swift in Sources */,
 				363D489B25E2710200FF2210 /* SearchPlaceViewController.swift in Sources */,

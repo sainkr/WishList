@@ -18,6 +18,12 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let nibName = UINib(nibName: "WishListCell", bundle: nil)
+
+        collectionView.register(nibName, forCellWithReuseIdentifier: "WishListCell")
+        
+        
         wishListViewModel.filterWish("", "", 0)
     }
     
