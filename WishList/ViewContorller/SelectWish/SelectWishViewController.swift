@@ -33,6 +33,11 @@ class SelectWishViewController: UIViewController {
     var wishFavoriteType: WishFavoriteType = .mywish
     var selectIndex: Int = -1
     
+    @IBOutlet weak var imageViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var imageViewBottom: NSLayoutConstraint!
+    @IBOutlet weak var mapViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var mapViewWidth: NSLayoutConstraint!
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "tag" {
             let destinationVC = segue.destination as? SelectTagViewController
@@ -43,6 +48,7 @@ class SelectWishViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setConstant()
         setWish()
         setNavigationBar()
         setGesture()
@@ -91,6 +97,15 @@ class SelectWishViewController: UIViewController {
 }
 
 extension SelectWishViewController{
+    func setConstant(){
+        let width = view.bounds.width
+        imageViewWidth.constant = width
+        imageViewBottom.constant = width + 10
+        
+        mapViewWidth.constant = width - 20
+        mapViewHeight.constant = (width - 20) * 3 / 4
+    }
+    
     func setNavigationBar(){
         bar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         bar.shadowImage = UIImage()

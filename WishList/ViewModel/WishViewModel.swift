@@ -49,7 +49,11 @@ class WishManager{
     }
     
     func deletePhoto(_ index: Int){
-        wish.photo.remove(at: index)
+        if wish.photo.count > 0 {
+            print("---> photo : \(wish.photo)")
+            print("---> index : \(index)")
+            wish.photo.remove(at: index - 1)
+        }
     }
     
     func setPhoto(_ index: Int, _ img: UIImage){

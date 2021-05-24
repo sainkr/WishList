@@ -57,8 +57,10 @@ class AddWishListViewController: UIViewController{
         placeTextField.delegate = self
         tagSelectTextField.delegate = self
         
+        setView()
+        
         if wishType == .wishUpdate { // 글 수정
-            setWish() // favorite인지 일반인지
+            setContent()
             navigationBar.topItem?.title = "Wish 수정"
         } else {
             navigationBar.topItem?.title = "Wish 추가"
@@ -68,8 +70,6 @@ class AddWishListViewController: UIViewController{
                 wishViewModel.resetWish()
             }
         }
-    
-        setView()
         
         NotificationCenter.default.addObserver(self, selector: #selector(placeAddCompleteNotification(_:)), name: PlaceAddCompleteNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(tagNotingNotification(_:)), name: TagNotingNotification, object: nil)
@@ -102,17 +102,8 @@ extension AddWishListViewController{
         navigationBar.titleTextAttributes = [ NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18, weight: .bold) ]
     }
     
-    func setWish(){
-        /*if wishFavoriteType == .favoriteWish { //favorite wish
-            wish = wishListViewModel.favoriteWishs[selectIndex]
-        } else { // my wish
-            wish = wishListViewModel.wishList[selectIndex]
-        }*/
-        
-        setContent()
-    }
-    
     func setContent(){
+        print("---> wish : \(wishViewModel.wish)")
         nameTextField.text = wishViewModel.wish.name
         memoTextView.text = wishViewModel.wish.content
         memoTextView.textColor = .black
