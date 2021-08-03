@@ -51,7 +51,7 @@ class ShowTagViewController: UIViewController {
 extension ShowTagViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return wishViewModel.wish.tag.count
+        return wishViewModel.tags.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -60,7 +60,7 @@ extension ShowTagViewController: UICollectionViewDataSource{
             return UICollectionViewCell()
         }
         
-        let tag = wishViewModel.wish.tag[indexPath.item]
+        let tag = wishViewModel.tags[indexPath.item]
         cell.configure(tag: tag)
         
         return cell
@@ -69,10 +69,9 @@ extension ShowTagViewController: UICollectionViewDataSource{
 
 extension ShowTagViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return ShowTagCell.fittingSize(availableHeight: 45, tag: wishViewModel.wish.tag[indexPath.item])
+        return ShowTagCell.fittingSize(availableHeight: 45, tag: wishViewModel.tags[indexPath.item])
     }
 }
-
 
 class ShowTagCell: UICollectionViewCell{
     static func fittingSize(availableHeight: CGFloat, tag: String) -> CGSize {
@@ -120,6 +119,3 @@ class ShowTagCell: UICollectionViewCell{
         titleLabel.text = tag
     }
 }
-
-
-

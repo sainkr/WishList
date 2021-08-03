@@ -23,9 +23,9 @@
 		364526F125DE447400F438AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 364526EF25DE447400F438AE /* LaunchScreen.storyboard */; };
 		364526FC25DE447400F438AE /* WishListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364526FB25DE447400F438AE /* WishListTests.swift */; };
 		3645270725DE447400F438AE /* WishListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645270625DE447400F438AE /* WishListUITests.swift */; };
-		3645274325DE492A00F438AE /* WishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645274225DE492A00F438AE /* WishViewController.swift */; };
+		3645274325DE492A00F438AE /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645274225DE492A00F438AE /* MainViewController.swift */; };
 		3645274B25DE493A00F438AE /* AddPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645274A25DE493A00F438AE /* AddPhotoViewController.swift */; };
-		3645275025DE495000F438AE /* SelectTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645274F25DE495000F438AE /* SelectTagViewController.swift */; };
+		3645275025DE495000F438AE /* AddTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645274F25DE495000F438AE /* AddTagViewController.swift */; };
 		3645275525DE495D00F438AE /* ShowTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645275425DE495D00F438AE /* ShowTagViewController.swift */; };
 		3645275F25DE497700F438AE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645275E25DE497700F438AE /* MapViewController.swift */; };
 		3645276425DE498300F438AE /* SelectWishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645276325DE498300F438AE /* SelectWishViewController.swift */; };
@@ -35,13 +35,12 @@
 		364FC40E25F34BCC00B49C17 /* EditImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364FC40D25F34BCC00B49C17 /* EditImageViewController.swift */; };
 		365ACF5F261597F500C3BC88 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365ACF5E261597F500C3BC88 /* DataBaseManager.swift */; };
 		365ACF7226159D3100C3BC88 /* WishListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365ACF7126159D3100C3BC88 /* WishListViewModel.swift */; };
-		368DFA2325F4E6450089C01D /* AddWishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645275925DE496C00F438AE /* AddWishListViewController.swift */; };
-		36A06D7F25DEBFE900FA19BA /* AddWishList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D7D25DEBFE900FA19BA /* AddWishList.storyboard */; };
-		36A06D8725DEBFF200FA19BA /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36A06D8625DEBFF200FA19BA /* Search.storyboard */; };
+		368DFA2325F4E6450089C01D /* AddWishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645275925DE496C00F438AE /* AddWishViewController.swift */; };
 		36C0B5642650122D00825DF5 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C0B5632650122D00825DF5 /* Loading.swift */; };
 		36CBC56A2656434000CF9F5B /* WishListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CBC5682656434000CF9F5B /* WishListCell.swift */; };
 		36CBC56B2656434000CF9F5B /* WishListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36CBC5692656434000CF9F5B /* WishListCell.xib */; };
 		36ED3064261C435B0058E16E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36ED3063261C435A0058E16E /* GoogleService-Info.plist */; };
+		36F46B4626B2974E001EA603 /* ImagePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F46B4526B2974E001EA603 /* ImagePageViewController.swift */; };
 		36FD361625E9346F00D0AB2E /* ShowImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FD361525E9346F00D0AB2E /* ShowImageViewController.swift */; };
 		9D96D6F35562F774C9680A2A /* Pods_WishListTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E163203F763D49F769D82183 /* Pods_WishListTests.framework */; };
 		B4ABC6F0AE8E30FF0E707BC6 /* Pods_WishList_WishListUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F30E60BFF157A6793A761B0A /* Pods_WishList_WishListUITests.framework */; };
@@ -109,11 +108,11 @@
 		3645270225DE447400F438AE /* WishListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WishListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3645270625DE447400F438AE /* WishListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListUITests.swift; sourceTree = "<group>"; };
 		3645270825DE447400F438AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3645274225DE492A00F438AE /* WishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishViewController.swift; sourceTree = "<group>"; };
+		3645274225DE492A00F438AE /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3645274A25DE493A00F438AE /* AddPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoViewController.swift; sourceTree = "<group>"; };
-		3645274F25DE495000F438AE /* SelectTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagViewController.swift; sourceTree = "<group>"; };
+		3645274F25DE495000F438AE /* AddTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagViewController.swift; sourceTree = "<group>"; };
 		3645275425DE495D00F438AE /* ShowTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTagViewController.swift; sourceTree = "<group>"; };
-		3645275925DE496C00F438AE /* AddWishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWishListViewController.swift; sourceTree = "<group>"; };
+		3645275925DE496C00F438AE /* AddWishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWishViewController.swift; sourceTree = "<group>"; };
 		3645275E25DE497700F438AE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		3645276325DE498300F438AE /* SelectWishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWishViewController.swift; sourceTree = "<group>"; };
 		3645276825DE498F00F438AE /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -122,12 +121,11 @@
 		365ACF5E261597F500C3BC88 /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
 		365ACF7126159D3100C3BC88 /* WishListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewModel.swift; sourceTree = "<group>"; };
 		365CCC5F25F4EC330040713E /* WishList.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WishList.entitlements; sourceTree = "<group>"; };
-		36A06D7E25DEBFE900FA19BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../WishList/WishList/Storyboard/Base.lproj/AddWishList.storyboard; sourceTree = "<group>"; };
-		36A06D8625DEBFF200FA19BA /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Search.storyboard; path = ../../../WishList/WishList/Storyboard/Search.storyboard; sourceTree = "<group>"; };
 		36C0B5632650122D00825DF5 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		36CBC5682656434000CF9F5B /* WishListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListCell.swift; sourceTree = "<group>"; };
 		36CBC5692656434000CF9F5B /* WishListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WishListCell.xib; sourceTree = "<group>"; };
 		36ED3063261C435A0058E16E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		36F46B4526B2974E001EA603 /* ImagePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePageViewController.swift; sourceTree = "<group>"; };
 		36FD361525E9346F00D0AB2E /* ShowImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageViewController.swift; sourceTree = "<group>"; };
 		4992E10C4469AAA1C8F35D6C /* Pods-WishList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishList.release.xcconfig"; path = "Target Support Files/Pods-WishList/Pods-WishList.release.xcconfig"; sourceTree = "<group>"; };
 		4E04D392067CE89B676C6BD4 /* Pods-WishList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishList.debug.xcconfig"; path = "Target Support Files/Pods-WishList/Pods-WishList.debug.xcconfig"; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				364526E325DE447300F438AE /* WishList */,
-				36CBC555265642DA00CF9F5B /* CollectionViewCell */,
 				364526FA25DE447400F438AE /* WishListTests */,
 				3645270525DE447400F438AE /* WishListUITests */,
 				360EC2F625F5F9B900FAB92A /* Share */,
@@ -215,6 +212,7 @@
 			children = (
 				365ACF5D261597E700C3BC88 /* DB */,
 				365CCC5F25F4EC330040713E /* WishList.entitlements */,
+				36CBC555265642DA00CF9F5B /* TableViewCell */,
 				3645273425DE489200F438AE /* Storyboard */,
 				3645274125DE490100F438AE /* ViewContorller */,
 				3645276D25DE499B00F438AE /* Model */,
@@ -251,8 +249,6 @@
 			children = (
 				364526EA25DE447300F438AE /* Main.storyboard */,
 				364526EF25DE447400F438AE /* LaunchScreen.storyboard */,
-				36A06D7D25DEBFE900FA19BA /* AddWishList.storyboard */,
-				36A06D8625DEBFF200FA19BA /* Search.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -263,7 +259,7 @@
 				36C0B570265013AF00825DF5 /* SearchWish */,
 				36C0B56F2650139500825DF5 /* AddWish */,
 				36C0B56D2650132200825DF5 /* SelectWish */,
-				3645274225DE492A00F438AE /* WishViewController.swift */,
+				3645274225DE492A00F438AE /* MainViewController.swift */,
 				3645275E25DE497700F438AE /* MapViewController.swift */,
 				363D489A25E2710200FF2210 /* SearchPlaceViewController.swift */,
 			);
@@ -304,6 +300,7 @@
 				36FD361525E9346F00D0AB2E /* ShowImageViewController.swift */,
 				3645275425DE495D00F438AE /* ShowTagViewController.swift */,
 				3645276325DE498300F438AE /* SelectWishViewController.swift */,
+				36F46B4526B2974E001EA603 /* ImagePageViewController.swift */,
 			);
 			path = SelectWish;
 			sourceTree = "<group>";
@@ -311,9 +308,9 @@
 		36C0B56F2650139500825DF5 /* AddWish */ = {
 			isa = PBXGroup;
 			children = (
-				3645275925DE496C00F438AE /* AddWishListViewController.swift */,
+				3645275925DE496C00F438AE /* AddWishViewController.swift */,
 				3645274A25DE493A00F438AE /* AddPhotoViewController.swift */,
-				3645274F25DE495000F438AE /* SelectTagViewController.swift */,
+				3645274F25DE495000F438AE /* AddTagViewController.swift */,
 				364FC40D25F34BCC00B49C17 /* EditImageViewController.swift */,
 			);
 			path = AddWish;
@@ -327,13 +324,13 @@
 			path = SearchWish;
 			sourceTree = "<group>";
 		};
-		36CBC555265642DA00CF9F5B /* CollectionViewCell */ = {
+		36CBC555265642DA00CF9F5B /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				36CBC5682656434000CF9F5B /* WishListCell.swift */,
 				36CBC5692656434000CF9F5B /* WishListCell.xib */,
 			);
-			path = CollectionViewCell;
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 		3BBCB7CF0DB9CFB59B6E2E94 /* Frameworks */ = {
@@ -502,9 +499,7 @@
 				360EC30C25F5FA7900FAB92A /* MainInterface.storyboard in Resources */,
 				364526F125DE447400F438AE /* LaunchScreen.storyboard in Resources */,
 				364526EE25DE447400F438AE /* Assets.xcassets in Resources */,
-				36A06D7F25DEBFE900FA19BA /* AddWishList.storyboard in Resources */,
 				364526EC25DE447300F438AE /* Main.storyboard in Resources */,
-				36A06D8725DEBFF200FA19BA /* Search.storyboard in Resources */,
 				36ED3064261C435B0058E16E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -643,6 +638,7 @@
 			files = (
 				3645276925DE498F00F438AE /* SearchViewController.swift in Sources */,
 				364FC40E25F34BCC00B49C17 /* EditImageViewController.swift in Sources */,
+				36F46B4626B2974E001EA603 /* ImagePageViewController.swift in Sources */,
 				3645276425DE498300F438AE /* SelectWishViewController.swift in Sources */,
 				365ACF5F261597F500C3BC88 /* DataBaseManager.swift in Sources */,
 				3645275525DE495D00F438AE /* ShowTagViewController.swift in Sources */,
@@ -655,10 +651,10 @@
 				364526E525DE447300F438AE /* AppDelegate.swift in Sources */,
 				3645274B25DE493A00F438AE /* AddPhotoViewController.swift in Sources */,
 				364526E725DE447300F438AE /* SceneDelegate.swift in Sources */,
-				368DFA2325F4E6450089C01D /* AddWishListViewController.swift in Sources */,
-				3645274325DE492A00F438AE /* WishViewController.swift in Sources */,
+				368DFA2325F4E6450089C01D /* AddWishViewController.swift in Sources */,
+				3645274325DE492A00F438AE /* MainViewController.swift in Sources */,
 				360A8B76265248D000D107EE /* WishInnerDB.swift in Sources */,
-				3645275025DE495000F438AE /* SelectTagViewController.swift in Sources */,
+				3645275025DE495000F438AE /* AddTagViewController.swift in Sources */,
 				36CBC56A2656434000CF9F5B /* WishListCell.swift in Sources */,
 				3645275F25DE497700F438AE /* MapViewController.swift in Sources */,
 				36FD361625E9346F00D0AB2E /* ShowImageViewController.swift in Sources */,
@@ -725,14 +721,6 @@
 				364526F025DE447400F438AE /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		36A06D7D25DEBFE900FA19BA /* AddWishList.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				36A06D7E25DEBFE900FA19BA /* Base */,
-			);
-			name = AddWishList.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

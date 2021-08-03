@@ -9,55 +9,55 @@ import UIKit
 import CoreLocation
 
 struct Wish: Equatable{
-    var timestamp: Int
-    var name: String
-    var tag: [String]
-    var tagString: String
-    var content: String
-    var photo: [UIImage]
-    var img: [String]
-    var link: String
-    var placeName: String
-    var placeLat: Double
-    var placeLng : Double
-    var favorite: Int
-    
-    mutating func update(_ wish: Wish) {
-        self.name = wish.name
-        self.tag = wish.tag
-        self.tagString = wish.tagString
-        self.content = wish.content
-        self.photo = wish.photo
-        self.img = wish.img
-        self.link = wish.link
-        self.placeName = wish.placeName
-        self.placeLat = wish.placeLat
-        self.placeLng = wish.placeLng
-    }
+  var timestamp: Int
+  var name: String
+  var tag: [String]
+  var memo: String
+  var img: [UIImage]
+  var imgURL: [String]
+  var link: String
+  var place: Place
+  var favorite: Int
+  
+  mutating func update(_ wish: Wish) {
+    self.name = wish.name
+    self.tag = wish.tag
+    self.memo = wish.memo
+    self.img = wish.img
+    self.imgURL = wish.imgURL
+    self.link = wish.link
+    self.place = wish.place
+  }
 }
 
 struct WishDB: Codable{
-    var timestamp: Int
-    var name: String
-    var tag: [String]
-    var tagString: String
-    var content: String
-    var img: [String]
-    var link: String
-    var placeName: String
-    var placeLat: Double
-    var placeLng : Double
-    var favorite: Int
+  var timestamp: Int
+  var name: String
+  var tag: [String]
+  var memo: String
+  var imgURL: [String]
+  var link: String
+  var placeName: String
+  var placeLat: Double
+  var placeLng: Double
+  var favorite: Int
 }
-
 
 enum WishType{
-    case wishAdd
-    case wishUpdate
-    case wishPlaceAdd
+  case wishAdd
+  case wishUpdate
+  case wishPlaceAdd
 }
 
-enum WishFavoriteType{
-    case mywish
-    case favoriteWish
+struct Place: Codable, Equatable{
+  var name: String
+  var lat: Double
+  var lng: Double
+}
+
+enum SearchType{
+  case name
+  case tag
+  case all
+  case none
 }
