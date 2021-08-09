@@ -16,8 +16,8 @@ struct Wish: Equatable{
   var img: [UIImage]
   var imgURL: [String]
   var link: String
-  var place: Place
-  var favorite: Int
+  var place: Place?
+  var favorite: Bool
   
   mutating func update(_ wish: Wish) {
     self.name = wish.name
@@ -40,13 +40,14 @@ struct WishDB: Codable{
   var placeName: String
   var placeLat: Double
   var placeLng: Double
-  var favorite: Int
+  var favorite: Bool
 }
 
 enum WishType{
   case wishAdd
   case wishUpdate
   case wishPlaceAdd
+  case wishDelete
 }
 
 struct Place: Codable, Equatable{
@@ -60,4 +61,15 @@ enum SearchType{
   case tag
   case all
   case none
+}
+
+enum ImageType{
+  case uiImage
+  case url
+  case none
+}
+
+enum ImageSizeType{
+  case small
+  case large
 }

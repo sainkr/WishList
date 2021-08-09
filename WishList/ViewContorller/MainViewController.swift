@@ -38,27 +38,11 @@ class MainViewController: UIViewController {
   }
   
   func registerWishTableViewCells(){
-    let wishTableViewCellNib = UINib(nibName: WishListCell.identifier, bundle: nil)
-    wishTableView.register(wishTableViewCellNib, forCellReuseIdentifier: WishListCell.identifier)
-  }
-  
-  func addShareWish(){ // Share extension에서 추가한 wish 저장
-    let defaults = UserDefaults(suiteName: "group.com.sainkr.WishList")
-    guard let name = defaults?.string(forKey: "Name") else { return }
-    guard let memo = defaults?.string(forKey: "Memo") else { return }
-    guard let tag = defaults?.stringArray(forKey: "Tag") else { return }
-    guard let url = defaults?.string(forKey: "URL") else { return }
-    let wish = wishViewModel.createWish(name: name, memo: memo, tag: tag, link: url)
-    wishViewModel.addWish(wish)
-    wishTableView.reloadData()
-    defaults?.removeObject(forKey: "Name")
-    defaults?.removeObject(forKey: "Memo")
-    defaults?.removeObject(forKey: "Tag")
-    defaults?.removeObject(forKey: "URL")
+    let wishTableViewCellNib = UINib(nibName: WishListTableViewCell.identifier, bundle: nil)
+    wishTableView.register(wishTableViewCellNib, forCellReuseIdentifier: WishListTableViewCell.identifier)
   }
   
   func setaddButton(){
-    view.addSubview(addButton)
     addButton.layer.shadowColor = UIColor.black.cgColor
     addButton.layer.masksToBounds = false
     addButton.layer.shadowOffset = CGSize(width: 0, height: 1)
@@ -69,21 +53,35 @@ class MainViewController: UIViewController {
   @objc func didReciveWishsNotification(_ noti: Notification){
     guard let wishList = noti.userInfo?["wishs"] as? [Wish] else { return }
     wishViewModel.setWishList(wishList)
-    wishViewModel.changeUIImage()
     DispatchQueue.main.async {
       self.wishTableView.reloadData()
     }
   }
   
+  func addShareWish(){ // Share extension에서 추가한 wish 저장
+    let defaults = UserDefaults(suiteName: "group.com.sainkr.WishList")
+    guard let name = defaults?.string(forKey: "Name") else { return }
+    guard let memo = defaults?.string(forKey: "Memo") else { return }
+    guard let tag = defaults?.stringArray(forKey: "Tag") else { return }
+    guard let url = defaults?.string(forKey: "URL") else { return }
+    wishViewModel.addWish(name: name, memo: memo, tag: tag, link: url)
+    wishTableView.reloadData()
+    defaults?.removeObject(forKey: "Name")
+    defaults?.removeObject(forKey: "Memo")
+    defaults?.removeObject(forKey: "Tag")
+    defaults?.removeObject(forKey: "URL")
+  }
+
+}
+
+// MARK:- IBAction
+extension MainViewController{
   @IBAction func mapButtonTapped(_ sender: Any) {
     guard let mapVC = storyboard?.instantiateViewController(identifier: "MapViewController") as? MapViewController else { return }
     mapVC.modalPresentationStyle = .fullScreen
     present(mapVC, animated: true, completion: nil)
   }
-}
-
-// MARK:- IBAction
-extension MainViewController{
+  
   @IBAction func searchButtonTapped(_ sender: Any) {
     guard let searchVC = storyboard?.instantiateViewController(identifier: SearchWishViewController.identifier ) as? SearchWishViewController else { return }
     searchVC.modalPresentationStyle = .fullScreen
@@ -96,6 +94,12 @@ extension MainViewController{
     addWishListVC.wishType = WishType.wishAdd
     present(addWishListVC, animated: true, completion: nil)
   }
+  
+  @IBAction func favorieButtonTapped(_ sender: Any) {
+    guard let searchVC = storyboard?.instantiateViewController(identifier: FavoriteWishViewController.identifier ) as? FavoriteWishViewController else { return }
+    searchVC.modalPresentationStyle = .fullScreen
+    present(searchVC, animated: true, completion: nil)
+  }
 }
 
 // MARK:- TableView
@@ -105,13 +109,13 @@ extension MainViewController: UITableViewDataSource{
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: WishListCell.identifier, for: indexPath) as? WishListCell else {
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: WishListTableViewCell.identifier, for: indexPath) as? WishListTableViewCell else {
       return UITableViewCell()
     }
     
     cell.favoriteButtonTapHandler = {
+      self.wishViewModel.updateFavorite(index: indexPath.item)
       cell.updateFavorite(self.wishViewModel.wishs[indexPath.item].favorite)
-      self.wishViewModel.updateFavorite(self.wishViewModel.wishs[indexPath.item])
       tableView.reloadData()
     }
     
@@ -128,5 +132,9 @@ extension MainViewController: UITableViewDelegate{
     selectWishVC.modalPresentationStyle = .fullScreen
     selectWishVC.index = indexPath.item
     present(selectWishVC, animated: true, completion: nil)
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return WishListTableViewCell.height
   }
 }

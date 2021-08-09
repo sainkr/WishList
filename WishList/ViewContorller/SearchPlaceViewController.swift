@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-class SearchPlaceViewController: UIViewController, MKLocalSearchCompleterDelegate {
+class SearchPlaceViewController: UIViewController {
   static let identifier = "SearchPlaceViewController"
   private var searchCompleter = MKLocalSearchCompleter()
   private var searchResults = [MKLocalSearchCompletion]()
@@ -17,7 +17,8 @@ class SearchPlaceViewController: UIViewController, MKLocalSearchCompleterDelegat
   @IBOutlet weak var searchResultTableView: UITableView!
   
   let wishViewModel = WishViewModel()
-  let PlaceAddCompleteNotification: Notification.Name = Notification.Name("PlaceAddCompleteNotification")
+
+  var mapViewDelegate: MapViewDelegate?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -34,8 +35,6 @@ extension SearchPlaceViewController: UISearchBarDelegate{
       searchResults.removeAll()
       searchResultTableView.reloadData()
     }
-    
-    // 사용자가 search bar 에 입력한 text를 자동완성 대상에 넣는다
     searchCompleter.queryFragment = searchText
   }
   
@@ -44,8 +43,7 @@ extension SearchPlaceViewController: UISearchBarDelegate{
   }
 }
 
-extension SearchPlaceViewController {
-  // 자동완성 완료시 결과를 받는 method
+extension SearchPlaceViewController: MKLocalSearchCompleterDelegate  {
   func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
     searchResults = completer.results
     searchResultTableView.reloadData()
@@ -63,35 +61,25 @@ extension SearchPlaceViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = searchResultTableView.dequeueReusableCell(withIdentifier: "SearchPlaceCell", for: indexPath) as? SearchPlaceCell else { return UITableViewCell() }
-    
     let searchResult = searchResults[indexPath.row]
-    
     cell.updateUI(searchResult.title, searchResult.subtitle)
-    
     return cell
   }
 }
 
-
 extension SearchPlaceViewController: UITableViewDelegate{
-  // 선택된 위치의 정보 가져오기
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selectedResult = searchResults[indexPath.row]
     let searchRequest = MKLocalSearch.Request(completion: selectedResult)
     let search = MKLocalSearch(request: searchRequest)
     search.start { (response, error) in
-      guard error == nil else{
+      guard error == nil else {
         print("---> error : \(String(describing: error))")
         return
       }
-      guard let placeMark = response?.mapItems[0].placemark else {
-        return
-      }
-      
-      // self.wishViewModel.addPlace(Place(name: selectedResult.title , lat: placeMark.coordinate.latitude, lng: placeMark.coordinate.longitude))
-      
-      NotificationCenter.default.post(name: self.PlaceAddCompleteNotification, object: nil, userInfo: nil)
-      
+      guard let placeMark = response?.mapItems[0].placemark else { return }
+  
+      self.mapViewDelegate?.mapViewUpdate(place: Place(name: selectedResult.title, lat: placeMark.coordinate.latitude, lng: placeMark.coordinate.longitude))
       self.dismiss(animated: true, completion: nil)
     }
   }

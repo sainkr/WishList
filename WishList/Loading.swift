@@ -47,3 +47,7 @@ class LoadingHUD: NSObject {
     return animationArray
   }
 }
+
+class Loading{
+  
+}

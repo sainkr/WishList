@@ -37,6 +37,9 @@ PODS:
     - nanopb/encode (= 2.30907.0)
   - nanopb/decode (2.30907.0)
   - nanopb/encode (2.30907.0)
+  - NVActivityIndicatorView (5.1.1):
+    - NVActivityIndicatorView/Base (= 5.1.1)
+  - NVActivityIndicatorView/Base (5.1.1)
   - PromisesObjC (1.2.12)
   - SnapKit (5.0.1)
 
@@ -45,6 +48,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - Kingfisher (~> 6.0)
   - Mantis (~> 1.4.13)
+  - NVActivityIndicatorView
   - SnapKit (~> 5.0.0)
 
 SPEC REPOS:
@@ -61,6 +65,7 @@ SPEC REPOS:
     - leveldb-library
     - Mantis
     - nanopb
+    - NVActivityIndicatorView
     - PromisesObjC
     - SnapKit
 
@@ -77,9 +82,10 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   Mantis: 5d93257edc89b07dc6898c4133b3838e37ee01ea
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
+  NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 7c0b6bf2121b4003c213c4bd9835d986fb0167a4
+PODFILE CHECKSUM: 94e474cc58f371c68bfcd787094c9c09d0031662
 
 COCOAPODS: 1.10.1

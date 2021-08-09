@@ -12,6 +12,8 @@ target 'WishList' do
   pod 'SnapKit', '~> 5.0.0'
   pod 'Kingfisher', '~> 6.0'
   pod 'Mantis', '~> 1.4.13'
+  
+  pod 'NVActivityIndicatorView'
 
   target 'WishListTests' do
     inherit! :search_paths

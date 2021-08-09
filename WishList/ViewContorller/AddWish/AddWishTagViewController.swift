@@ -8,17 +8,18 @@
 import UIKit
 import SnapKit
 
-class AddTagViewController: UIViewController {
+class AddWishTagViewController: UIViewController {
   @IBOutlet weak var collectionView: UICollectionView!
   
   let wishViewModel = WishViewModel()
   
-  let TagNotingNotification: Notification.Name = Notification.Name("TagNotingNotification")
-  
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     setupView()
+    collectionView.reloadData()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
     collectionView.reloadData()
   }
   
@@ -43,36 +44,28 @@ class AddTagViewController: UIViewController {
   
 }
 
-extension AddTagViewController: UICollectionViewDataSource{
+extension AddWishTagViewController: UICollectionViewDataSource{
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return wishViewModel.tags.count
+    return wishViewModel.wishs[wishViewModel.wishs.count - 1].tag.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TagCell", for: indexPath) as? TagCell else {
       return UICollectionViewCell()
     }
-    
-    let tag = wishViewModel.tags[indexPath.item]
+    let tag = wishViewModel.wishs[wishViewModel.wishs.count - 1].tag[indexPath.item]
     cell.configure(tag: tag)
-    
     cell.deleteButtonTapHandler = {
-      self.wishViewModel.deleteTag(indexPath.item)
+      self.wishViewModel.removeTag(index: indexPath.item)
       self.collectionView.reloadData()
-      
-      if self.wishViewModel.tags.count == 0{
-        NotificationCenter.default.post(name: self.TagNotingNotification, object: nil, userInfo: nil)
-      }
     }
-    
     return cell
   }
 }
 
-extension AddTagViewController: UICollectionViewDelegateFlowLayout {
+extension AddWishTagViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return TagCell.fittingSize(availableHeight: 45, tag: wishViewModel.tags[indexPath.item])
+    return TagCell.fittingSize(availableHeight: 45, tag: wishViewModel.wishs[wishViewModel.wishs.count - 1].tag[indexPath.item])
   }
 }
 
