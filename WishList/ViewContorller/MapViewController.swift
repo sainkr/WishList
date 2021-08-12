@@ -5,9 +5,9 @@
 //  Created by 홍승아 on 2021/02/06.
 //
 
-import UIKit
-import MapKit
 import CoreLocation
+import MapKit
+import UIKit
 
 class MapViewController: UIViewController {
   @IBOutlet weak var mapView: MKMapView!
@@ -53,7 +53,7 @@ extension MapViewController{
   }
   
   private func configureSearchView() {
-    let searchViewGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(searchViewTapped(_:)))
+    let searchViewGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(searchViewDidTap(_:)))
     searchView.addGestureRecognizer(searchViewGesture)
     decorateView(uiView: searchView, cornerRadius: 20, shadowColor: UIColor.black.cgColor, masksToBounds: false, shadowOffset: CGSize(width: 0, height: 4), shadowRadius: 8, shadowOpacity: 0.3)
   }
@@ -88,17 +88,8 @@ extension MapViewController{
       self.mapView.addAnnotation(annotation)
     }
   }
-}
-
-// MARK: - IBAction
-extension MapViewController {
-  @objc func searchViewTapped(_ gesture: UITapGestureRecognizer) {
-    guard let searchPlaceVC = storyboard?.instantiateViewController(identifier: SearchPlaceViewController.identifier) as? SearchPlaceViewController else { return }
-    searchPlaceVC.mapViewDelegate = self
-    present(searchPlaceVC, animated: true, completion: nil)
-  }
   
-  @IBAction func delteButtonTapped(_ sender: Any) {
+  private func resetSearchView(){
     addPlaceButton.isHidden = false
     placeLabel.text = "여기서 검색"
     placeLabel.textColor = .darkGray
@@ -107,8 +98,19 @@ extension MapViewController {
     deleteButon.isHidden = true
     self.mapView.removeAnnotation(placeAnnotation)
   }
+}
+
+// MARK: - IBAction
+extension MapViewController {
+  @IBAction func backButtonDidTap(_ sender: Any) {
+    dismiss(animated: true, completion: nil)
+  }
   
-  @IBAction func placeAddButtonTapped(_ sender: Any) {
+  @IBAction func deleteButtonDidTap(_ sender: Any) {
+    resetSearchView()
+  }
+  
+  @IBAction func placeAddButtonDidTap(_ sender: Any) {
     guard let addWishListVC = storyboard?.instantiateViewController(identifier: AddWishViewController.identifier) as? AddWishViewController else { return }
     addWishListVC.modalPresentationStyle = .fullScreen
     addWishListVC.wishType = .wishPlaceAdd
@@ -117,16 +119,18 @@ extension MapViewController {
     present(addWishListVC, animated: true, completion: nil)
   }
   
-  @IBAction func currentLoacaionButtonTapped(_ sender: Any) {
+  @IBAction func currentLocationButtonDidTap(_ sender: Any) {
     setCurrentLoacation()
   }
   
-  @IBAction func backButtonTapped(_ sender: Any) {
-    dismiss(animated: true, completion: nil)
+  @objc func searchViewDidTap(_ gesture: UITapGestureRecognizer) {
+    guard let searchPlaceVC = storyboard?.instantiateViewController(identifier: SearchPlaceViewController.identifier) as? SearchPlaceViewController else { return }
+    searchPlaceVC.mapViewDelegate = self
+    present(searchPlaceVC, animated: true, completion: nil)
   }
 }
 
-// MARK: - Location Handling
+// MARK:- CLLocationManagerDelegate
 extension MapViewController: CLLocationManagerDelegate {
    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
   }
@@ -171,6 +175,7 @@ extension MapViewController: CLLocationManagerDelegate {
   }
 }
 
+// MARK:- MapViewDelegate
 extension MapViewController: MapViewDelegate{
   func mapViewUpdate(place: Place) {
     self.place = place
@@ -191,6 +196,7 @@ extension MapViewController: MapViewDelegate{
   }
 }
 
+// MARK:- SearchViewDelegate
 extension MapViewController: SearchViewDelegate{
   func searchViewUpdate() {
     placeLabel.text = "여기서 검색"
@@ -202,6 +208,7 @@ extension MapViewController: SearchViewDelegate{
   }
 }
 
+// MARK:- MKMapViewDelegate
 extension MapViewController: MKMapViewDelegate{
   func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
     guard let index = wishViewModel.findWish((view.annotation?.coordinate)!) else { return }

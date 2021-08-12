@@ -5,8 +5,8 @@
 //  Created by 홍승아 on 2021/02/21.
 //
 
-import UIKit
 import MapKit
+import UIKit
 
 class SearchPlaceViewController: UIViewController {
   static let identifier = "SearchPlaceViewController"
@@ -28,6 +28,7 @@ class SearchPlaceViewController: UIViewController {
   }
 }
 
+// MARK:- UISearchBarDelegate
 extension SearchPlaceViewController: UISearchBarDelegate{
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     if searchText == "" {
@@ -42,7 +43,8 @@ extension SearchPlaceViewController: UISearchBarDelegate{
   }
 }
 
-extension SearchPlaceViewController: MKLocalSearchCompleterDelegate  {
+// MARK:- MKLocalSearchCompleterDelegate
+extension SearchPlaceViewController: MKLocalSearchCompleterDelegate {
   func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
     searchResults = completer.results
     searchResultTableView.reloadData()
@@ -53,6 +55,7 @@ extension SearchPlaceViewController: MKLocalSearchCompleterDelegate  {
   }
 }
 
+// MARK:- UITableViewDataSource
 extension SearchPlaceViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return searchResults.count
@@ -66,6 +69,7 @@ extension SearchPlaceViewController: UITableViewDataSource {
   }
 }
 
+// MARK:- UITableViewDelegate
 extension SearchPlaceViewController: UITableViewDelegate{
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selectedResult = searchResults[indexPath.row]
@@ -84,6 +88,7 @@ extension SearchPlaceViewController: UITableViewDelegate{
   }
 }
 
+// MARK:- UIScrollViewDelegate
 extension SearchPlaceViewController: UIScrollViewDelegate{
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     self.searchBar.resignFirstResponder()

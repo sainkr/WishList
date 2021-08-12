@@ -7,6 +7,8 @@
 
 import UIKit
 
+import SnapKit
+
 class SelectTagCollectionViewCell: UICollectionViewCell{
   static let identifier = "SelectTagCollectionViewCell"
   

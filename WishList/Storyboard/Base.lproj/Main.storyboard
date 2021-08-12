@@ -28,7 +28,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25" weight="bold"/>
                                 </state>
                                 <connections>
-                                    <action selector="searchButtonTapped:" destination="MHf-xk-hMa" eventType="touchUpInside" id="T6K-9N-7Jx"/>
+                                    <action selector="searchButtonDidTap:" destination="MHf-xk-hMa" eventType="touchUpInside" id="B3h-Hf-7Fk"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ss3-Qt-wEA">
@@ -49,8 +49,8 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25" weight="bold"/>
                                 </state>
                                 <connections>
-                                    <action selector="mapButtonTapped:" destination="MHf-xk-hMa" eventType="touchUpInside" id="MsG-Mm-4Hn"/>
-                                    <action selector="searchButtonTapped:" destination="MHf-xk-hMa" eventType="touchUpInside" id="gJN-nk-AQt"/>
+                                    <action selector="mapButtonDidTap:" destination="MHf-xk-hMa" eventType="touchUpInside" id="YCd-8n-wvQ"/>
+                                    <action selector="searchButtonDidTap:" destination="MHf-xk-hMa" eventType="touchUpInside" id="HJL-Oi-ywm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVP-RO-in3">
@@ -60,7 +60,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25" weight="bold"/>
                                 </state>
                                 <connections>
-                                    <action selector="favorieButtonTapped:" destination="MHf-xk-hMa" eventType="touchUpInside" id="rIx-RP-MfI"/>
+                                    <action selector="favoriteButtonDidTap:" destination="MHf-xk-hMa" eventType="touchUpInside" id="y7c-pf-dBC"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gyU-2f-ESQ">
@@ -70,7 +70,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="50" weight="bold"/>
                                 </state>
                                 <connections>
-                                    <action selector="addButtonTapped:" destination="MHf-xk-hMa" eventType="touchUpInside" id="ZUA-N3-0jB"/>
+                                    <action selector="addButtonDidTap:" destination="MHf-xk-hMa" eventType="touchUpInside" id="3i0-CH-DkW"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -129,7 +129,7 @@
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25" scale="default" weight="bold"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="backButtonTapped:" destination="cMo-5v-hkj" eventType="touchUpInside" id="hhv-tj-oYv"/>
+                                                    <action selector="backButtonDidTap:" destination="cMo-5v-hkj" eventType="touchUpInside" id="zaY-a9-Pmu"/>
                                                 </connections>
                                             </button>
                                         </barButtonItem>
@@ -193,12 +193,9 @@
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="bold"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="backButtonTapped:" destination="5de-Gh-3Z2" eventType="touchUpInside" id="tJE-b7-ER4"/>
+                                                    <action selector="backButtonDidTap:" destination="5de-Gh-3Z2" eventType="touchUpInside" id="Wzc-cI-NX7"/>
                                                 </connections>
                                             </button>
-                                            <connections>
-                                                <action selector="cancelButtonTapped:" destination="5de-Gh-3Z2" id="p4l-ki-1hR"/>
-                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -230,7 +227,7 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="23"/>
                                         </state>
                                         <connections>
-                                            <action selector="delteButtonTapped:" destination="5de-Gh-3Z2" eventType="touchUpInside" id="X8S-9g-vks"/>
+                                            <action selector="deleteButtonDidTap:" destination="5de-Gh-3Z2" eventType="touchUpInside" id="x7d-ip-MmL"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -257,7 +254,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="placeAddButtonTapped:" destination="5de-Gh-3Z2" eventType="touchUpInside" id="lhU-D9-IcG"/>
+                                    <action selector="placeAddButtonDidTap:" destination="5de-Gh-3Z2" eventType="touchUpInside" id="2zi-YE-wL4"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xFh-uZ-1oo">
@@ -270,7 +267,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="43"/>
                                 </state>
                                 <connections>
-                                    <action selector="currentLoacaionButtonTapped:" destination="5de-Gh-3Z2" eventType="touchUpInside" id="Rri-XV-fqe"/>
+                                    <action selector="currentLocationButtonDidTap:" destination="5de-Gh-3Z2" eventType="touchUpInside" id="JPJ-E4-HGY"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -352,7 +349,7 @@
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="linkButtonTapped:" destination="UIo-LL-ocN" eventType="touchUpInside" id="JGc-eO-RfJ"/>
+                                                    <action selector="linkButtonDidTap:" destination="UIo-LL-ocN" eventType="touchUpInside" id="R6a-gv-jd5"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6kf-Pz-mbj">
@@ -457,7 +454,7 @@
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25" scale="default" weight="bold"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="backButtonTapped:" destination="UIo-LL-ocN" eventType="touchUpInside" id="Plx-GA-LYT"/>
+                                                    <action selector="backButtonDidTap:" destination="UIo-LL-ocN" eventType="touchUpInside" id="Y5w-V9-OSv"/>
                                                 </connections>
                                             </button>
                                         </barButtonItem>
@@ -470,7 +467,7 @@
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25" weight="bold"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="menuButtonTapped:" destination="UIo-LL-ocN" eventType="touchUpInside" id="teh-CZ-1Bu"/>
+                                                    <action selector="menuButtonDidTap:" destination="UIo-LL-ocN" eventType="touchUpInside" id="MsM-BS-FEW"/>
                                                 </connections>
                                             </button>
                                         </barButtonItem>
@@ -494,8 +491,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bar" destination="xNa-mT-fCr" id="rvR-Is-WnM"/>
-                        <outlet property="cancelButton" destination="WAe-aU-wKg" id="DA7-Bt-ZDM"/>
+                        <outlet property="backButton" destination="WAe-aU-wKg" id="CpS-Bx-RDi"/>
                         <outlet property="contentLabel" destination="3zg-0F-Uhs" id="9gd-aV-IjA"/>
                         <outlet property="linkButton" destination="hge-93-KJf" id="5cK-zc-QTh"/>
                         <outlet property="mapView" destination="uWJ-mK-mku" id="9vS-k6-KPe"/>
@@ -504,6 +500,7 @@
                         <outlet property="menuButton" destination="0tz-kR-x8Y" id="7wL-HJ-TFG"/>
                         <outlet property="nameLabel" destination="Zre-cQ-TiG" id="x4u-05-0ok"/>
                         <outlet property="nameLabelTop" destination="Pgs-sK-tkH" id="FG5-Yr-4IM"/>
+                        <outlet property="navigationBar" destination="xNa-mT-fCr" id="aeP-gH-vth"/>
                         <outlet property="tagCollectionView" destination="pKD-Ie-7AR" id="xPV-wk-n6e"/>
                     </connections>
                 </viewController>
@@ -529,7 +526,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="27"/>
                                 </state>
                                 <connections>
-                                    <action selector="deleteButtonTapped:" destination="Zyc-oK-Iqj" eventType="touchUpInside" id="HmG-vh-Qwb"/>
+                                    <action selector="deleteButtonDidTap:" destination="Zyc-oK-Iqj" eventType="touchUpInside" id="hom-8p-Ncv"/>
                                 </connections>
                             </button>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="zad-a4-hL5">
@@ -680,7 +677,7 @@
                                     <color key="titleColor" red="0.02745098248" green="0.0" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
-                                    <action selector="editButtonTapped:" destination="awe-0A-Pa9" eventType="touchUpInside" id="2uR-tK-58i"/>
+                                    <action selector="editButtonDidTap:" destination="awe-0A-Pa9" eventType="touchUpInside" id="2Cr-Ns-B73"/>
                                 </connections>
                             </button>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nWj-pl-aHj">
@@ -701,8 +698,7 @@
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="default" weight="bold"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="backButtonTapped:" destination="UIo-LL-ocN" eventType="touchUpInside" id="aRK-aW-m7P"/>
-                                                    <action selector="cancelButtonTapped:" destination="awe-0A-Pa9" eventType="touchUpInside" id="H2R-J9-p2o"/>
+                                                    <action selector="backButtonDidTap:" destination="awe-0A-Pa9" eventType="touchUpInside" id="0bt-Lb-SsB"/>
                                                 </connections>
                                             </button>
                                         </barButtonItem>
@@ -717,8 +713,7 @@
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25" weight="bold"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="doneButtonTapped:" destination="awe-0A-Pa9" eventType="touchUpInside" id="22p-R0-2Kt"/>
-                                                    <action selector="menuButtonTapped:" destination="UIo-LL-ocN" eventType="touchUpInside" id="ZJq-0n-7Ec"/>
+                                                    <action selector="doneButtonDidTap:" destination="awe-0A-Pa9" eventType="touchUpInside" id="T59-iJ-Fe3"/>
                                                 </connections>
                                             </button>
                                         </barButtonItem>
@@ -774,6 +769,10 @@
                                         <size key="customSize" width="87" height="36"/>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Pou-JE-afB" id="Dau-vX-Wzq"/>
+                                    <outlet property="delegate" destination="Pou-JE-afB" id="ML4-E7-xaI"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vpe-yT-RbR"/>
@@ -834,7 +833,7 @@
                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="bold"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="deleteButtonTapped:" destination="1aI-Ce-v3I" eventType="touchUpInside" id="Ku5-uo-IEJ"/>
+                                                        <action selector="deleteButtonDidTap:" destination="1aI-Ce-v3I" eventType="touchUpInside" id="e2u-f1-wPb"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -902,7 +901,7 @@
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="bold"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="backButtonTapped:" destination="Y8Z-tZ-v8n" eventType="touchUpInside" id="kCz-Bk-N5p"/>
+                                                    <action selector="backButtonDidTap:" destination="Y8Z-tZ-v8n" eventType="touchUpInside" id="mye-Do-Ib3"/>
                                                 </connections>
                                             </button>
                                         </barButtonItem>
@@ -915,7 +914,7 @@
                                                     <color key="titleColor" red="0.02745098248" green="0.0" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="doneButtonTapped:" destination="Y8Z-tZ-v8n" eventType="touchUpInside" id="6ZO-wo-Lqx"/>
+                                                    <action selector="doneButtonDidTap:" destination="Y8Z-tZ-v8n" eventType="touchUpInside" id="6Hd-Pj-yLd"/>
                                                 </connections>
                                             </button>
                                         </barButtonItem>
@@ -973,10 +972,6 @@
                                                 <rect key="frame" x="20" y="400" width="341" height="28"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
-                                                <connections>
-                                                    <action selector="linkTextFieldChange:" destination="Y8Z-tZ-v8n" eventType="editingChanged" id="6ki-ZN-rb1"/>
-                                                    <action selector="linkTextFiledDidEnd:" destination="Y8Z-tZ-v8n" eventType="editingDidEnd" id="zSf-wV-dOp"/>
-                                                </connections>
                                             </textField>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="egm-mz-kpJ">
                                                 <rect key="frame" x="366" y="400" width="28" height="28"/>
@@ -989,7 +984,7 @@
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="linkDeleteButtonTapped:" destination="Y8Z-tZ-v8n" eventType="touchUpInside" id="ujl-OR-y3m"/>
+                                                    <action selector="linkDeleteButtonDidTap:" destination="Y8Z-tZ-v8n" eventType="touchUpInside" id="IxF-u6-sEu"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kZd-Ar-kkH">
@@ -1015,7 +1010,7 @@
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="placeDeleteButtonTapped:" destination="Y8Z-tZ-v8n" eventType="touchUpInside" id="mNn-NW-mx2"/>
+                                                    <action selector="placeDeleteButtonDidTap:" destination="Y8Z-tZ-v8n" eventType="touchUpInside" id="joq-n0-4gY"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xhm-0G-c6x">
@@ -1145,7 +1140,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dw7-I1-CbL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="Frq-95-kEt">
                     <connections>
-                        <action selector="viewTapped:" destination="Y8Z-tZ-v8n" id="Ncc-mQ-Ym8"/>
+                        <action selector="viewDidTap:" destination="Y8Z-tZ-v8n" id="zBS-kp-z2G"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -1166,7 +1161,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24" weight="bold"/>
                                 </state>
                                 <connections>
-                                    <action selector="backButtonTapped:" destination="E6Z-K5-2Oq" eventType="touchUpInside" id="3A5-yg-RRP"/>
+                                    <action selector="backButtonDidTap:" destination="E6Z-K5-2Oq" eventType="touchUpInside" id="G46-JC-00Y"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mea-ZP-XWL">

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 import SnapKit
 
 class SearchWishViewController: UIViewController {
@@ -30,14 +31,14 @@ class SearchWishViewController: UIViewController {
     wishTableView.register(wishTableViewCellNib, forCellReuseIdentifier: WishListTableViewCell.identifier)
   }
   
-  @IBAction func backButtonTapped(_ sender: Any) {
+  @IBAction func backButtonDidTap(_ sender: Any) {
     dismiss(animated: true, completion: nil)
   }
 }
 
 extension SearchWishViewController: UITableViewDataSource{
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return wishViewModel.filterWishs(text: searchText, type: searchType).count
+    return wishViewModel.filterWishsCount(text: searchText, type: searchType)
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -45,7 +46,7 @@ extension SearchWishViewController: UITableViewDataSource{
       return UITableViewCell()
     }
     
-    let filterWish = self.wishViewModel.filterWishs(text: self.searchText, type: self.searchType)[indexPath.item]
+    let filterWish = self.wishViewModel.filterWish(text: self.searchText, type: self.searchType, index: indexPath.item)
     let index = self.wishViewModel.findWish(filterWish: filterWish)
     
     cell.favoriteButtonTapHandler = {
@@ -61,15 +62,15 @@ extension SearchWishViewController: UITableViewDataSource{
   }
 }
 
+// MARK: - UITableViewDelegate
 extension SearchWishViewController: UITableViewDelegate{
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     guard let selectWishVC = storyboard?.instantiateViewController(identifier: SelectWishViewController.identifier) as? SelectWishViewController else { return }
-    let filterWish = self.wishViewModel.filterWishs(text: self.searchText, type: self.searchType)[indexPath.item]
+    let filterWish = self.wishViewModel.filterWish(text: self.searchText, type: self.searchType, index: indexPath.item)
     let index = self.wishViewModel.findWish(filterWish: filterWish)
     selectWishVC.modalPresentationStyle = .fullScreen
     selectWishVC.index = index
-    
     present(selectWishVC, animated: true, completion: nil)
   }
   
@@ -78,6 +79,7 @@ extension SearchWishViewController: UITableViewDelegate{
   }
 }
 
+// MARK: - UISearchBarDelegate
 extension SearchWishViewController: UISearchBarDelegate{
   private func dismissKeyboard(){
     searchBar.resignFirstResponder()

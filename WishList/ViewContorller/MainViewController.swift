@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 import Kingfisher
 
 class MainViewController: UIViewController {
@@ -75,33 +76,33 @@ class MainViewController: UIViewController {
 
 // MARK:- IBAction
 extension MainViewController{
-  @IBAction func mapButtonTapped(_ sender: Any) {
-    guard let mapVC = storyboard?.instantiateViewController(identifier: "MapViewController") as? MapViewController else { return }
-    mapVC.modalPresentationStyle = .fullScreen
-    present(mapVC, animated: true, completion: nil)
-  }
-  
-  @IBAction func searchButtonTapped(_ sender: Any) {
+  @IBAction func searchButtonDidTap(_ sender: Any) {
     guard let searchVC = storyboard?.instantiateViewController(identifier: SearchWishViewController.identifier ) as? SearchWishViewController else { return }
     searchVC.modalPresentationStyle = .fullScreen
     present(searchVC, animated: true, completion: nil)
   }
   
-  @IBAction func addButtonTapped(_ sender: Any) {
+  @IBAction func mapButtonDidTap(_ sender: Any) {
+    guard let mapVC = storyboard?.instantiateViewController(identifier: "MapViewController") as? MapViewController else { return }
+    mapVC.modalPresentationStyle = .fullScreen
+    present(mapVC, animated: true, completion: nil)
+  }
+  
+  @IBAction func favoriteButtonDidTap(_ sender: Any) {
+    guard let searchVC = storyboard?.instantiateViewController(identifier: FavoriteWishViewController.identifier ) as? FavoriteWishViewController else { return }
+    searchVC.modalPresentationStyle = .fullScreen
+    present(searchVC, animated: true, completion: nil)
+  }
+  
+  @IBAction func addButtonDidTap(_ sender: Any) {
     guard let addWishListVC = storyboard?.instantiateViewController(identifier: AddWishViewController.identifier) as? AddWishViewController else { return }
     addWishListVC.modalPresentationStyle = .fullScreen
     addWishListVC.wishType = WishType.wishAdd
     present(addWishListVC, animated: true, completion: nil)
   }
-  
-  @IBAction func favorieButtonTapped(_ sender: Any) {
-    guard let searchVC = storyboard?.instantiateViewController(identifier: FavoriteWishViewController.identifier ) as? FavoriteWishViewController else { return }
-    searchVC.modalPresentationStyle = .fullScreen
-    present(searchVC, animated: true, completion: nil)
-  }
 }
 
-// MARK:- TableView
+// MARK:- UITableViewDataSource
 extension MainViewController: UITableViewDataSource{
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return wishViewModel.wishsCount
@@ -125,6 +126,7 @@ extension MainViewController: UITableViewDataSource{
   }
 }
 
+// MARK:- UITableViewDelegate
 extension MainViewController: UITableViewDelegate{
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)

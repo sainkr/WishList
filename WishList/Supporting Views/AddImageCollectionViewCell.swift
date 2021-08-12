@@ -10,6 +10,9 @@ import UIKit
 class AddImageCollectionViewCell: UICollectionViewCell{
   static let identifier = "AddImageCollectionViewCell"
   
+  static let width: CGFloat = 100
+  static let height: CGFloat = 100
+  
   @IBOutlet weak var thumbnailImageView: UIImageView!
   @IBOutlet weak var deleteButton: UIButton!
 
@@ -25,8 +28,7 @@ class AddImageCollectionViewCell: UICollectionViewCell{
     deleteButton.isHidden = true
   }
 
-  @IBAction func deleteButtonTapped(_ sender: Any) {
+  @IBAction func deleteButtonDidTap(_ sender: Any) {
     deleteButtonTapHandler?()
   }
 }
-

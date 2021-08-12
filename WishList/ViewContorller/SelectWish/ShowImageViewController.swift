@@ -75,11 +75,13 @@ class ShowImageViewController: UIViewController {
   }
 
   
-  @IBAction func deleteButtonTapped(_ sender: Any) {
+  @IBAction func deleteButtonDidTap(_ sender: Any) {
     dismiss(animated: true, completion: nil)
   }
 }
 
+
+// MARK: - UIPageViewControllerDataSource
 extension ShowImageViewController: UIPageViewControllerDataSource{
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
     guard let vc = viewController as? ImageViewController, let index = imageViewControllers.firstIndex(of: vc) else { return nil }
@@ -99,7 +101,7 @@ extension ShowImageViewController: UIPageViewControllerDataSource{
     return imageViewControllers[nextIndex]
   }
 }
-
+// MARK: - UIPageViewControllerDelegate
 extension ShowImageViewController: UIPageViewControllerDelegate{
   func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
     guard completed else { return }

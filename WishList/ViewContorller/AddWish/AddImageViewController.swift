@@ -5,8 +5,9 @@
 //  Created by 홍승아 on 2021/01/31.
 //
 
-import UIKit
 import PhotosUI
+import UIKit
+
 import Mantis
 
 class AddImageViewController: UIViewController{
@@ -26,9 +27,10 @@ class AddImageViewController: UIViewController{
   }
 }
 
+// MARK: -  UICollectionViewDataSource
 extension AddImageViewController:  UICollectionViewDataSource{
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return wishViewModel.image(wishViewModel.wishsCount - 1).count + 1
+    return wishViewModel.imageCount(wishViewModel.lastWishIndex) + 1
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -38,7 +40,7 @@ extension AddImageViewController:  UICollectionViewDataSource{
     if indexPath.item == 0 {
       cell.updateUI()
     }else {
-      let photo = wishViewModel.image(wishViewModel.wishsCount - 1)[indexPath.item - 1]
+      let photo = wishViewModel.image(index: wishViewModel.lastWishIndex, imageIndex: indexPath.item - 1)
       cell.updateUI(photo)
     }
     cell.deleteButtonTapHandler = {
@@ -49,6 +51,7 @@ extension AddImageViewController:  UICollectionViewDataSource{
   }
 }
 
+// MARK: -  UICollectionViewDelegate
 extension AddImageViewController: UICollectionViewDelegate{
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if indexPath.item == 0 {
@@ -65,6 +68,14 @@ extension AddImageViewController: UICollectionViewDelegate{
   }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
+extension AddImageViewController: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    return CGSize(width: AddImageCollectionViewCell.width, height: AddImageCollectionViewCell.height)
+  }
+}
+
+// MARK: - PHPickerViewControllerDelegate
 extension AddImageViewController: PHPickerViewControllerDelegate {
   private func presentEditImageViewController(_ images: [UIImage]){
     guard let editImageVC = storyboard?.instantiateViewController(identifier: EditImageViewController.identifier) as? EditImageViewController else { return }
@@ -94,14 +105,7 @@ extension AddImageViewController: PHPickerViewControllerDelegate {
   }
 }
 
-extension AddImageViewController: UICollectionViewDelegateFlowLayout {
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let width: CGFloat = 100
-    let height: CGFloat = 100
-    return CGSize(width: width, height: height)
-  }
-}
-
+// MARK: - CropViewControllerDelegate
 extension AddImageViewController: CropViewControllerDelegate {
   func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage, transformation: Transformation) {
     dismiss(animated: true, completion: nil)

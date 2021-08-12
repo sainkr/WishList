@@ -35,7 +35,7 @@ class DataBaseManager {
                     "placeLng": wish.place?.lng ?? 0,
                     "favorite": wish.favorite])
     }else {
-      convertUIImagetoImageURL(wish: wish, completion: { [weak self] imageURL in
+      convertUIImagetoImageURL(wish: wish){ [weak self] imageURL in
         self?.db
           .child(String(wish.timestamp))
           .setValue([
@@ -49,13 +49,13 @@ class DataBaseManager {
                       "placeLat": wish.place?.lat ?? 0,
                       "placeLng": wish.place?.lng ?? 0,
                       "favorite": wish.favorite])
-      })
+      }
     }
   }
   
   func updateWish(_ wish: Wish, _ imgCnt: Int){
     deleteImage(wish: wish, imgCnt: imgCnt, wishType: .wishUpdate)
-    convertUIImagetoImageURL(wish: wish, completion: { [weak self] imageURL in
+    convertUIImagetoImageURL(wish: wish){ [weak self] imageURL in
       self?.db
         .child(String(wish.timestamp))
         .updateChildValues([
@@ -69,7 +69,7 @@ class DataBaseManager {
                             "placeLat": wish.place?.lat ?? 0,
                             "placeLng": wish.place?.lng ?? 0,
                             "favorite": wish.favorite])
-    })
+    }
   }
   
   private func convertUIImagetoImageURL(wish: Wish, completion: @escaping (_ imageURL: [String]) -> Void){

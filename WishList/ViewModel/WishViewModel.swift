@@ -16,12 +16,20 @@ class WishViewModel {
     return manager.wishs.count
   }
   
-  var lastWish: Wish{
-    return manager.wishs[wishsCount - 1]
+  var lastWishIndex: Int{
+    return wishsCount - 1
   }
-
+  
   var favoriteWishs: [Wish]{
     return manager.wishs.filter{ $0.favorite }
+  }
+  
+  var favoriteWishsCount: Int{
+    return favoriteWishs.count
+  }
+  
+  func favoriteWish(_ index: Int)-> Wish{
+    return favoriteWishs[index]
   }
   
   var places: [Place?]{
@@ -52,16 +60,66 @@ class WishViewModel {
     return manager.wishs[index].img
   }
   
+  func image(index: Int, imageIndex: Int)-> UIImage{
+    return manager.wishs[index].img[imageIndex]
+  }
+  
+  func imageCount(_ index: Int)-> Int{
+    return manager.wishs[index].img.count
+  }
+  
   func imageURL(_ index: Int)-> [String]{
     return manager.wishs[index].imgURL
   }
   
-  func tags(_ index: Int)-> [String]{
+  func imageURL(index: Int, imageIndex: Int)-> String{
+    return manager.wishs[index].imgURL[imageIndex]
+  }
+  
+  func imageURLCount(_ index: Int)-> Int{
+    return manager.wishs[index].imgURL.count
+  }
+  
+  func tag(_ index: Int)-> [String]{
     return manager.wishs[index].tag
+  }
+  
+  func tag(index: Int, tagIndex: Int)-> String{
+    return manager.wishs[index].tag[tagIndex]
+  }
+  
+  func tagCount(_ index: Int)-> Int{
+    return manager.wishs[index].tag.count
   }
   
   func place(_ index: Int)-> Place?{
     return manager.wishs[index].place
+  }
+  
+  func filterWishs(text: String, type: SearchType)-> [Wish]{
+    if type == .none {
+      return manager.wishs
+    }else if type == .name {
+      return manager.wishs.filter{
+        $0.name.localizedStandardContains(text)
+      }
+    }else if type == .tag {
+      return manager.wishs.filter{
+        $0.tag.contains(text)
+      }
+    }else {
+      return manager.wishs.filter{
+        $0.name.localizedStandardContains(text) || $0.tag.contains(text)
+      }
+    }
+  }
+  
+  func filterWishsCount(text: String, type: SearchType)-> Int{
+    return filterWishs(text: text, type: type).count
+  }
+  
+  func filterWish(text: String, type: SearchType, index: Int)-> Wish{
+    return filterWishs(text: text, type: type)[index]
   }
   
   func loadWish() {
@@ -87,7 +145,7 @@ extension WishViewModel {
   
   func addWish(_ name: String,_ memo: String,_ tag: [String],_ link: String){
     manager.wishs.append(Wish(timestamp: Int(Date().timeIntervalSince1970.rounded()), name: name, tag: tag, memo: memo, img: [], imgURL: [], link: link, place: Place(name: "-", lat: 0, lng: 0), favorite: false))
-    saveWish(manager.wishs[manager.wishs.count - 1])
+    saveWish(lastWishIndex)
   }
   
   func updateFavorite(_ index: Int){
@@ -117,19 +175,11 @@ extension WishViewModel {
     manager.wishs[manager.wishs.count - 1].link = link
   }
   
-  func saveWish(index: Int, wishType: WishType){
-    if wishType == .wishAdd || wishType == .wishPlaceAdd {
-      saveWish(manager.wishs[manager.wishs.count - 1])
-    }else if wishType == .wishUpdate {
-      updateWish(index)
-    }
+  func saveWish(_ index: Int){
+    FireBase.saveWish(manager.wishs[index])
   }
   
-  func saveWish(_ wish: Wish){
-    FireBase.saveWish(wish)
-  }
-  
-  func updateWish(_ index: Int){ // Wish 수정
+  func updateWish(_ index: Int){
     let imgCnt = manager.wishs[index].img.count
     manager.wishs[index].update(manager.wishs.removeLast())
     FireBase.updateWish(manager.wishs[index], imgCnt)
@@ -208,24 +258,6 @@ extension WishViewModel {
 
 // MARK: - SearchWishVC
 extension WishViewModel {
-  func filterWishs(text: String, type: SearchType)-> [Wish]{
-    if type == .none {
-      return manager.wishs
-    }else if type == .name {
-      return manager.wishs.filter{
-        $0.name.localizedStandardContains(text)
-      }
-    }else if type == .tag {
-      return manager.wishs.filter{
-        $0.tag.contains(text)
-      }
-    }else {
-      return manager.wishs.filter{
-        $0.name.localizedStandardContains(text) || $0.tag.contains(text)
-      }
-    }
-  }
-  
   func findWish(filterWish: Wish)-> Int{
     for index in manager.wishs.indices {
       if manager.wishs[index].timestamp == filterWish.timestamp{

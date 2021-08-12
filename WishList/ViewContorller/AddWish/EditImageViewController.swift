@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 import Mantis
 import SnapKit
 
@@ -15,11 +16,10 @@ class EditImageViewController: UIViewController{
   @IBOutlet weak var editButton: UIButton!
   @IBOutlet weak var navigationBar: UINavigationBar!
   
-  let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-  let wishViewModel = WishViewModel()
-  var currentPage: Int = 0
-  
-  var imageViewControllers: [ImageViewController] = []
+  private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+  private let wishViewModel = WishViewModel()
+  private var currentPage: Int = 0
+  private var imageViewControllers: [ImageViewController] = []
   var images: [UIImage] = []
   
   override func viewDidLoad() {
@@ -27,7 +27,9 @@ class EditImageViewController: UIViewController{
     configureNavigtaionBar()
     configurePageViewController()
   }
-  
+}
+
+extension EditImageViewController {
   private func configureNavigtaionBar(){
     navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
     navigationBar.shadowImage = UIImage()
@@ -45,20 +47,6 @@ class EditImageViewController: UIViewController{
       imageVC.image = image
       imageViewControllers.append(imageVC)
     }
-    /*for image in images{
-      let viewController = UIViewController()
-      let imageView = UIImageView()
-      imageView.image = image
-      viewController.view.addSubview(imageView)
-      imageView.snp.makeConstraints{ make in
-        make.top.equalToSuperview()
-        make.bottom.equalToSuperview()
-        make.leading.equalToSuperview()
-        make.trailing.equalToSuperview()
-      }
-      imageView.contentMode = .scaleAspectFit
-      imageViewControllers.append(viewController)
-    }*/
   }
   
   private func configurePageViewController(){
@@ -81,17 +69,20 @@ class EditImageViewController: UIViewController{
     configureImageViewControllers()
     pageViewController.setViewControllers([imageViewControllers[currentPage]], direction: .forward, animated: true, completion: nil)
   }
-  
-  @IBAction func cancelButtonTapped(_ sender: Any) {
-      dismiss(animated: true, completion: nil)
+}
+
+// MARK: - IBAction
+extension EditImageViewController {
+  @IBAction func backButtonDidTap(_ sender: Any) {
+    dismiss(animated: true, completion: nil)
   }
-  
-  @IBAction func doneButtonTapped(_ sender: Any) {
+
+  @IBAction func doneButtonDidTap(_ sender: Any) {
     wishViewModel.setImage(images: images)
     dismiss(animated: true, completion: nil)
   }
-  
-  @IBAction func editButtonTapped(_ sender: Any) {
+
+  @IBAction func editButtonDidTap(_ sender: Any) {
     let cropViewController = Mantis.cropViewController(image: images[currentPage])
     cropViewController.delegate = self
     cropViewController.modalPresentationStyle = .fullScreen
@@ -99,6 +90,7 @@ class EditImageViewController: UIViewController{
   }
 }
 
+// MARK: - UIPageViewControllerDataSource
 extension EditImageViewController: UIPageViewControllerDataSource{
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
     guard let vc = viewController as? ImageViewController, let index = imageViewControllers.firstIndex(of: vc) else { return nil }
@@ -119,6 +111,7 @@ extension EditImageViewController: UIPageViewControllerDataSource{
   }
 }
 
+// MARK: - UIPageViewControllerDelegate
 extension EditImageViewController: UIPageViewControllerDelegate{
   func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
     guard completed else { return }
@@ -128,6 +121,7 @@ extension EditImageViewController: UIPageViewControllerDelegate{
   }
 }
 
+// MARK: - CropViewControllerDelegate
 extension EditImageViewController: CropViewControllerDelegate{
   func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage, transformation: Transformation) {
     images[currentPage] = cropped

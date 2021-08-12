@@ -5,20 +5,21 @@
 //  Created by 홍승아 on 2021/02/07.
 //
 
-import UIKit
-import Kingfisher
-import MapKit
 import CoreLocation
+import MapKit
+import UIKit
+
+import Kingfisher
 import NVActivityIndicatorView
 
 class SelectWishViewController: UIViewController {
   static let identifier = "SelectWishViewController"
   
+  @IBOutlet weak var navigationBar: UINavigationBar!
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var contentLabel: UILabel!
-  @IBOutlet weak var bar: UINavigationBar!
   @IBOutlet weak var mapView: MKMapView!
-  @IBOutlet weak var cancelButton: UIButton!
+  @IBOutlet weak var backButton: UIButton!
   @IBOutlet weak var menuButton: UIButton!
   @IBOutlet weak var linkButton: UIButton!
   @IBOutlet weak var tagCollectionView: UICollectionView!
@@ -67,19 +68,19 @@ class SelectWishViewController: UIViewController {
 
 extension SelectWishViewController{
   private func configureNavigationBar(){
-    bar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-    bar.shadowImage = UIImage()
-    bar.backgroundColor = UIColor.clear
+    navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+    navigationBar.shadowImage = UIImage()
+    navigationBar.backgroundColor = UIColor.clear
   }
   
   private func configureView(){
     nameLabel.text = wishViewModel.name(index)
     contentLabel.text = wishViewModel.memo(index)
     if wishViewModel.imageType(index) == .uiImage || wishViewModel.imageType(index) == .url {
-      cancelButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+      backButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
       menuButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }else {
-      cancelButton.tintColor = #colorLiteral(red: 0.1158123985, green: 0.1258583069, blue: 0.5349373817, alpha: 1)
+      backButton.tintColor = #colorLiteral(red: 0.1158123985, green: 0.1258583069, blue: 0.5349373817, alpha: 1)
       menuButton.tintColor = #colorLiteral(red: 0.1158123985, green: 0.1258583069, blue: 0.5349373817, alpha: 1)
     }
     if wishViewModel.link(index) == "" {
@@ -117,7 +118,6 @@ extension SelectWishViewController{
     flowLayout.minimumInteritemSpacing = 10
     flowLayout.scrollDirection = .horizontal
     flowLayout.sectionInset = .init(top: 10, left: 10, bottom: 10, right: 10)
-    
     tagCollectionView.setCollectionViewLayout(flowLayout, animated: false)
     tagCollectionView.backgroundColor = UIColor.clear
     tagCollectionView.register(SelectTagCollectionViewCell.self, forCellWithReuseIdentifier: SelectTagCollectionViewCell.identifier)
@@ -134,15 +134,38 @@ extension SelectWishViewController{
     guard let addWishListVC = storyboard?.instantiateViewController(identifier: AddWishViewController.identifier) as? AddWishViewController else { return }
     addWishListVC.modalPresentationStyle = .fullScreen
     addWishListVC.wishType = .wishUpdate
-    
     self.present(addWishListVC, animated: true, completion: nil)
   }
 }
 
 // MARK:- @IBAction
 extension SelectWishViewController{
-  @IBAction func linkButtonTapped(_ sender: Any) {
-    //사파리로 링크열기
+  @IBAction func backButtonDidTap(_ sender: Any) {
+    dismiss(animated: true, completion: nil)
+  }
+  
+  @IBAction func menuButtonDidTap(_ sender: Any) {
+    let actionsheetController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    let editWish = UIAlertAction(title: "수정", style: .default) { action in
+      if self.wishViewModel.imageType(self.index) == .url {
+        self.presentAddWishListVC()
+      }else {
+        self.wishViewModel.changeUIImage(index: self.index)
+        self.indicator.startAnimating()
+      }
+    }
+    let deleteWish = UIAlertAction(title: "삭제", style: .destructive, handler: { action in
+      self.wishViewModel.removeWish(self.index)
+      self.dismiss(animated: true, completion: nil)
+    })
+    let actionCancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+    actionsheetController.addAction(editWish)
+    actionsheetController.addAction(deleteWish)
+    actionsheetController.addAction(actionCancel)
+    self.present(actionsheetController, animated: true)
+  }
+  
+  @IBAction func linkButtonDidTap(_ sender: Any) {
     guard let url = URL(string: wishViewModel.link(index)),
           UIApplication.shared.canOpenURL(url) else {
       let alert = UIAlertController(title: nil, message: "유효하지 않은 링크 입니다.", preferredStyle: UIAlertController.Style.alert)
@@ -153,59 +176,28 @@ extension SelectWishViewController{
     }
     UIApplication.shared.open(url, options: [:], completionHandler: nil)
   }
-  
-  @IBAction func backButtonTapped(_ sender: Any) {
-    dismiss(animated: true, completion: nil)
-  }
-  
-  @IBAction func menuButtonTapped(_ sender: Any) {
-    // UIAlertController 초기화
-    let actionsheetController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    
-    // UIAlertAction 설정
-    let editWish = UIAlertAction(title: "수정", style: .default) { action in
-      if !self.wishViewModel.image(self.index).isEmpty{
-        self.presentAddWishListVC()
-      }else {
-        self.wishViewModel.changeUIImage(index: self.index)
-        self.indicator.startAnimating()
-      }
-    }
-    
-    let deleteWish = UIAlertAction(title: "삭제", style: .destructive, handler: { action in
-      self.wishViewModel.removeWish(self.index)
-      self.dismiss(animated: true, completion: nil)
-    })
-    
-    let actionCancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-    
-    actionsheetController.addAction(editWish)
-    actionsheetController.addAction(deleteWish)
-    actionsheetController.addAction(actionCancel)
-    
-    self.present(actionsheetController, animated: true)
-  }
 }
 
-// MARK:- TagCollectionView
-extension SelectWishViewController: UICollectionViewDataSource{
+// MARK:- UICollectionViewDataSource
+extension SelectWishViewController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return wishViewModel.tags(index).count
+    return wishViewModel.tagCount(index)
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectTagCollectionViewCell.identifier, for: indexPath) as? SelectTagCollectionViewCell else {
       return UICollectionViewCell()
     }
-    let tag = wishViewModel.tags(index)[indexPath.item]
+    let tag = wishViewModel.tag(index: index,tagIndex: indexPath.item)
     cell.configure(tag: tag)
     return cell
   }
 }
 
+// MARK:- UICollectionViewDelegateFlowLayout
 extension SelectWishViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return SelectTagCollectionViewCell.fittingSize(availableHeight: 45, tag: wishViewModel.tags(index)[indexPath.item])
+    return SelectTagCollectionViewCell.fittingSize(availableHeight: 45, tag: wishViewModel.tag(index: index,tagIndex: indexPath.item))
   }
 }
 

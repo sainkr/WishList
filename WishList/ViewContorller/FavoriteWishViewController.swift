@@ -33,14 +33,15 @@ class FavoriteWishViewController: UIViewController {
     navigationBar.titleTextAttributes = [ NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18, weight: .bold) ]
   }
   
-  @IBAction func backButtonTapped(_ sender: Any) {
+  @IBAction func backButtonDidTap(_ sender: Any) {
     dismiss(animated: true, completion: nil)
   }
 }
 
+// MARK:- UITableViewDataSource
 extension FavoriteWishViewController: UITableViewDataSource{
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return wishViewModel.favoriteWishs.count
+    return wishViewModel.favoriteWishsCount
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -48,12 +49,12 @@ extension FavoriteWishViewController: UITableViewDataSource{
       return UITableViewCell()
     }
     
-    let favoriteWish = self.wishViewModel.favoriteWishs[indexPath.item]
+    let favoriteWish = self.wishViewModel.favoriteWish(indexPath.item)
     let index = self.wishViewModel.findWish(filterWish: favoriteWish)
     
     cell.favoriteButtonTapHandler = {
       self.wishViewModel.updateFavorite(index)
-      cell.updateFavorite(favorite: !favoriteWish.favorite)
+      cell.updateFavorite(favorite: false)
       self.wishTableView.reloadData()
     }
     
@@ -64,11 +65,12 @@ extension FavoriteWishViewController: UITableViewDataSource{
   }
 }
 
+// MARK:- UITableViewDelegate
 extension FavoriteWishViewController: UITableViewDelegate{
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     guard let selectWishVC = storyboard?.instantiateViewController(identifier: SelectWishViewController.identifier) as? SelectWishViewController else { return }
-    let favoriteWish = self.wishViewModel.favoriteWishs[indexPath.item]
+    let favoriteWish = self.wishViewModel.favoriteWish(indexPath.item)
     let index = self.wishViewModel.findWish(filterWish: favoriteWish)
     selectWishVC.modalPresentationStyle = .fullScreen
     selectWishVC.index = index

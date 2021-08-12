@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 import SnapKit
 
 class AddTagViewController: UIViewController {
@@ -41,16 +42,17 @@ class AddTagViewController: UIViewController {
   }
 }
 
+// MARK: - UICollectionViewDataSource
 extension AddTagViewController: UICollectionViewDataSource{
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return wishViewModel.tags(wishViewModel.wishsCount - 1).count
+    return wishViewModel.tagCount(wishViewModel.lastWishIndex)
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddTagCollectionViewCell.identifier, for: indexPath) as? AddTagCollectionViewCell else {
       return UICollectionViewCell()
     }
-    let tag = wishViewModel.tags(wishViewModel.wishsCount - 1)[indexPath.item]
+    let tag = wishViewModel.tag(index: wishViewModel.lastWishIndex, tagIndex: indexPath.item)
     cell.configure(tag: tag)
     cell.deleteButtonTapHandler = {
       self.wishViewModel.removeTag(indexPath.item)
@@ -60,8 +62,9 @@ extension AddTagViewController: UICollectionViewDataSource{
   }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension AddTagViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return AddTagCollectionViewCell.fittingSize(availableHeight: 45, tag: wishViewModel.tags(wishViewModel.wishsCount - 1)[indexPath.item])
+    return AddTagCollectionViewCell.fittingSize(availableHeight: 45, tag: wishViewModel.tag(index: wishViewModel.lastWishIndex, tagIndex: indexPath.item))
   }
 }

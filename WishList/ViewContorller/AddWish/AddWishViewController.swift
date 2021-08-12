@@ -5,9 +5,9 @@
 //  Created by 홍승아 on 2021/01/28.
 //
 
-import UIKit
-import MapKit
 import CoreLocation
+import MapKit
+import UIKit
 
 class AddWishViewController: UIViewController{
   static let identifier = "AddWishViewController"
@@ -46,6 +46,7 @@ class AddWishViewController: UIViewController{
     super.viewDidLoad()
     memoTextView.delegate = self
     placeTextField.delegate = self
+    linkTextField.delegate = self
     tagSelectTextField.delegate = self
     configureView()
   }
@@ -53,6 +54,7 @@ class AddWishViewController: UIViewController{
 
 extension AddWishViewController {
   private func configureView(){
+    gestureRecognizer.cancelsTouchesInView = false
     configureNavigationBar()
     configureMemoTextView()
     configureMapView()
@@ -120,8 +122,7 @@ extension AddWishViewController {
   }
   
   private func configureAnnotaion(){
-    let wish = wishViewModel.lastWish
-    guard let place = wish.place else { return }
+    guard let place = wishViewModel.place(wishViewModel.lastWishIndex) else { return }
     let coordinate = CLLocationCoordinate2D(latitude: place.lat , longitude: place.lng)
     let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
     let region = MKCoordinateRegion(center: coordinate, span: span)
@@ -141,6 +142,7 @@ extension AddWishViewController {
   }
 }
 
+// MARK: - MapViewDelegate
 extension AddWishViewController: MapViewDelegate{
   func mapViewUpdate(place: Place) {
     wishViewModel.setPlace(place: place)
@@ -151,12 +153,12 @@ extension AddWishViewController: MapViewDelegate{
 
 // MARK: - IBAction
 extension AddWishViewController{
-  @IBAction func backButtonTapped(_ sender: Any){
+  @IBAction func backButtonDidTap(_ sender: Any) {
     wishViewModel.removeLastWish()
     dismiss(animated: true, completion: nil)
   }
   
-  @IBAction func doneButtonTapped(_ sender: Any){
+  @IBAction func doneButtonDidTap(_ sender: Any) {
     if nameTextField.text == "" {
       addAlert(message:"이름을 입력하세요." , title: "확인")
       return
@@ -165,40 +167,34 @@ extension AddWishViewController{
     let memo = memoTextView.text == "간단 메모" ? "" : memoTextView.text ?? ""
     let link = linkTextField.text ?? ""
     wishViewModel.setLastWish(name: name, memo: memo, link: link)
-    wishViewModel.saveWish(index: index, wishType: wishType)
+    if wishType == .wishUpdate {
+      wishViewModel.updateWish(index)
+    }else {
+      wishViewModel.saveWish(wishViewModel.lastWishIndex)
+    }
     if wishType == .wishPlaceAdd{
       searchViewDelegate?.searchViewUpdate()
     }
     dismiss(animated: true, completion: nil)
   }
   
-  @IBAction func linkDeleteButtonTapped(_ sender: Any) {
+  @IBAction func linkDeleteButtonDidTap(_ sender: Any) {
     linkTextField.text = ""
     linkdeleteButton.isHidden = true
   }
   
-  @IBAction func placeDeleteButtonTapped(_ sender: Any) {
+  @IBAction func placeDeleteButtonDidTap(_ sender: Any) {
     placeTextField.text = ""
     mapView.removeAnnotation(annotation)
     placedeleteButton.isHidden = true
   }
   
-  @IBAction func viewTapped(_ sender: Any) {
+  @IBAction func viewDidTap(_ sender: Any) {
     view.endEditing(true)
-  }
- 
-  @IBAction func linkTextFieldChange(_ sender: Any) {
-    linkdeleteButton.isHidden = linkTextField.text?.isEmpty ?? false ? true : false
-  }
-  
-  @IBAction func linkTextFiledDidEnd(_ sender: Any) {
-    if linkTextField.text?.isEmpty == true {
-      linkdeleteButton.isHidden = true
-    }
   }
 }
 
-// MARK:- TextFieldDelegate
+// MARK:- UITextFieldDelegate
 extension AddWishViewController: UITextFieldDelegate{
   func textFieldDidBeginEditing(_ textField: UITextField) {
     if textField == placeTextField {
@@ -210,13 +206,27 @@ extension AddWishViewController: UITextFieldDelegate{
   }
   
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    if textField == tagSelectTextField{
+    if textField == tagSelectTextField { 
       guard let tag = tagSelectTextField.text, tag.isEmpty == false else { return false }
       wishViewModel.addTag(tag)
       self.addTagViewController.tagCollectionView.reloadData()
       tagSelectTextField.text = ""
     }
     return true
+  }
+  
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    if textField == linkTextField {
+      if linkTextField.text?.isEmpty == true {
+        linkdeleteButton.isHidden = true
+      }
+    }
+  }
+  
+  func textFieldDidChangeSelection(_ textField: UITextField) {
+    if textField == linkTextField {
+     linkdeleteButton.isHidden = linkTextField.text?.isEmpty == true ? true : false
+   }
   }
 }
 

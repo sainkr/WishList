@@ -33,9 +33,9 @@ class SelectImageViewController: UIViewController{
   
   private func configurePageControl(){
     if type == .uiImage {
-      pageControl.numberOfPages = wishViewModel.image(index).count
+      pageControl.numberOfPages = wishViewModel.imageCount(index)
     }else if type == .url{
-      pageControl.numberOfPages = wishViewModel.imageURL(index).count
+      pageControl.numberOfPages = wishViewModel.imageURLCount(index)
     }
     pageControl.pageIndicatorTintColor = UIColor.lightGray
     pageControl.currentPageIndicatorTintColor = UIColor.white
@@ -51,7 +51,7 @@ class SelectImageViewController: UIViewController{
         imageVC.sizeType = .small
         imageVC.index = index
         imageVC.imgIndex = imgIndex
-        imageVC.image = wishViewModel.image(index)[imgIndex]
+        imageVC.image = wishViewModel.image(index: index, imageIndex: imgIndex)
         imageViewControllers.append(imageVC)
       }
     }else if type == .url{
@@ -61,7 +61,7 @@ class SelectImageViewController: UIViewController{
         imageVC.sizeType = .small
         imageVC.index = index
         imageVC.imgIndex = imgIndex
-        imageVC.imageURL = wishViewModel.imageURL(index)[imgIndex]
+        imageVC.imageURL = wishViewModel.imageURL(index: index, imageIndex: imgIndex)
         imageViewControllers.append(imageVC)
       }
     }else{
@@ -89,6 +89,7 @@ class SelectImageViewController: UIViewController{
   }
 }
 
+// MARK:- UIPageViewControllerDataSource
 extension SelectImageViewController: UIPageViewControllerDataSource{
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
     guard let vc = viewController as? ImageViewController, let index = imageViewControllers.firstIndex(of: vc) else { return nil }
@@ -105,6 +106,7 @@ extension SelectImageViewController: UIPageViewControllerDataSource{
   }
 }
 
+// MARK:- UIPageViewControllerDelegate
 extension SelectImageViewController: UIPageViewControllerDelegate{
   func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
     guard completed else { return }
