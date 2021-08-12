@@ -10,14 +10,13 @@ import MapKit
 
 class SearchPlaceViewController: UIViewController {
   static let identifier = "SearchPlaceViewController"
-  private var searchCompleter = MKLocalSearchCompleter()
-  private var searchResults = [MKLocalSearchCompletion]()
   
   @IBOutlet weak var searchBar: UISearchBar!
   @IBOutlet weak var searchResultTableView: UITableView!
   
-  let wishViewModel = WishViewModel()
-
+  private var searchCompleter = MKLocalSearchCompleter()
+  private var searchResults = [MKLocalSearchCompletion]()
+  private let wishViewModel = WishViewModel()
   var mapViewDelegate: MapViewDelegate?
   
   override func viewDidLoad() {
@@ -60,7 +59,7 @@ extension SearchPlaceViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = searchResultTableView.dequeueReusableCell(withIdentifier: "SearchPlaceCell", for: indexPath) as? SearchPlaceCell else { return UITableViewCell() }
+    guard let cell = searchResultTableView.dequeueReusableCell(withIdentifier: SearchPlaceTableViewCell.identifier, for: indexPath) as? SearchPlaceTableViewCell else { return UITableViewCell() }
     let searchResult = searchResults[indexPath.row]
     cell.updateUI(searchResult.title, searchResult.subtitle)
     return cell
@@ -88,15 +87,5 @@ extension SearchPlaceViewController: UITableViewDelegate{
 extension SearchPlaceViewController: UIScrollViewDelegate{
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     self.searchBar.resignFirstResponder()
-  }
-}
-
-class SearchPlaceCell: UITableViewCell {
-  @IBOutlet weak var placeLabel: UILabel!
-  @IBOutlet weak var addressLabel: UILabel!
-  
-  func updateUI(_ place: String, _ address: String){
-    placeLabel.text = place
-    addressLabel.text = address
   }
 }

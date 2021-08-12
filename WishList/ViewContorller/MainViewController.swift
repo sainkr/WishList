@@ -13,13 +13,13 @@ class MainViewController: UIViewController {
   @IBOutlet weak var addButton: UIButton!
   @IBOutlet weak var wishTableView: UITableView!
   
-  let wishViewModel = WishViewModel()
+  private let wishViewModel = WishViewModel()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     registerWishTableViewCells()
     addShareWish()
-    setaddButton()
+    configureAddButton()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -37,12 +37,12 @@ class MainViewController: UIViewController {
     wishTableView.reloadData()
   }
   
-  func registerWishTableViewCells(){
+  private func registerWishTableViewCells(){
     let wishTableViewCellNib = UINib(nibName: WishListTableViewCell.identifier, bundle: nil)
     wishTableView.register(wishTableViewCellNib, forCellReuseIdentifier: WishListTableViewCell.identifier)
   }
   
-  func setaddButton(){
+  private func configureAddButton(){
     addButton.layer.shadowColor = UIColor.black.cgColor
     addButton.layer.masksToBounds = false
     addButton.layer.shadowOffset = CGSize(width: 0, height: 1)
@@ -58,20 +58,19 @@ class MainViewController: UIViewController {
     }
   }
   
-  func addShareWish(){ // Share extension에서 추가한 wish 저장
+  private func addShareWish(){ // Share extension에서 추가한 wish 저장
     let defaults = UserDefaults(suiteName: "group.com.sainkr.WishList")
     guard let name = defaults?.string(forKey: "Name") else { return }
     guard let memo = defaults?.string(forKey: "Memo") else { return }
     guard let tag = defaults?.stringArray(forKey: "Tag") else { return }
     guard let url = defaults?.string(forKey: "URL") else { return }
-    wishViewModel.addWish(name: name, memo: memo, tag: tag, link: url)
+    wishViewModel.addWish(name, memo, tag, url)
     wishTableView.reloadData()
     defaults?.removeObject(forKey: "Name")
     defaults?.removeObject(forKey: "Memo")
     defaults?.removeObject(forKey: "Tag")
     defaults?.removeObject(forKey: "URL")
   }
-
 }
 
 // MARK:- IBAction
@@ -105,7 +104,7 @@ extension MainViewController{
 // MARK:- TableView
 extension MainViewController: UITableViewDataSource{
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return wishViewModel.wishs.count
+    return wishViewModel.wishsCount
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -114,12 +113,13 @@ extension MainViewController: UITableViewDataSource{
     }
     
     cell.favoriteButtonTapHandler = {
-      self.wishViewModel.updateFavorite(index: indexPath.item)
-      cell.updateFavorite(self.wishViewModel.wishs[indexPath.item].favorite)
+      self.wishViewModel.updateFavorite(indexPath.item)
+      cell.updateFavorite(favorite: self.wishViewModel.favorite(indexPath.item))
       tableView.reloadData()
     }
     
-    cell.updateUI(wishViewModel.wishs[indexPath.item])
+    cell.updateUI(wish: wishViewModel.wish(indexPath.item),
+                  imageType: wishViewModel.imageType(indexPath.item))
     
     return cell
   }

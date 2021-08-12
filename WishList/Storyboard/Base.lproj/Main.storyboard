@@ -509,134 +509,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aew-w6-j7Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4142" y="1577"/>
-        </scene>
-        <!--Show Tag View Controller-->
-        <scene sceneID="50a-cs-wcs">
-            <objects>
-                <viewController id="PwR-bv-poI" customClass="ShowTagViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="B05-tp-Stz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LGr-pH-p88">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VCP-BZ-Eh4">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1388"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Loading2" translatesAutoresizingMaskIntoConstraints="NO" id="bbC-jq-JMr">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="3Gu-sG-GNJ"/>
-                                                </constraints>
-                                            </imageView>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="bbC-jq-JMr" secondAttribute="trailing" id="XAp-9G-WdF"/>
-                                            <constraint firstItem="bbC-jq-JMr" firstAttribute="leading" secondItem="VCP-BZ-Eh4" secondAttribute="leading" id="puI-XK-Fmh"/>
-                                        </constraints>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PHb-Iv-RWJ">
-                                        <rect key="frame" x="0.0" y="150" width="414" height="1238"/>
-                                        <string key="text">I'm on the Next Level Yeah
-절대적 룰을 지켜
-내 손을 놓지 말아
-결속은 나의 무기
-광야로 걸어가
-알아 네 Home ground
-위협I'm on the Next Level Yeah
-절대적 룰을 지켜
-내 손을 놓지 말아
-결속은 나의 무기
-광야로 걸어가
-알아 네 Home ground
-위협I'm on the Next Level Yeah
-절대적 룰을 지켜
-내 손을 놓지 말아
-결속은 나의 무기
-광야로 걸어가
-알아 네 Home ground
-위협I'm on the Next Level Yeah
-절대적 룰을 지켜
-내 손을 놓지 말아
-결속은 나의 무기
-광야로 걸어가
-알아 네 Home ground
-위협I'm on the Next Level Yeah
-절대적 룰을 지켜
-내 손을 놓지 말아
-결속은 나의 무기
-광야로 걸어가
-알아 네 Home ground
-위협I'm on the Next Level Yeah
-절대적 룰을 지켜
-내 손을 놓지 말아
-결속은 나의 무기
-광야로 걸어가
-알아 네 Home ground
-위협I'm on the Next Level Yeah
-절대적 룰을 지켜
-내 손을 놓지 말아
-결속은 나의 무기
-광야로 걸어가
-알아 네 Home ground
-위협I'm on the Next Level Yeah
-절대적 룰을 지켜
-내 손을 놓지 말아
-결속은 나의 무기
-광야로 걸어가
-알아 네 Home ground
-위협I'm on the Next Level Yeah
-절대적 룰을 지켜
-내 손을 놓지 말아
-결속은 나의 무기
-광야로 걸어가
-알아 네 Home ground
-위협I'm on the Next Level Yeah
-절대적 룰을 지켜
-내 손을 놓지 말아
-결속은 나의 무기
-광야로 걸어가
-알아 네 Home ground
-위협</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="VCP-BZ-Eh4" secondAttribute="bottom" id="CfD-fs-0e0"/>
-                                    <constraint firstAttribute="bottom" secondItem="PHb-Iv-RWJ" secondAttribute="bottom" id="I4p-vf-aEX"/>
-                                    <constraint firstItem="PHb-Iv-RWJ" firstAttribute="top" secondItem="LGr-pH-p88" secondAttribute="top" constant="150" id="JCe-6Z-XNq"/>
-                                    <constraint firstAttribute="trailing" secondItem="VCP-BZ-Eh4" secondAttribute="trailing" id="NXo-Nc-zhi"/>
-                                    <constraint firstItem="PHb-Iv-RWJ" firstAttribute="top" secondItem="bbC-jq-JMr" secondAttribute="bottom" id="QL1-U3-ABQ"/>
-                                    <constraint firstItem="VCP-BZ-Eh4" firstAttribute="top" secondItem="LGr-pH-p88" secondAttribute="top" id="cVk-VR-Wg7"/>
-                                    <constraint firstItem="VCP-BZ-Eh4" firstAttribute="width" secondItem="LGr-pH-p88" secondAttribute="width" id="ewP-Ea-VU6"/>
-                                    <constraint firstItem="VCP-BZ-Eh4" firstAttribute="height" secondItem="LGr-pH-p88" secondAttribute="height" priority="250" id="g6h-CS-Ehy"/>
-                                    <constraint firstAttribute="trailing" secondItem="PHb-Iv-RWJ" secondAttribute="trailing" id="oi0-yA-7Fc"/>
-                                    <constraint firstItem="VCP-BZ-Eh4" firstAttribute="leading" secondItem="LGr-pH-p88" secondAttribute="leading" id="rhF-xb-bcX"/>
-                                    <constraint firstItem="PHb-Iv-RWJ" firstAttribute="leading" secondItem="LGr-pH-p88" secondAttribute="leading" id="vk5-Zz-9rF"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="0pK-Rl-oWx"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="XpD-Vr-KIL"/>
-                            </scrollView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="bZd-7s-beU"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="bZd-7s-beU" firstAttribute="trailing" secondItem="LGr-pH-p88" secondAttribute="trailing" id="07v-N9-6A3"/>
-                            <constraint firstItem="bbC-jq-JMr" firstAttribute="top" relation="lessThanOrEqual" secondItem="bZd-7s-beU" secondAttribute="top" id="RB0-wY-egi"/>
-                            <constraint firstItem="bZd-7s-beU" firstAttribute="bottom" secondItem="LGr-pH-p88" secondAttribute="bottom" id="S4i-q2-Fzf"/>
-                            <constraint firstItem="LGr-pH-p88" firstAttribute="leading" secondItem="bZd-7s-beU" secondAttribute="leading" id="e6n-XC-Bpo"/>
-                            <constraint firstItem="LGr-pH-p88" firstAttribute="top" secondItem="bZd-7s-beU" secondAttribute="top" id="gus-TD-FRv"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sgi-vU-a3k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-857" y="1785"/>
+            <point key="canvasLocation" x="-4143" y="1655"/>
         </scene>
         <!--Show Image View Controller-->
         <scene sceneID="afi-th-Ahj">
@@ -679,12 +552,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GTa-ce-qde" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2359" y="1576"/>
+            <point key="canvasLocation" x="-2359" y="1655"/>
         </scene>
-        <!--Select Wish Image View Controller-->
+        <!--SelectImageViewController-->
         <scene sceneID="bmv-qi-pBf">
             <objects>
-                <viewController storyboardIdentifier="SelectWishImageViewController" id="ms8-w6-XC6" customClass="SelectWishImageViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SelectImageViewController" title="SelectImageViewController" id="ms8-w6-XC6" customClass="SelectImageViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DQF-Md-nhJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -728,7 +601,7 @@
                                 <rect key="frame" x="0.0" y="100" width="414" height="762"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SearchPlaceCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchPlaceCell" rowHeight="85.5" id="XhE-uS-C0J" customClass="SearchPlaceCell" customModule="WishList" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SearchPlaceTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchPlaceTableViewCell" rowHeight="85.5" id="XhE-uS-C0J" customClass="SearchPlaceTableViewCell" customModule="WishList" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="85.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XhE-uS-C0J" id="xhq-wa-ZuC">
@@ -873,10 +746,10 @@
             </objects>
             <point key="canvasLocation" x="-2359" y="2338"/>
         </scene>
-        <!--Add Wish Tag View Controller-->
+        <!--AddTagViewController-->
         <scene sceneID="n4A-1g-Lcw">
             <objects>
-                <viewController storyboardIdentifier="AddWishTagViewController" id="Pou-JE-afB" customClass="AddWishTagViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddTagViewController" title="AddTagViewController" id="Pou-JE-afB" customClass="AddTagViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nDR-jh-k1f">
                         <rect key="frame" x="0.0" y="0.0" width="384" height="65"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -890,7 +763,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="TagCell" reuseIdentifier="TagCell" id="7dN-5W-fWM" customClass="TagCell" customModule="WishList" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="AddTagCollectionViewCell" reuseIdentifier="AddTagCollectionViewCell" id="7dN-5W-fWM" customClass="AddTagCollectionViewCell" customModule="WishList" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="14.5" width="87" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ZuT-Vu-kVi">
@@ -913,17 +786,17 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="collectionView" destination="A8N-BC-dpV" id="Zdm-O9-2pp"/>
+                        <outlet property="tagCollectionView" destination="A8N-BC-dpV" id="4zz-4n-a6l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hUy-ZM-wm1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3342" y="2325"/>
         </scene>
-        <!--AddWishImageViewController-->
+        <!--AddImageViewController-->
         <scene sceneID="xsN-0v-8US">
             <objects>
-                <viewController title="AddWishImageViewController" id="A7D-bU-MH0" customClass="AddWishImageViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddImageViewController" title="AddImageViewController" id="A7D-bU-MH0" customClass="AddImageViewController" customModule="WishList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M5Y-aL-xBv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -938,7 +811,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="1aI-Ce-v3I" customClass="PhotoCell" customModule="WishList" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="AddImageCollectionViewCell" reuseIdentifier="AddImageCollectionViewCell" id="1aI-Ce-v3I" customClass="AddImageCollectionViewCell" customModule="WishList" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="18" width="110" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="sNw-lU-lpp">
@@ -961,7 +834,7 @@
                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="bold"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="deleteButonTapped:" destination="1aI-Ce-v3I" eventType="touchUpInside" id="PEP-Zs-vwz"/>
+                                                        <action selector="deleteButtonTapped:" destination="1aI-Ce-v3I" eventType="touchUpInside" id="Ku5-uo-IEJ"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -976,8 +849,8 @@
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="110" height="120"/>
                                         <connections>
-                                            <outlet property="deleteButton" destination="Zno-wG-fLv" id="Kuu-8g-y7d"/>
-                                            <outlet property="thumbnailImageView" destination="KNn-ne-far" id="SxZ-Mx-374"/>
+                                            <outlet property="deleteButton" destination="Zno-wG-fLv" id="Ydy-7x-Fcy"/>
+                                            <outlet property="thumbnailImageView" destination="KNn-ne-far" id="lBd-U5-jTF"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -998,7 +871,7 @@
                     </view>
                     <size key="freeformSize" width="414" height="200"/>
                     <connections>
-                        <outlet property="collectionView" destination="hxw-b3-rs7" id="Mjj-AH-xrz"/>
+                        <outlet property="ImageCollectionView" destination="hxw-b3-rs7" id="Z1T-zc-EBx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NxN-4f-z5t" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1225,6 +1098,9 @@
                                             <constraint firstItem="opR-qW-xpz" firstAttribute="top" secondItem="ehz-mV-GaN" secondAttribute="bottom" constant="10" id="xHO-qe-sRH"/>
                                             <constraint firstAttribute="trailing" secondItem="BL8-lD-rwR" secondAttribute="trailing" constant="15" id="zWY-wM-Uop"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="Frq-95-kEt" appends="YES" id="UXZ-E2-jjx"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -1254,6 +1130,7 @@
                     <navigationItem key="navigationItem" id="04N-na-yY8"/>
                     <size key="freeformSize" width="414" height="1000"/>
                     <connections>
+                        <outlet property="gestureRecognizer" destination="Frq-95-kEt" id="rgS-n0-Ox7"/>
                         <outlet property="linkTextField" destination="opR-qW-xpz" id="aPQ-fJ-dtJ"/>
                         <outlet property="linkdeleteButton" destination="egm-mz-kpJ" id="efc-uN-mGq"/>
                         <outlet property="mapView" destination="I0c-mS-cuC" id="e6e-dp-g2S"/>
@@ -1266,8 +1143,13 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dw7-I1-CbL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Frq-95-kEt">
+                    <connections>
+                        <action selector="viewTapped:" destination="Y8Z-tZ-v8n" id="Ncc-mQ-Ym8"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-4142" y="2354"/>
+            <point key="canvasLocation" x="-4141" y="2372"/>
         </scene>
         <!--Search Wish View Controller-->
         <scene sceneID="m3I-LZ-78S">
@@ -1362,7 +1244,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Loading2" width="284" height="286"/>
         <image name="arrowshape.turn.up.backward.circle.fill" catalog="system" width="128" height="121"/>
         <image name="camera.circle" catalog="system" width="128" height="121"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>

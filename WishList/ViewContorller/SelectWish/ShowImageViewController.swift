@@ -13,54 +13,56 @@ class ShowImageViewController: UIViewController {
   @IBOutlet weak var pageControl: UIPageControl!
   @IBOutlet weak var deleteButton: UIButton!
   
-  let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-  let wishViewModel = WishViewModel()
+  private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+  private var imageViewControllers: [ImageViewController] = []
+  private let wishViewModel = WishViewModel()
   var type: ImageType = .none
   var index: Int = 0
   var imgIndex: Int = 0
   
-  var imageViewControllers: [ImageViewController] = []
-  
   override func viewDidLoad() {
     super.viewDidLoad()
-    setPageControl()
-    setPageViewController()
+    configurePageControl()
+    configurePageViewController()
   }
   
-  func setPageControl(){
+  private func configurePageControl(){
     if type == .uiImage {
-      pageControl.numberOfPages = wishViewModel.wishs[index].img.count
+      pageControl.numberOfPages = wishViewModel.image(index).count
     }else if type == .url{
-      pageControl.numberOfPages = wishViewModel.wishs[index].imgURL.count
+      pageControl.numberOfPages = wishViewModel.imageURL(index).count
     }
     pageControl.currentPage = imgIndex
     pageControl.pageIndicatorTintColor = UIColor.lightGray
     pageControl.currentPageIndicatorTintColor = UIColor.white
   }
   
-  func setImageViewControllers(){
+  private func configureImageViewControllers(){
+    imageViewControllers = []
     if type == .uiImage{
-      for imgIndex in wishViewModel.wishs[index].img.indices{
+      for imgIndex in wishViewModel.image(index).indices{
         let imageVC = ImageViewController()
         imageVC.imageType = type
         imageVC.sizeType = .large
         imageVC.index = index
         imageVC.imgIndex = imgIndex
+        imageVC.image = wishViewModel.image(index)[imgIndex]
         imageViewControllers.append(imageVC)
       }
     }else if type == .url{
-      for imgIndex in wishViewModel.wishs[index].imgURL.indices{
+      for imgIndex in wishViewModel.imageURL(index).indices{
         let imageVC = ImageViewController()
         imageVC.imageType = type
         imageVC.sizeType = .large
         imageVC.index = index
         imageVC.imgIndex = imgIndex
+        imageVC.imageURL = wishViewModel.imageURL(index)[imgIndex]
         imageViewControllers.append(imageVC)
       }
     }
   }
   
-  func setPageViewController(){
+  private func configurePageViewController(){
     pageViewController.delegate = self
     pageViewController.dataSource = self
     view.backgroundColor = .black
@@ -68,7 +70,7 @@ class ShowImageViewController: UIViewController {
     view.addSubview(pageViewController.view)
     view.addSubview(pageControl)
     view.addSubview(deleteButton)
-    setImageViewControllers()
+    configureImageViewControllers()
     pageViewController.setViewControllers([imageViewControllers[imgIndex]], direction: .forward, animated: true, completion: nil)
   }
 

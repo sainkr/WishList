@@ -25,53 +25,50 @@ class WishListTableViewCell: UITableViewCell {
     super.awakeFromNib()
   }
   
-  func updateUI(_ wish: Wish){
+  func updateUI(wish: Wish, imageType: ImageType){
+    favoriteButton.addTarget(self, action:#selector(WishListTableViewCell.favoriteButtonTapped(_:)), for: .touchUpInside)
+    updateThumbnail(image: wish.img, imageURL: wish.imgURL, imageType: imageType)
+    updateLabel(name: wish.name, memo: wish.memo, place: wish.place)
+    updateFavorite(favorite: wish.favorite)
+  }
+  
+  private func updateThumbnail(image: [UIImage], imageURL: [String], imageType: ImageType){
     thumbnailImageView.layer.cornerRadius = 10
-    if wish.img.count > 0 {
-      thumbnailImageView.image = wish.img[0]
-    }else if wish.imgURL.count > 0 {
-      let url = URL(string: wish.imgURL[0])
+    if imageType == .uiImage{
+      thumbnailImageView.image = image[0]
+    }else if imageType == .url{
+      let url = URL(string: imageURL[0])
       thumbnailImageView.kf.setImage(with: url)
     }else {
       thumbnailImageView.image = UIImage(systemName: "face.smiling")
       thumbnailImageView.tintColor = #colorLiteral(red: 0.03379072994, green: 0, blue: 0.9970340133, alpha: 1)
     }
-    nameLabel.text = wish.name
-    contentLabel.text = wish.memo
-    if let place = wish.place{
-      convertToAddressWith(coordinate: CLLocation(latitude: place.lat, longitude: place.lng))
-    }
-    favoriteButton.addTarget(self, action:#selector(WishListTableViewCell.favoriteButtonTapped(_:)), for: .touchUpInside)
-    if wish.favorite{
-      favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-      favoriteButton.tintColor = #colorLiteral(red: 1, green: 0.3110373616, blue: 0.312485069, alpha: 1)
-    } else {
-      favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
-      favoriteButton.tintColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+  }
+  
+  private func updateLabel(name: String, memo: String, place: Place?){
+    nameLabel.text = name
+    contentLabel.text = memo
+    self.addressLabel.text = name
+    if let place = place{
+      ConvertToAddress.convertToAddressWith(
+        latitude: place.lat, longitude: place.lng,
+        completion: { [weak self] address in
+          self?.addressLabel.text = address
+        })
     }
   }
   
-  func updateFavorite(_ current: Bool){
-    if current{
-      favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
-    } else {
+  func updateFavorite(favorite: Bool){
+    if favorite{
       favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+      favoriteButton.tintColor = .red
+    } else {
+      favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+      favoriteButton.tintColor = .lightGray
     }
   }
   
   @objc func favoriteButtonTapped(_ sender:UIButton!){
     favoriteButtonTapHandler?()
-  }
-
-  func convertToAddressWith(coordinate: CLLocation){
-    let geoCoder = CLGeocoder()
-    let locale = Locale(identifier: "Ko-kr")
-    geoCoder.reverseGeocodeLocation(coordinate, preferredLocale: locale, completionHandler: {(placemarks, error) in
-      if let address: [CLPlacemark] = placemarks {
-        if let name: String = address.last?.name {
-          self.addressLabel.text = name
-        }
-      }
-    })
   }
 }

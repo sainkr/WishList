@@ -7,16 +7,16 @@
 
 import UIKit
 
-class SelectWishImageViewController: UIViewController{
+class SelectImageViewController: UIViewController{
+  static let identifier = "ImagePageViewController"
+  
   @IBOutlet weak var pageControl: UIPageControl!
   
-  static let identifier = "ImagePageViewController"
-  let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-  let wishViewModel = WishViewModel()
+  private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+  private var imageViewControllers: [ImageViewController] = []
+  private let wishViewModel = WishViewModel()
   var type: ImageType = .none
   var index: Int = 0
-  
-  var imageViewControllers: [ImageViewController] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -24,42 +24,44 @@ class SelectWishImageViewController: UIViewController{
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
-    type = imageType()
-    setPageControl()
+    type = wishViewModel.imageType(index)
+    configurePageControl()
     if type == .uiImage || type == .url{
-      setPageViewController()
+      configurePageViewController()
     }
   }
   
-  func setPageControl(){
+  private func configurePageControl(){
     if type == .uiImage {
-      pageControl.numberOfPages = wishViewModel.wishs[index].img.count
+      pageControl.numberOfPages = wishViewModel.image(index).count
     }else if type == .url{
-      pageControl.numberOfPages = wishViewModel.wishs[index].imgURL.count
+      pageControl.numberOfPages = wishViewModel.imageURL(index).count
     }
     pageControl.pageIndicatorTintColor = UIColor.lightGray
     pageControl.currentPageIndicatorTintColor = UIColor.white
   }
   
-  func setImageViewControllers(){
+  private func configureImageViewControllers(){
     imageViewControllers = []
-    let type = imageType()
+    let type = wishViewModel.imageType(index)
     if type == .uiImage{
-      for imgIndex in wishViewModel.wishs[index].img.indices{
+      for imgIndex in wishViewModel.image(index).indices{
         let imageVC = ImageViewController()
-        imageVC.imageType = imageType()
+        imageVC.imageType = type
         imageVC.sizeType = .small
         imageVC.index = index
         imageVC.imgIndex = imgIndex
+        imageVC.image = wishViewModel.image(index)[imgIndex]
         imageViewControllers.append(imageVC)
       }
     }else if type == .url{
-      for imgIndex in wishViewModel.wishs[index].imgURL.indices{
+      for imgIndex in wishViewModel.imageURL(index).indices{
         let imageVC = ImageViewController()
-        imageVC.imageType = imageType()
+        imageVC.imageType = type
         imageVC.sizeType = .small
         imageVC.index = index
         imageVC.imgIndex = imgIndex
+        imageVC.imageURL = wishViewModel.imageURL(index)[imgIndex]
         imageViewControllers.append(imageVC)
       }
     }else{
@@ -67,15 +69,15 @@ class SelectWishImageViewController: UIViewController{
     }
   }
   
-  func setPageViewController(){
+  private func configurePageViewController(){
     pageViewController.delegate = self
     pageViewController.dataSource = self
     view.backgroundColor = .white
-    setPageControl()
+    configurePageControl()
     addChild(pageViewController)
     view.addSubview(pageViewController.view)
     view.addSubview(pageControl)
-    setImageViewControllers()
+    configureImageViewControllers()
     
     pageViewController.view.snp.makeConstraints{ make in
       make.top.equalToSuperview()
@@ -85,19 +87,9 @@ class SelectWishImageViewController: UIViewController{
     }
     pageViewController.setViewControllers([imageViewControllers[0]], direction: .forward, animated: true, completion: nil)
   }
-  
-  func imageType()-> ImageType{
-    if !wishViewModel.wishs[index].img.isEmpty{
-      return .uiImage
-    }else if !wishViewModel.wishs[index].imgURL.isEmpty{
-      return .url
-    }else{
-      return .none
-    }
-  }
 }
 
-extension SelectWishImageViewController: UIPageViewControllerDataSource{
+extension SelectImageViewController: UIPageViewControllerDataSource{
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
     guard let vc = viewController as? ImageViewController, let index = imageViewControllers.firstIndex(of: vc) else { return nil }
     let previousIndex = index - 1
@@ -113,7 +105,7 @@ extension SelectWishImageViewController: UIPageViewControllerDataSource{
   }
 }
 
-extension SelectWishImageViewController: UIPageViewControllerDelegate{
+extension SelectImageViewController: UIPageViewControllerDelegate{
   func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
     guard completed else { return }
     guard let vc = pageViewController.viewControllers?[0] as? ImageViewController, let index = imageViewControllers.firstIndex(of: vc) else{ return }

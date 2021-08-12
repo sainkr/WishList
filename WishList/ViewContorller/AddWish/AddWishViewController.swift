@@ -23,11 +23,10 @@ class AddWishViewController: UIViewController{
   @IBOutlet weak var placedeleteButton: UIButton!
   @IBOutlet weak var navigationBar: UINavigationBar!
   
-  var addWishTagViewController: AddWishTagViewController!
-  var addWishImageViewController: AddWishImageViewController!
-  
-  let wishViewModel = WishViewModel()
-  let annotation = MKPointAnnotation()
+  private var addTagViewController: AddTagViewController!
+  private var addImageViewController: AddImageViewController!
+  private let wishViewModel = WishViewModel()
+  private let annotation = MKPointAnnotation()
   var wishType: WishType = .wishAdd
   var index: Int = 0
   var place: Place?
@@ -35,11 +34,11 @@ class AddWishViewController: UIViewController{
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "tag" {
-      let destinationVC = segue.destination as? AddWishTagViewController
-      addWishTagViewController = destinationVC
+      let destinationVC = segue.destination as? AddTagViewController
+      addTagViewController = destinationVC
     } else if segue.identifier == "photo" {
-      let destinationVC = segue.destination as? AddWishImageViewController
-      addWishImageViewController = destinationVC
+      let destinationVC = segue.destination as? AddImageViewController
+      addImageViewController = destinationVC
     }
   }
   
@@ -48,27 +47,27 @@ class AddWishViewController: UIViewController{
     memoTextView.delegate = self
     placeTextField.delegate = self
     tagSelectTextField.delegate = self
-    setView()
+    configureView()
   }
 }
 
 extension AddWishViewController {
-  func setView(){
-    setNavigationBar()
-    setMemoTextView()
-    setMapView()
+  private func configureView(){
+    configureNavigationBar()
+    configureMemoTextView()
+    configureMapView()
     wishViewModel.addWish()
     if wishType == .wishUpdate{
-      wishViewModel.setWish(index: index)
-      setContent()
+      wishViewModel.setWish(index)
+      configureContent()
     }else if wishType == .wishPlaceAdd{
       guard let place = place else { return }
       wishViewModel.setPlace(place: place)
-      setMapContent(place: place)
+      configureMapContent(place: place)
     }
   }
   
-  func setNavigationBar(){
+  private func configureNavigationBar(){
     navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
     navigationBar.shadowImage = UIImage()
     navigationBar.backgroundColor = UIColor.clear
@@ -76,30 +75,39 @@ extension AddWishViewController {
     navigationBar.topItem?.title = wishType == .wishUpdate ? "Wish 수정" : "Wish 추가"
   }
   
-  func setMemoTextView(){
+  private func configureMemoTextView(){
     memoTextView.text = "간단 메모"
     memoTextView.textColor = .lightGray
   }
   
-  func setMapView(){
+  private func configureMapView(){
     mapView.layer.cornerRadius = 15
     mapView.showsUserLocation = true
     mapView.setUserTrackingMode(.follow, animated: true)
   }
   
-  func setContent(){
-    let wish = wishViewModel.wishs[index]
-    nameTextField.text = wish.name
-    memoTextView.text = wish.memo.count > 0 ? wish.memo : "간단 메모"
-    memoTextView.textColor = wish.memo.count > 0 ? .black : .lightGray
-    linkTextField.text = wish.link
-    linkdeleteButton.isHidden = wish.link.count > 0 ? false : true
-    guard let place = wish.place else { return }
-    setMapContent(place: place)
+  private func configureContent(){
+    nameTextField.text = wishViewModel.name(index)
+    if wishViewModel.memo(index).count > 0{
+      memoTextView.text = wishViewModel.memo(index)
+      memoTextView.textColor = .black
+    }else{
+      memoTextView.text = "간단 메모"
+      memoTextView.textColor = .lightGray
+    }
+    linkTextField.text = wishViewModel.link(index)
+    linkdeleteButton.isHidden = wishViewModel.link(index).count > 0 ? false : true
+    guard let place = wishViewModel.place(index) else { return }
+    configureMapContent(place: place)
   }
   
-  func setMapContent(place: Place){
-    convertToAddressWith(coordinate: CLLocation(latitude: place.lat, longitude: place.lng))
+  private func configureMapContent(place: Place){
+    ConvertToAddress.convertToAddressWith(
+      latitude: place.lat,
+      longitude: place.lng,
+      completion: { [weak self] address in
+        self?.placeTextField.text = address
+      })
     let coordinate = CLLocationCoordinate2D(latitude: place.lat , longitude: place.lng)
     let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
     let region = MKCoordinateRegion(center: coordinate, span: span)
@@ -111,8 +119,8 @@ extension AddWishViewController {
     placedeleteButton.isHidden = false
   }
   
-  func setAnnotaion(){
-    let wish = wishViewModel.wishs[wishViewModel.wishs.count - 1]
+  private func configureAnnotaion(){
+    let wish = wishViewModel.lastWish
     guard let place = wish.place else { return }
     let coordinate = CLLocationCoordinate2D(latitude: place.lat , longitude: place.lng)
     let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
@@ -125,19 +133,7 @@ extension AddWishViewController {
     placedeleteButton.isHidden = false
   }
   
-  func convertToAddressWith(coordinate: CLLocation){
-    let geoCoder = CLGeocoder()
-    let locale = Locale(identifier: "Ko-kr")
-    geoCoder.reverseGeocodeLocation(coordinate, preferredLocale: locale, completionHandler: {(placemarks, error) in
-      if let address: [CLPlacemark] = placemarks {
-        if let name: String = address.last?.name {
-          self.placeTextField.text = name
-        }
-      }
-    })
-  }
-  
-  func addAlert(message: String, title: String){
+  private func addAlert(message: String, title: String){
     let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
     let okAction = UIAlertAction(title: title , style: UIAlertAction.Style.default, handler: nil)
     alert.addAction(okAction)
@@ -148,7 +144,7 @@ extension AddWishViewController {
 extension AddWishViewController: MapViewDelegate{
   func mapViewUpdate(place: Place) {
     wishViewModel.setPlace(place: place)
-    setAnnotaion()
+    configureAnnotaion()
     placedeleteButton.isHidden = false
   }
 }
@@ -187,11 +183,10 @@ extension AddWishViewController{
     placedeleteButton.isHidden = true
   }
   
-  // 탭 했을때, 키보드 내려옴
-  @IBAction func tapBG(_ sender: Any) {
+  @IBAction func viewTapped(_ sender: Any) {
     view.endEditing(true)
   }
-  
+ 
   @IBAction func linkTextFieldChange(_ sender: Any) {
     linkdeleteButton.isHidden = linkTextField.text?.isEmpty ?? false ? true : false
   }
@@ -217,8 +212,8 @@ extension AddWishViewController: UITextFieldDelegate{
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     if textField == tagSelectTextField{
       guard let tag = tagSelectTextField.text, tag.isEmpty == false else { return false }
-      wishViewModel.addTag(tag: tag)
-      self.addWishTagViewController.collectionView.reloadData()
+      wishViewModel.addTag(tag)
+      self.addTagViewController.tagCollectionView.reloadData()
       tagSelectTextField.text = ""
     }
     return true

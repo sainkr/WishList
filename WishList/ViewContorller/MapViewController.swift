@@ -19,55 +19,54 @@ class MapViewController: UIViewController {
   @IBOutlet weak var currentLoacaionButton: UIButton!
   @IBOutlet weak var navigationBar: UINavigationBar!
   
-  var locationManager: CLLocationManager = CLLocationManager()
-  var currentLocation: CLLocation!
-  let placeAnnotation = MKPointAnnotation()
-  
-  let wishViewModel = WishViewModel()
-  var place: Place?
+  private var locationManager: CLLocationManager = CLLocationManager()
+  private var currentLocation: CLLocation!
+  private let placeAnnotation = MKPointAnnotation()
+  private let wishViewModel = WishViewModel()
+  private var place: Place?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     requestLocation()
-    setView()
+    configureView()
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
-    setMapView()
+    configuretMapView()
   }
 }
 
 extension MapViewController{
-  func setView(){
+  private func configureView(){
     mapView.delegate = self
-    setNavigationBar()
-    setSearchView()
-    setAddPlaceButton()
-    setCurrentLocationButton()
+    configureNavigationBar()
+    configureSearchView()
+    configureAddPlaceButton()
+    configureCurrentLocationButton()
   }
   
-  func setNavigationBar() {
+  private func configureNavigationBar() {
     navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
     navigationBar.shadowImage = UIImage()
     navigationBar.backgroundColor = UIColor.clear
   }
   
-  func setSearchView() {
+  private func configureSearchView() {
     let searchViewGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(searchViewTapped(_:)))
     searchView.addGestureRecognizer(searchViewGesture)
     decorateView(uiView: searchView, cornerRadius: 20, shadowColor: UIColor.black.cgColor, masksToBounds: false, shadowOffset: CGSize(width: 0, height: 4), shadowRadius: 8, shadowOpacity: 0.3)
   }
   
-  func setAddPlaceButton() {
+  private func configureAddPlaceButton() {
     decorateView(uiView: addPlaceButton, cornerRadius: 15, shadowColor: UIColor.black.cgColor, masksToBounds: false, shadowOffset: CGSize(width: 0, height: 4), shadowRadius: 8, shadowOpacity: 0.3)
   }
   
-  func setCurrentLocationButton(){
+  private func configureCurrentLocationButton(){
     decorateView(uiView: currentLoacaionButton, cornerRadius: 15, shadowColor: UIColor.black.cgColor, masksToBounds: false, shadowOffset: CGSize(width: 0, height: 4), shadowRadius: 8, shadowOpacity: 0.3)
   }
   
-  func decorateView(uiView: UIView, cornerRadius: CGFloat, shadowColor: CGColor, masksToBounds: Bool, shadowOffset: CGSize, shadowRadius: CGFloat, shadowOpacity: Float){
+  private func decorateView(uiView: UIView, cornerRadius: CGFloat, shadowColor: CGColor, masksToBounds: Bool, shadowOffset: CGSize, shadowRadius: CGFloat, shadowOpacity: Float){
     uiView.layer.cornerRadius = cornerRadius
     uiView.layer.shadowColor = shadowColor
     uiView.layer.masksToBounds = masksToBounds
@@ -76,12 +75,12 @@ extension MapViewController{
     uiView.layer.shadowOpacity = shadowOpacity
   }
   
-  func setMapView(){
+  private func configuretMapView(){
     for i in mapView.annotations{
       self.mapView.removeAnnotation(i)
     }
-    for i in wishViewModel.wishs.indices {
-      guard let place = wishViewModel.wishs[i].place else { continue }
+    for place in wishViewModel.places {
+      guard let place = place else { continue }
       let coordinate = CLLocationCoordinate2D(latitude: place.lng, longitude: place.lng)
       let annotation = MKPointAnnotation()
       annotation.coordinate = coordinate

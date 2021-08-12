@@ -15,19 +15,21 @@ class ImageViewController: UIViewController {
   var sizeType: ImageSizeType = .small
   var index: Int = 0
   var imgIndex: Int = 0
+  var image: UIImage?
+  var imageURL: String?
   
   let wishViewModel = WishViewModel()
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setImage()
+    configureImage()
   }
   
-  func setImage(){
-    if imageType == .uiImage{
-      imageView.image = wishViewModel.wishs[index].img[imgIndex]
-    }else if imageType == .url{
-      let url = URL(string: wishViewModel.wishs[index].imgURL[imgIndex])
+  private func configureImage(){
+    if let image = image {
+      imageView.image = image
+    }else if let imageURL = imageURL {
+      let url = URL(string: imageURL)
       imageView.kf.setImage(with: url)
     }
     view.addSubview(imageView)

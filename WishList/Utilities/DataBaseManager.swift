@@ -35,17 +35,45 @@ class DataBaseManager {
                     "placeLng": wish.place?.lng ?? 0,
                     "favorite": wish.favorite])
     }else {
-      convertUIImagetoImageURL(wish: wish, wishType: .wishAdd)
+      convertUIImagetoImageURL(wish: wish, completion: { [weak self] imageURL in
+        self?.db
+          .child(String(wish.timestamp))
+          .setValue([
+                      "timestamp" : wish.timestamp,
+                      "name": wish.name ,
+                      "tag" : wish.tag,
+                      "imgURL" : imageURL,
+                      "memo" : wish.memo,
+                      "link" : wish.link,
+                      "placeName" : wish.place?.name ?? "-",
+                      "placeLat": wish.place?.lat ?? 0,
+                      "placeLng": wish.place?.lng ?? 0,
+                      "favorite": wish.favorite])
+      })
     }
   }
   
   func updateWish(_ wish: Wish, _ imgCnt: Int){
     deleteImage(wish: wish, imgCnt: imgCnt, wishType: .wishUpdate)
-    convertUIImagetoImageURL(wish: wish, wishType: .wishUpdate)
+    convertUIImagetoImageURL(wish: wish, completion: { [weak self] imageURL in
+      self?.db
+        .child(String(wish.timestamp))
+        .updateChildValues([
+                            "timestamp" : wish.timestamp,
+                            "name": wish.name ,
+                            "tag" : wish.tag,
+                            "imgURL" : imageURL,
+                            "memo" : wish.memo,
+                            "link" : wish.link,
+                            "placeName" : wish.place?.name ?? "-",
+                            "placeLat": wish.place?.lat ?? 0,
+                            "placeLng": wish.place?.lng ?? 0,
+                            "favorite": wish.favorite])
+    })
   }
   
-  func convertUIImagetoImageURL(wish: Wish, wishType: WishType){
-    var imgURL: [String] = []
+  private func convertUIImagetoImageURL(wish: Wish, completion: @escaping (_ imageURL: [String]) -> Void){
+    var imageURL: [String] = []
     for i in wish.img.indices{
       let image: UIImage = wish.img[i]
       let data = image.jpegData(compressionQuality: 0.1)!
@@ -56,45 +84,17 @@ class DataBaseManager {
         if let error = err {
           print("--> error1:\(error.localizedDescription)")
         }
-        self.storage.reference().child(imageName).downloadURL { [self] (url, err) in
+        self.storage.reference().child(imageName).downloadURL { (url, err) in
           print("url fetch")
           if let error = err {
             print("--> error2:\(error.localizedDescription)")
           }
           else {
             print("---> \(i)")
-            imgURL.append(url!.absoluteString)
-            if imgURL.count == wish.img.count {
-              print("--->imgurl..length : \(imgURL.count)")
-              if wishType == .wishAdd {
-                db
-                  .child(String(wish.timestamp))
-                  .setValue([
-                              "timestamp" : wish.timestamp,
-                              "name": wish.name ,
-                              "tag" : wish.tag,
-                              "imgURL" : imgURL,
-                              "memo" : wish.memo,
-                              "link" : wish.link,
-                              "placeName" : wish.place?.name ?? "-",
-                              "placeLat": wish.place?.lat ?? 0,
-                              "placeLng": wish.place?.lng ?? 0,
-                              "favorite": wish.favorite])
-              }else if wishType == .wishUpdate {
-                db
-                  .child(String(wish.timestamp))
-                  .updateChildValues([
-                                      "timestamp" : wish.timestamp,
-                                      "name": wish.name ,
-                                      "tag" : wish.tag,
-                                      "imgURL" : imgURL,
-                                      "memo" : wish.memo,
-                                      "link" : wish.link,
-                                      "placeName" : wish.place?.name ?? "-",
-                                      "placeLat": wish.place?.lat ?? 0,
-                                      "placeLng": wish.place?.lng ?? 0,
-                                      "favorite": wish.favorite])
-              }
+            imageURL.append(url!.absoluteString)
+            if imageURL.count == wish.img.count {
+              print("--->imgurl..length : \(imageURL.count)")
+              completion(imageURL)
             }
           }
         }
@@ -112,7 +112,7 @@ class DataBaseManager {
     db.child(String(wish.timestamp)).removeValue()
   }
   
-  func deleteImage(wish: Wish, imgCnt: Int, wishType: WishType){
+  private func deleteImage(wish: Wish, imgCnt: Int, wishType: WishType){
     var cnt = 0
     if wishType == .wishUpdate{
       cnt = imgCnt

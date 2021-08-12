@@ -9,13 +9,12 @@ import UIKit
 import PhotosUI
 import Mantis
 
-class AddWishImageViewController: UIViewController{
-  @IBOutlet weak var collectionView: UICollectionView!
+class AddImageViewController: UIViewController{
+  @IBOutlet weak var ImageCollectionView: UICollectionView!
   
-  let wishViewModel = WishViewModel()
-  
-  var itemProviders: [NSItemProvider] = []
-  var iterator: IndexingIterator<[NSItemProvider]>?
+  private let wishViewModel = WishViewModel()
+  private var itemProviders: [NSItemProvider] = []
+  private var iterator: IndexingIterator<[NSItemProvider]>?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -23,34 +22,34 @@ class AddWishImageViewController: UIViewController{
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
-    collectionView.reloadData()
+    ImageCollectionView.reloadData()
   }
 }
 
-extension AddWishImageViewController:  UICollectionViewDataSource{
+extension AddImageViewController:  UICollectionViewDataSource{
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return wishViewModel.wishs[wishViewModel.wishs.count - 1].img.count + 1
+    return wishViewModel.image(wishViewModel.wishsCount - 1).count + 1
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.identifier, for: indexPath) as? PhotoCell else {
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddImageCollectionViewCell.identifier, for: indexPath) as? AddImageCollectionViewCell else {
       return UICollectionViewCell()
     }
     if indexPath.item == 0 {
       cell.updateUI()
     }else {
-      let photo = wishViewModel.wishs[wishViewModel.wishs.count - 1].img[indexPath.item - 1]
+      let photo = wishViewModel.image(wishViewModel.wishsCount - 1)[indexPath.item - 1]
       cell.updateUI(photo)
     }
     cell.deleteButtonTapHandler = {
-      self.wishViewModel.removeImage(index: indexPath.item - 1)
-      self.collectionView.reloadData()
+      self.wishViewModel.removeImage(indexPath.item - 1)
+      self.ImageCollectionView.reloadData()
     }
     return cell
   }
 }
 
-extension AddWishImageViewController: UICollectionViewDelegate{
+extension AddImageViewController: UICollectionViewDelegate{
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if indexPath.item == 0 {
       if #available(iOS 14, *) {
@@ -66,7 +65,7 @@ extension AddWishImageViewController: UICollectionViewDelegate{
   }
 }
 
-extension AddWishImageViewController: PHPickerViewControllerDelegate {
+extension AddImageViewController: PHPickerViewControllerDelegate {
   private func presentEditImageViewController(_ images: [UIImage]){
     guard let editImageVC = storyboard?.instantiateViewController(identifier: EditImageViewController.identifier) as? EditImageViewController else { return }
     editImageVC.modalPresentationStyle = .fullScreen
@@ -95,7 +94,7 @@ extension AddWishImageViewController: PHPickerViewControllerDelegate {
   }
 }
 
-extension AddWishImageViewController: UICollectionViewDelegateFlowLayout {
+extension AddImageViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     let width: CGFloat = 100
     let height: CGFloat = 100
@@ -103,34 +102,12 @@ extension AddWishImageViewController: UICollectionViewDelegateFlowLayout {
   }
 }
 
-extension AddWishImageViewController: CropViewControllerDelegate {
+extension AddImageViewController: CropViewControllerDelegate {
   func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage, transformation: Transformation) {
     dismiss(animated: true, completion: nil)
   }
   
   func cropViewControllerDidCancel(_ cropViewController: CropViewController, original: UIImage) {
     dismiss(animated: true, completion: nil)
-  }
-}
-
-class PhotoCell: UICollectionViewCell{
-  @IBOutlet weak var thumbnailImageView: UIImageView!
-  @IBOutlet weak var deleteButton: UIButton!
-  
-  static let identifier = "PhotoCell"
-  var deleteButtonTapHandler: (() -> Void )?
-  
-  func updateUI(_ photo: UIImage){
-    thumbnailImageView.image = photo
-    deleteButton.isHidden = false
-  }
-  
-  func updateUI(){
-    thumbnailImageView.image = UIImage(systemName: "camera.circle")
-    deleteButton.isHidden = true
-  }
-  
-  @IBAction func deleteButonTapped(_ sender: Any) {
-    deleteButtonTapHandler?()
   }
 }

@@ -19,16 +19,16 @@ class EditImageViewController: UIViewController{
   let wishViewModel = WishViewModel()
   var currentPage: Int = 0
   
-  var imageViewControllers: [UIViewController] = []
+  var imageViewControllers: [ImageViewController] = []
   var images: [UIImage] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setNavigtaionBar()
-    setPageViewController()
+    configureNavigtaionBar()
+    configurePageViewController()
   }
   
-  func setNavigtaionBar(){
+  private func configureNavigtaionBar(){
     navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
     navigationBar.shadowImage = UIImage()
     navigationBar.backgroundColor = UIColor.clear
@@ -36,9 +36,16 @@ class EditImageViewController: UIViewController{
     navigationBar.topItem?.title = "\(currentPage+1) / \(images.count)"
   }
   
-  func setImageViewControllers(){
+  private func configureImageViewControllers(){
     imageViewControllers = []
     for image in images{
+      let imageVC = ImageViewController()
+      imageVC.imageType = .uiImage
+      imageVC.sizeType = .large
+      imageVC.image = image
+      imageViewControllers.append(imageVC)
+    }
+    /*for image in images{
       let viewController = UIViewController()
       let imageView = UIImageView()
       imageView.image = image
@@ -51,10 +58,10 @@ class EditImageViewController: UIViewController{
       }
       imageView.contentMode = .scaleAspectFit
       imageViewControllers.append(viewController)
-    }
+    }*/
   }
   
-  func setPageViewController(){
+  private func configurePageViewController(){
     pageViewController.delegate = self
     pageViewController.dataSource = self
     view.backgroundColor = .white
@@ -66,12 +73,12 @@ class EditImageViewController: UIViewController{
       make.leading.equalToSuperview()
       make.trailing.equalToSuperview()
     }
-    setImageViewControllers()
+    configureImageViewControllers()
     pageViewController.setViewControllers([imageViewControllers[currentPage]], direction: .forward, animated: true, completion: nil)
   }
   
-  func updatePageViewController(){
-    setImageViewControllers()
+  private func updatePageViewController(){
+    configureImageViewControllers()
     pageViewController.setViewControllers([imageViewControllers[currentPage]], direction: .forward, animated: true, completion: nil)
   }
   
@@ -94,7 +101,7 @@ class EditImageViewController: UIViewController{
 
 extension EditImageViewController: UIPageViewControllerDataSource{
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-    guard let index = imageViewControllers.firstIndex(of: viewController) else { return nil }
+    guard let vc = viewController as? ImageViewController, let index = imageViewControllers.firstIndex(of: vc) else { return nil }
     let previousIndex = index - 1
     if previousIndex < 0 {
       return nil
@@ -103,7 +110,7 @@ extension EditImageViewController: UIPageViewControllerDataSource{
   }
   
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-    guard let index = imageViewControllers.firstIndex(of: viewController) else { return nil }
+    guard let vc = viewController as? ImageViewController, let index = imageViewControllers.firstIndex(of: vc) else { return nil }
     let nextIndex = index + 1
     if nextIndex == imageViewControllers.count {
       return nil
@@ -115,7 +122,7 @@ extension EditImageViewController: UIPageViewControllerDataSource{
 extension EditImageViewController: UIPageViewControllerDelegate{
   func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
     guard completed else { return }
-    guard let vc = pageViewController.viewControllers?[0], let index = imageViewControllers.firstIndex(of: vc) else{ return }
+    guard let vc = pageViewController.viewControllers?[0] as? ImageViewController, let index = imageViewControllers.firstIndex(of: vc) else{ return }
     currentPage = index
     navigationBar.topItem?.title = "\(index + 1) / \(images.count)"
   }

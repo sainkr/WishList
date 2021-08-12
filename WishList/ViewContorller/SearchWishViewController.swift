@@ -16,17 +16,16 @@ class SearchWishViewController: UIViewController {
   @IBOutlet weak var tagSwitch: UISwitch!
   @IBOutlet weak var wishTableView: UITableView!
   
-  let wishViewModel = WishViewModel()
-  var searchText = ""
-  var searchType: SearchType = .none
+  private let wishViewModel = WishViewModel()
+  private var searchText = ""
+  private var searchType: SearchType = .none
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
     registerWishTableViewCells()
   }
   
-  func registerWishTableViewCells(){
+  private func registerWishTableViewCells(){
     let wishTableViewCellNib = UINib(nibName: WishListTableViewCell.identifier, bundle: nil)
     wishTableView.register(wishTableViewCellNib, forCellReuseIdentifier: WishListTableViewCell.identifier)
   }
@@ -46,15 +45,17 @@ extension SearchWishViewController: UITableViewDataSource{
       return UITableViewCell()
     }
     
+    let filterWish = self.wishViewModel.filterWishs(text: self.searchText, type: self.searchType)[indexPath.item]
+    let index = self.wishViewModel.findWish(filterWish: filterWish)
+    
     cell.favoriteButtonTapHandler = {
-      let filterWish = self.wishViewModel.filterWishs(text: self.searchText, type: self.searchType)[indexPath.item]
-      let index = self.wishViewModel.findWish(filterWish: filterWish)
-      self.wishViewModel.updateFavorite(index: index)
-      cell.updateFavorite(!filterWish.favorite)
+      self.wishViewModel.updateFavorite(index)
+      cell.updateFavorite(favorite: !filterWish.favorite)
       self.wishTableView.reloadData()
     }
     
-    cell.updateUI(self.wishViewModel.filterWishs(text: searchText, type: searchType)[indexPath.item])
+    cell.updateUI(wish: filterWish,
+                  imageType: wishViewModel.imageType(index))
     
     return cell
   }

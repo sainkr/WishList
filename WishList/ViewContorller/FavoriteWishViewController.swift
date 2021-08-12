@@ -13,20 +13,20 @@ class FavoriteWishViewController: UIViewController {
   @IBOutlet weak var navigationBar: UINavigationBar!
   @IBOutlet weak var wishTableView: UITableView!
   
-  let wishViewModel = WishViewModel()
+  private let wishViewModel = WishViewModel()
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setNavigationBar()
+    configureNavigationBar()
     registerWishTableViewCells()
   }
   
-  func registerWishTableViewCells(){
+  private func registerWishTableViewCells(){
     let wishTableViewCellNib = UINib(nibName: WishListTableViewCell.identifier, bundle: nil)
     wishTableView.register(wishTableViewCellNib, forCellReuseIdentifier: WishListTableViewCell.identifier)
   }
   
-  func setNavigationBar() {
+  private func configureNavigationBar() {
     navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
     navigationBar.shadowImage = UIImage()
     navigationBar.backgroundColor = UIColor.clear
@@ -40,7 +40,7 @@ class FavoriteWishViewController: UIViewController {
 
 extension FavoriteWishViewController: UITableViewDataSource{
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return wishViewModel.favoriteWishs().count
+    return wishViewModel.favoriteWishs.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -48,15 +48,17 @@ extension FavoriteWishViewController: UITableViewDataSource{
       return UITableViewCell()
     }
     
+    let favoriteWish = self.wishViewModel.favoriteWishs[indexPath.item]
+    let index = self.wishViewModel.findWish(filterWish: favoriteWish)
+    
     cell.favoriteButtonTapHandler = {
-      let favoriteWish = self.wishViewModel.favoriteWishs()[indexPath.item]
-      let index = self.wishViewModel.findWish(filterWish: favoriteWish)
-      self.wishViewModel.updateFavorite(index: index)
-      cell.updateFavorite(!favoriteWish.favorite)
+      self.wishViewModel.updateFavorite(index)
+      cell.updateFavorite(favorite: !favoriteWish.favorite)
       self.wishTableView.reloadData()
     }
     
-    cell.updateUI(self.wishViewModel.favoriteWishs()[indexPath.item])
+    cell.updateUI(wish: favoriteWish,
+                  imageType: wishViewModel.imageType(index))
     
     return cell
   }
@@ -66,7 +68,7 @@ extension FavoriteWishViewController: UITableViewDelegate{
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     guard let selectWishVC = storyboard?.instantiateViewController(identifier: SelectWishViewController.identifier) as? SelectWishViewController else { return }
-    let favoriteWish = self.wishViewModel.favoriteWishs()[indexPath.item]
+    let favoriteWish = self.wishViewModel.favoriteWishs[indexPath.item]
     let index = self.wishViewModel.findWish(filterWish: favoriteWish)
     selectWishVC.modalPresentationStyle = .fullScreen
     selectWishVC.index = index
