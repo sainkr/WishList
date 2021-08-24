@@ -9,6 +9,8 @@ import CoreLocation
 import MapKit
 import UIKit
 
+import SnapKit
+
 class AddWishViewController: UIViewController{
   static let identifier = "AddWishViewController"
   
@@ -86,6 +88,9 @@ extension AddWishViewController {
     mapView.layer.cornerRadius = 15
     mapView.showsUserLocation = true
     mapView.setUserTrackingMode(.follow, animated: true)
+    mapView.snp.makeConstraints{ make in
+      make.bottom.equalToSuperview().inset(20)
+    }
   }
   
   private func configureContent(){
@@ -161,6 +166,10 @@ extension AddWishViewController{
   @IBAction func doneButtonDidTap(_ sender: Any) {
     if nameTextField.text == "" {
       addAlert(message:"이름을 입력하세요." , title: "확인")
+      return
+    }
+    if wishViewModel.tagCount(wishViewModel.lastWishIndex) == 0 {
+      addAlert(message:"적어도 한 개의 태그를 입력하세요." , title: "확인")
       return
     }
     let name = nameTextField.text ?? ""

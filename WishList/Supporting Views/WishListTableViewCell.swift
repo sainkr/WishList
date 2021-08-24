@@ -48,7 +48,6 @@ class WishListTableViewCell: UITableViewCell {
   private func updateLabel(name: String, memo: String, place: Place?){
     nameLabel.text = name
     contentLabel.text = memo
-    self.addressLabel.text = name
     if let place = place{
       ConvertToAddress.convertToAddressWith(
         latitude: place.lat, longitude: place.lng,

@@ -97,6 +97,9 @@ class WishViewModel {
   }
   
   func filterWishs(text: String, type: SearchType)-> [Wish]{
+    if text == ""{
+      return manager.wishs
+    }
     if type == .none {
       return manager.wishs
     }else if type == .name {
@@ -144,7 +147,7 @@ extension WishViewModel {
   }
   
   func addWish(_ name: String,_ memo: String,_ tag: [String],_ link: String){
-    manager.wishs.append(Wish(timestamp: Int(Date().timeIntervalSince1970.rounded()), name: name, tag: tag, memo: memo, img: [], imgURL: [], link: link, place: Place(name: "-", lat: 0, lng: 0), favorite: false))
+    manager.wishs.append(Wish(timestamp: Int(Date().timeIntervalSince1970.rounded()), name: name, tag: tag, memo: memo, img: [], imgURL: [], link: link, place: nil, favorite: false))
     saveWish(lastWishIndex)
   }
   
@@ -158,11 +161,11 @@ extension WishViewModel {
 extension WishViewModel {
   // AddWishListVC
   func addWish(){
-    manager.wishs.append(Wish(timestamp: Int(Date().timeIntervalSince1970.rounded()), name: "", tag: [], memo: "-", img: [], imgURL: [], link: "", place: Place(name: "-", lat: 0, lng: 0), favorite: false))
+    manager.wishs.append(Wish(timestamp: Int(Date().timeIntervalSince1970.rounded()), name: "", tag: [], memo: "-", img: [], imgURL: [], link: "", place: nil, favorite: false))
   }
   
   func setWish(_ index: Int){
-    manager.wishs[manager.wishs.count - 1] = manager.wishs[index]
+    manager.wishs[lastWishIndex] = manager.wishs[index]
   }
   
   func removeLastWish(){
@@ -170,13 +173,14 @@ extension WishViewModel {
   }
   
   func setLastWish(name: String, memo: String, link: String){
-    manager.wishs[manager.wishs.count - 1].name = name
-    manager.wishs[manager.wishs.count - 1].memo = memo
-    manager.wishs[manager.wishs.count - 1].link = link
+    manager.wishs[lastWishIndex].name = name
+    manager.wishs[lastWishIndex].memo = memo
+    manager.wishs[lastWishIndex].link = link
   }
   
   func saveWish(_ index: Int){
     FireBase.saveWish(manager.wishs[index])
+    sortWish()
   }
   
   func updateWish(_ index: Int){
@@ -186,28 +190,32 @@ extension WishViewModel {
   }
   
   func addTag(_ tag: String){
-    manager.wishs[manager.wishs.count - 1].tag.append(tag)
+    manager.wishs[lastWishIndex].tag.append(tag)
+  }
+  
+  func sortWish(){
+    manager.wishs.sort(by: {$0.timestamp > $1.timestamp})
   }
   
   // AddWishImageVC
   func removeImage(_ index: Int){
-    manager.wishs[manager.wishs.count - 1].img.remove(at: index)
+    manager.wishs[lastWishIndex].img.remove(at: index)
   }
   
   func wishImages(images: [UIImage])-> [UIImage]{
-    var wishImages = manager.wishs[manager.wishs.count - 1].img
+    var wishImages = manager.wishs[lastWishIndex].img
     wishImages.append(contentsOf: images)
     return wishImages
   }
   
   // AddWishTagVC
   func removeTag(_ index: Int){
-    manager.wishs[manager.wishs.count - 1].tag.remove(at: index)
+    manager.wishs[lastWishIndex].tag.remove(at: index)
   }
   
   // EditImageVC
   func setImage(images: [UIImage]){
-    manager.wishs[manager.wishs.count - 1].img = images
+    manager.wishs[lastWishIndex].img = images
   }
 }
 
@@ -216,15 +224,8 @@ extension WishViewModel {
   // SelectWishVC
   func changeUIImage(index: Int){
     let ChangeImageNotification: Notification.Name = Notification.Name("ChangeImageNotification")
-    DispatchQueue.global(qos: .userInteractive).async {
-      var img: [UIImage] = []
-      for imgURL in self.manager.wishs[index].imgURL{
-        guard let url = URL(string: imgURL) else { return  }
-        let data = NSData(contentsOf: url)
-        let image = UIImage(data : data! as Data)!
-        img.append(image)
-      }
-      self.manager.wishs[index].img = img
+    ChangeUIImage.changeUIImage(imageURL: manager.wishs[index].imgURL){ [weak self] image in
+      self?.manager.wishs[index].img = image
       NotificationCenter.default.post(name: ChangeImageNotification, object: nil)
     }
   }
@@ -239,7 +240,7 @@ extension WishViewModel {
 // MARK: - SearchPlaceVC
 extension WishViewModel {
   func setPlace(place: Place){
-    manager.wishs[manager.wishs.count - 1].place = place
+    manager.wishs[lastWishIndex].place = place
   }
 }
 

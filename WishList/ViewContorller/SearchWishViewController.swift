@@ -55,8 +55,7 @@ extension SearchWishViewController: UITableViewDataSource{
       self.wishTableView.reloadData()
     }
     
-    cell.updateUI(wish: filterWish,
-                  imageType: wishViewModel.imageType(index))
+    cell.updateUI(wish: filterWish, imageType: wishViewModel.imageType(index))
     
     return cell
   }

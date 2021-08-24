@@ -7,6 +7,8 @@
 
 import UIKit
 
+import SnapKit
+
 class AddImageCollectionViewCell: UICollectionViewCell{
   static let identifier = "AddImageCollectionViewCell"
   
@@ -15,17 +17,23 @@ class AddImageCollectionViewCell: UICollectionViewCell{
   
   @IBOutlet weak var thumbnailImageView: UIImageView!
   @IBOutlet weak var deleteButton: UIButton!
-
+  @IBOutlet weak var addImageView: UIImageView!
+  
   var deleteButtonTapHandler: (() -> Void )?
   
   func updateUI(_ photo: UIImage){
-    thumbnailImageView.image = photo
+    thumbnailImageView.isHidden = false
     deleteButton.isHidden = false
+    addImageView.isHidden = true
+    thumbnailImageView.image = photo
   }
   
   func updateUI(){
-    thumbnailImageView.image = UIImage(systemName: "camera.circle")
+    thumbnailImageView.isHidden = true
     deleteButton.isHidden = true
+    addImageView.isHidden = false
+    addImageView.image = UIImage(systemName: "camera.circle")
+    addImageView.tintColor = #colorLiteral(red: 0.05892608315, green: 0, blue: 0.9960646033, alpha: 1)
   }
 
   @IBAction func deleteButtonDidTap(_ sender: Any) {

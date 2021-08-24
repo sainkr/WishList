@@ -11,6 +11,7 @@ import UIKit
 
 import Kingfisher
 import NVActivityIndicatorView
+import SnapKit
 
 class SelectWishViewController: UIViewController {
   static let identifier = "SelectWishViewController"
@@ -19,13 +20,10 @@ class SelectWishViewController: UIViewController {
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var contentLabel: UILabel!
   @IBOutlet weak var mapView: MKMapView!
-  @IBOutlet weak var backButton: UIButton!
-  @IBOutlet weak var menuButton: UIButton!
   @IBOutlet weak var linkButton: UIButton!
   @IBOutlet weak var tagCollectionView: UICollectionView!
+  @IBOutlet weak var selectImageContainerView: UIView!
   @IBOutlet weak var nameLabelTop: NSLayoutConstraint!
-  @IBOutlet weak var mapViewHeight: NSLayoutConstraint!
-  @IBOutlet weak var mapViewWidth: NSLayoutConstraint!
   
   private let wishViewModel = WishViewModel()
   private let ChangeImageNotification: Notification.Name = Notification.Name("ChangeImageNotification")
@@ -43,25 +41,16 @@ class SelectWishViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    configureNameLabel()
     configureNavigationBar()
     configureCollectionView()
-    nameLabelTop.constant = view.bounds.width + 10
-    indicator = NVActivityIndicatorView(frame: CGRect(
-                                          x: view.bounds.width / 2 - 25,
-                                          y: view.bounds.height / 2 - 25,
-                                          width: 50,
-                                          height: 50),
-                                        type: .ballRotateChase,
-                                        color: .white,
-                                        padding: 0)
-    view.addSubview(indicator)
+    configureIndicatior()
     NotificationCenter.default.addObserver(self, selector: #selector(convertToUIImageComplete(_ :)), name: ChangeImageNotification, object: nil)
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
     configureView()
-    configureMapView()
     tagCollectionView.reloadData()
   }
 }
@@ -73,16 +62,19 @@ extension SelectWishViewController{
     navigationBar.backgroundColor = UIColor.clear
   }
   
+  private func configureNameLabel(){
+    nameLabelTop.constant = selectImageContainerView.bounds.height
+  }
+  
+  private func configureMapView(){
+    mapView.layer.cornerRadius = 15
+    mapView.snp.makeConstraints{ make in
+      make.bottom.equalToSuperview()
+    }
+  }
   private func configureView(){
     nameLabel.text = wishViewModel.name(index)
     contentLabel.text = wishViewModel.memo(index)
-    if wishViewModel.imageType(index) == .uiImage || wishViewModel.imageType(index) == .url {
-      backButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-      menuButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-    }else {
-      backButton.tintColor = #colorLiteral(red: 0.1158123985, green: 0.1258583069, blue: 0.5349373817, alpha: 1)
-      menuButton.tintColor = #colorLiteral(red: 0.1158123985, green: 0.1258583069, blue: 0.5349373817, alpha: 1)
-    }
     if wishViewModel.link(index) == "" {
       linkButton.isHidden = true
     } else {
@@ -92,15 +84,11 @@ extension SelectWishViewController{
       mapView.isHidden = true
     } else {
       mapView.isHidden = false
-      configureMapView()
+      configureAnnotation()
     }
   }
   
-  private func configureMapView(){
-    let width = view.bounds.width
-    mapViewWidth.constant = width - 20
-    mapViewHeight.constant = (width - 20) * 3 / 4
-    mapView.layer.cornerRadius = 15
+  private func configureAnnotation(){
     guard let place = wishViewModel.place(index) else { return }
     let coordinate = CLLocationCoordinate2D(latitude: place.lat, longitude: place.lng)
     let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
@@ -123,6 +111,18 @@ extension SelectWishViewController{
     tagCollectionView.register(SelectTagCollectionViewCell.self, forCellWithReuseIdentifier: SelectTagCollectionViewCell.identifier)
   }
   
+  private func configureIndicatior(){
+    indicator = NVActivityIndicatorView(frame: CGRect(
+                                          x: view.bounds.width / 2 - 25,
+                                          y: view.bounds.height / 2 - 25,
+                                          width: 50,
+                                          height: 50),
+                                        type: .ballRotateChase,
+                                        color: .white,
+                                        padding: 0)
+    view.addSubview(indicator)
+  }
+  
   @objc func convertToUIImageComplete(_ noti: Notification){
     DispatchQueue.main.async {
       self.indicator.stopAnimating()
@@ -134,6 +134,7 @@ extension SelectWishViewController{
     guard let addWishListVC = storyboard?.instantiateViewController(identifier: AddWishViewController.identifier) as? AddWishViewController else { return }
     addWishListVC.modalPresentationStyle = .fullScreen
     addWishListVC.wishType = .wishUpdate
+    addWishListVC.index = index
     self.present(addWishListVC, animated: true, completion: nil)
   }
 }
@@ -147,7 +148,7 @@ extension SelectWishViewController{
   @IBAction func menuButtonDidTap(_ sender: Any) {
     let actionsheetController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     let editWish = UIAlertAction(title: "수정", style: .default) { action in
-      if self.wishViewModel.imageType(self.index) == .url {
+      if self.wishViewModel.imageType(self.index) == .uiImage {
         self.presentAddWishListVC()
       }else {
         self.wishViewModel.changeUIImage(index: self.index)

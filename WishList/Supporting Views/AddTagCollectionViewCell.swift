@@ -15,8 +15,13 @@ class AddTagCollectionViewCell: UICollectionViewCell{
   static func fittingSize(availableHeight: CGFloat, tag: String) -> CGSize {
     let cell = AddTagCollectionViewCell()
     cell.configure(tag: tag)
-    let targetSize = CGSize(width: UIView.layoutFittingCompressedSize.width, height: availableHeight)
-    return cell.contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: .fittingSizeLevel, verticalFittingPriority: .required)
+    let targetSize = CGSize(
+      width: UIView.layoutFittingCompressedSize.width,
+      height: availableHeight)
+    return cell.contentView.systemLayoutSizeFitting(
+      targetSize,
+      withHorizontalFittingPriority: .fittingSizeLevel,
+      verticalFittingPriority: .required)
   }
   
   private let titleBackView: UIView = UIView()

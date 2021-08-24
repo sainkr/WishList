@@ -28,6 +28,7 @@
 		3645276925DE498F00F438AE /* SearchWishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645276825DE498F00F438AE /* SearchWishViewController.swift */; };
 		3645277C25DE49CC00F438AE /* Wish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3645277B25DE49CC00F438AE /* Wish.swift */; };
 		364527CD25DE56BC00F438AE /* Pods_WishList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEBEC0588425850E59444A9E /* Pods_WishList.framework */; };
+		3646435D26D3DDCC00A891C1 /* ChangeUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3646435C26D3DDCC00A891C1 /* ChangeUIImage.swift */; };
 		364FC40E25F34BCC00B49C17 /* EditImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364FC40D25F34BCC00B49C17 /* EditImageViewController.swift */; };
 		365ACF5F261597F500C3BC88 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365ACF5E261597F500C3BC88 /* DataBaseManager.swift */; };
 		365ACF7226159D3100C3BC88 /* WishViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365ACF7126159D3100C3BC88 /* WishViewModel.swift */; };
@@ -35,6 +36,8 @@
 		3696A8B926BECC7D00DAB88C /* MapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696A8B826BECC7D00DAB88C /* MapViewDelegate.swift */; };
 		36B35FE026C1210600E8F377 /* SearchViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B35FDF26C1210600E8F377 /* SearchViewDelegate.swift */; };
 		36BDFDAF26C1651200024CD7 /* FavoriteWishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BDFDAE26C1651200024CD7 /* FavoriteWishViewController.swift */; };
+		36C7678B26CCF43900470900 /* ShareTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C7678A26CCF43900470900 /* ShareTagCollectionViewCell.swift */; };
+		36C7679026CCF4EF00470900 /* ShareTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C7678A26CCF43900470900 /* ShareTagCollectionViewCell.swift */; };
 		36CBC56A2656434000CF9F5B /* WishListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CBC5682656434000CF9F5B /* WishListTableViewCell.swift */; };
 		36CBC56B2656434000CF9F5B /* WishListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36CBC5692656434000CF9F5B /* WishListTableViewCell.xib */; };
 		36D9D70526C3C756006BF21F /* ConverToAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D9D70426C3C756006BF21F /* ConverToAddress.swift */; };
@@ -118,6 +121,7 @@
 		3645276325DE498300F438AE /* SelectWishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWishViewController.swift; sourceTree = "<group>"; };
 		3645276825DE498F00F438AE /* SearchWishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWishViewController.swift; sourceTree = "<group>"; };
 		3645277B25DE49CC00F438AE /* Wish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wish.swift; sourceTree = "<group>"; };
+		3646435C26D3DDCC00A891C1 /* ChangeUIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUIImage.swift; sourceTree = "<group>"; };
 		364FC40D25F34BCC00B49C17 /* EditImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageViewController.swift; sourceTree = "<group>"; };
 		365ACF5E261597F500C3BC88 /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
 		365ACF7126159D3100C3BC88 /* WishViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishViewModel.swift; sourceTree = "<group>"; };
@@ -125,6 +129,7 @@
 		3696A8B826BECC7D00DAB88C /* MapViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewDelegate.swift; sourceTree = "<group>"; };
 		36B35FDF26C1210600E8F377 /* SearchViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewDelegate.swift; sourceTree = "<group>"; };
 		36BDFDAE26C1651200024CD7 /* FavoriteWishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteWishViewController.swift; sourceTree = "<group>"; };
+		36C7678A26CCF43900470900 /* ShareTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		36CBC5682656434000CF9F5B /* WishListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListTableViewCell.swift; sourceTree = "<group>"; };
 		36CBC5692656434000CF9F5B /* WishListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WishListTableViewCell.xib; sourceTree = "<group>"; };
 		36D9D70426C3C756006BF21F /* ConverToAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverToAddress.swift; sourceTree = "<group>"; };
@@ -188,6 +193,7 @@
 				360EC31125F5FAD100FAB92A /* Share.entitlements */,
 				360EC2F725F5F9B900FAB92A /* ShareViewController.swift */,
 				360EC2F925F5F9B900FAB92A /* MainInterface.storyboard */,
+				36C7678A26CCF43900470900 /* ShareTagCollectionViewCell.swift */,
 				360EC2FC25F5F9B900FAB92A /* Info.plist */,
 			);
 			path = Share;
@@ -293,6 +299,7 @@
 			children = (
 				365ACF5E261597F500C3BC88 /* DataBaseManager.swift */,
 				36D9D70426C3C756006BF21F /* ConverToAddress.swift */,
+				3646435C26D3DDCC00A891C1 /* ChangeUIImage.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -643,6 +650,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36C7678B26CCF43900470900 /* ShareTagCollectionViewCell.swift in Sources */,
 				360EC2F825F5F9B900FAB92A /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -669,6 +677,7 @@
 				3696A8B926BECC7D00DAB88C /* MapViewDelegate.swift in Sources */,
 				36D9D74326C3D169006BF21F /* SelectTagCollectionViewCell.swift in Sources */,
 				36D9D74926C3D207006BF21F /* SearchPlaceTableViewCell.swift in Sources */,
+				36C7679026CCF4EF00470900 /* ShareTagCollectionViewCell.swift in Sources */,
 				3645274B25DE493A00F438AE /* AddImageViewController.swift in Sources */,
 				364526E725DE447300F438AE /* SceneDelegate.swift in Sources */,
 				368DFA2325F4E6450089C01D /* AddWishViewController.swift in Sources */,
@@ -677,6 +686,7 @@
 				3645275025DE495000F438AE /* AddTagViewController.swift in Sources */,
 				36CBC56A2656434000CF9F5B /* WishListTableViewCell.swift in Sources */,
 				3645275F25DE497700F438AE /* MapViewController.swift in Sources */,
+				3646435D26D3DDCC00A891C1 /* ChangeUIImage.swift in Sources */,
 				36FD361625E9346F00D0AB2E /* ShowImageViewController.swift in Sources */,
 				363D489B25E2710200FF2210 /* SearchPlaceViewController.swift in Sources */,
 			);

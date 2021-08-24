@@ -11,7 +11,7 @@ import UIKit
 import Mantis
 
 class AddImageViewController: UIViewController{
-  @IBOutlet weak var ImageCollectionView: UICollectionView!
+  @IBOutlet weak var imageCollectionView: UICollectionView!
   
   private let wishViewModel = WishViewModel()
   private var itemProviders: [NSItemProvider] = []
@@ -23,7 +23,7 @@ class AddImageViewController: UIViewController{
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
-    ImageCollectionView.reloadData()
+    imageCollectionView.reloadData()
   }
 }
 
@@ -45,7 +45,8 @@ extension AddImageViewController:  UICollectionViewDataSource{
     }
     cell.deleteButtonTapHandler = {
       self.wishViewModel.removeImage(indexPath.item - 1)
-      self.ImageCollectionView.reloadData()
+      self.imageCollectionView.reloadData()
+
     }
     return cell
   }
@@ -56,13 +57,14 @@ extension AddImageViewController: UICollectionViewDelegate{
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if indexPath.item == 0 {
       if #available(iOS 14, *) {
-        var configuration = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
-        configuration.selectionLimit = 100
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 0
         configuration.filter = .any(of: [.images])
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
         picker.modalPresentationStyle = .fullScreen
         self.present(picker, animated: true, completion: nil)
+        
       }
     }
   }
@@ -93,6 +95,10 @@ extension AddImageViewController: PHPickerViewControllerDelegate {
     while true {
       guard let itemProvider = iterator?.next(), itemProvider.canLoadObject(ofClass: UIImage.self) else { break }
       itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+        if let error = error {
+          print("error : \(error)")
+          return
+        }
         guard let image = image as? UIImage else { return }
         images.append(image)
         if images.count == self.itemProviders.count{
@@ -115,3 +121,5 @@ extension AddImageViewController: CropViewControllerDelegate {
     dismiss(animated: true, completion: nil)
   }
 }
+
+

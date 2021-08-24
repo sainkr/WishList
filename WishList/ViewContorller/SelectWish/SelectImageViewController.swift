@@ -20,6 +20,7 @@ class SelectImageViewController: UIViewController{
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    configurePageViewController()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -27,7 +28,10 @@ class SelectImageViewController: UIViewController{
     type = wishViewModel.imageType(index)
     configurePageControl()
     if type == .uiImage || type == .url{
-      configurePageViewController()
+      configureImageViewControllers()
+      pageViewController.setViewControllers([imageViewControllers[0]], direction: .forward, animated: true, completion: nil)
+    }else {
+      pageControl.isHidden = true
     }
   }
   
@@ -77,15 +81,10 @@ class SelectImageViewController: UIViewController{
     addChild(pageViewController)
     view.addSubview(pageViewController.view)
     view.addSubview(pageControl)
-    configureImageViewControllers()
-    
+    pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
     pageViewController.view.snp.makeConstraints{ make in
-      make.top.equalToSuperview()
-      make.bottom.equalToSuperview()
-      make.leading.equalToSuperview()
-      make.trailing.equalToSuperview()
+      make.edges.equalToSuperview()
     }
-    pageViewController.setViewControllers([imageViewControllers[0]], direction: .forward, animated: true, completion: nil)
   }
 }
 
@@ -111,6 +110,6 @@ extension SelectImageViewController: UIPageViewControllerDelegate{
   func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
     guard completed else { return }
     guard let vc = pageViewController.viewControllers?[0] as? ImageViewController, let index = imageViewControllers.firstIndex(of: vc) else{ return }
-    print(index)
+    pageControl.currentPage = index
   }
 }

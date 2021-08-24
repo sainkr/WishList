@@ -20,7 +20,7 @@ class MapViewController: UIViewController {
   @IBOutlet weak var navigationBar: UINavigationBar!
   
   private var locationManager: CLLocationManager = CLLocationManager()
-  private var currentLocation: CLLocation!
+  private var currentLocation: CLLocation?
   private let placeAnnotation = MKPointAnnotation()
   private let wishViewModel = WishViewModel()
   private var place: Place?
@@ -33,7 +33,7 @@ class MapViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
-    configuretMapView()
+    configureMapView()
   }
 }
 
@@ -75,17 +75,17 @@ extension MapViewController{
     uiView.layer.shadowOpacity = shadowOpacity
   }
   
-  private func configuretMapView(){
-    for i in mapView.annotations{
-      self.mapView.removeAnnotation(i)
+  private func configureMapView(){
+    for anotation in mapView.annotations{
+      self.mapView.removeAnnotation(anotation)
     }
-    for place in wishViewModel.places {
-      guard let place = place else { continue }
-      let coordinate = CLLocationCoordinate2D(latitude: place.lng, longitude: place.lng)
+    for index in wishViewModel.places.indices {
+      guard let place = wishViewModel.places[index] else { continue }
+      let coordinate = CLLocationCoordinate2D(latitude: place.lat, longitude: place.lng)
       let annotation = MKPointAnnotation()
       annotation.coordinate = coordinate
-      annotation.title = place.name
-      self.mapView.addAnnotation(annotation)
+      annotation.title = wishViewModel.name(index)
+      mapView.addAnnotation(annotation)
     }
   }
   
@@ -96,7 +96,9 @@ extension MapViewController{
     searchImage.isHidden = false
     addPlaceButton.setTitle("    현재 위치 추가    ", for: .normal)
     deleteButon.isHidden = true
-    self.mapView.removeAnnotation(placeAnnotation)
+    mapView.removeAnnotation(placeAnnotation)
+    guard let currentLocation = currentLocation?.coordinate else { return }
+    place = Place(name: "-", lat: currentLocation.latitude, lng: currentLocation.longitude)
   }
 }
 
@@ -169,9 +171,11 @@ extension MapViewController: CLLocationManagerDelegate {
   }
   
   private func setCurrentLoacation(){
-    self.currentLocation = locationManager.location
-    self.mapView.showsUserLocation = true
-    self.mapView.setUserTrackingMode(.follow, animated: true)
+    currentLocation = locationManager.location
+    guard let currentLocation = currentLocation?.coordinate else { return }
+    place = Place(name: "-", lat: currentLocation.latitude, lng: currentLocation.longitude)
+    mapView.showsUserLocation = true
+    mapView.setUserTrackingMode(.follow, animated: true)
   }
 }
 
@@ -180,10 +184,11 @@ extension MapViewController: MapViewDelegate{
   func mapViewUpdate(place: Place) {
     self.place = place
     placeAnnotation.coordinate = CLLocationCoordinate2D(latitude: place.lat, longitude: place.lng)
+    placeAnnotation.title = place.name
     let span = MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
     let region = MKCoordinateRegion(center: placeAnnotation.coordinate, span: span)
     mapView.setRegion(region, animated: true)
-    guard wishViewModel.findWish(placeAnnotation.coordinate) != nil else{
+    guard wishViewModel.findWish(placeAnnotation.coordinate) == nil else{
       addPlaceButton.isHidden = true
       return
     }

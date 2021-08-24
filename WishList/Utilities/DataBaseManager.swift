@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 import Firebase
 import FirebaseStorage
 
@@ -21,19 +22,19 @@ class DataBaseManager {
   
   func saveWish(_ wish: Wish){
     if wish.img.isEmpty {
-        db
-        .child(String(wish.timestamp))
-        .setValue([
-                    "timestamp" : wish.timestamp,
-                    "name": wish.name ,
-                    "tag" : wish.tag,
-                    "imgURL" : [],
-                    "memo" : wish.memo,
-                    "link" : wish.link,
-                    "placeName" : wish.place?.name ?? "-",
-                    "placeLat": wish.place?.lat ?? 0,
-                    "placeLng": wish.place?.lng ?? 0,
-                    "favorite": wish.favorite])
+      db
+      .child(String(wish.timestamp))
+      .setValue([
+                  "timestamp" : wish.timestamp,
+                  "name": wish.name ,
+                  "tag" : wish.tag,
+                  "imgURL" : ["-"],
+                  "memo" : wish.memo,
+                  "link" : wish.link,
+                  "placeName" : wish.place?.name ?? "-",
+                  "placeLat": wish.place?.lat ?? 0,
+                  "placeLng": wish.place?.lng ?? 0,
+                  "favorite": wish.favorite])
     }else {
       convertUIImagetoImageURL(wish: wish){ [weak self] imageURL in
         self?.db
@@ -58,7 +59,7 @@ class DataBaseManager {
     convertUIImagetoImageURL(wish: wish){ [weak self] imageURL in
       self?.db
         .child(String(wish.timestamp))
-        .updateChildValues([
+        .setValue([
                             "timestamp" : wish.timestamp,
                             "name": wish.name ,
                             "tag" : wish.tag,
@@ -76,6 +77,7 @@ class DataBaseManager {
     var imageURL: [String] = []
     for i in wish.img.indices{
       let image: UIImage = wish.img[i]
+      // 지정된 이미지를 JPEG 형식으로 포함하는 데이터 개체를 반환합니다., JPEG 이미지의 품질 최대 압축 ~ 최소 압축
       let data = image.jpegData(compressionQuality: 0.1)!
       let metaData = StorageMetadata()
       metaData.contentType = "image/png"
@@ -104,7 +106,7 @@ class DataBaseManager {
   
   func updateFavoriteWish(_ wish: Wish){
     let imgURL = wish.imgURL.isEmpty ? ["-"] : wish.imgURL
-    db.child(String(wish.timestamp)).updateChildValues([ "timestamp" : wish.timestamp, "name": wish.name ,  "tag" : wish.tag, "imgURL" : imgURL, "memo" : wish.memo, "link" : wish.link, "placeName" : wish.place!.name, "placeLat": wish.place!.lat, "placeLng": wish.place!.lng, "favorite": wish.favorite])
+    db.child(String(wish.timestamp)).setValue([ "timestamp" : wish.timestamp, "name": wish.name ,  "tag" : wish.tag, "imgURL" : imgURL, "memo" : wish.memo, "link" : wish.link, "placeName" : wish.place?.name ?? "-", "placeLat": wish.place?.lat ?? 0, "placeLng": wish.place?.lng ?? 0, "favorite": wish.favorite])
   }
   
   func deleteWish(_ wish: Wish){
