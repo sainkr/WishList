@@ -63,7 +63,7 @@ extension SelectWishViewController{
   }
   
   private func configureNameLabel(){
-    nameLabelTop.constant = selectImageContainerView.bounds.height
+    nameLabelTop.constant = selectImageContainerView.bounds.height + 20
   }
   
   private func configureMapView(){
