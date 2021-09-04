@@ -22,9 +22,16 @@ class SearchPlaceViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.searchBar.showsCancelButton = true
-    self.searchCompleter.delegate = self
-    self.searchBar.becomeFirstResponder()
+    searchBar.showsCancelButton = true
+    searchCompleter.delegate = self
+    searchBar.becomeFirstResponder()
+    
+    registerSearchPlaceTableViewCells()
+  }
+  
+  private func registerSearchPlaceTableViewCells(){
+    let searchPlaceTableViewCellNib = UINib(nibName: SearchPlaceTableViewCell.identifier, bundle: nil)
+    searchResultTableView.register(searchPlaceTableViewCellNib, forCellReuseIdentifier: SearchPlaceTableViewCell.identifier)
   }
 }
 
@@ -85,6 +92,10 @@ extension SearchPlaceViewController: UITableViewDelegate{
       self.mapViewDelegate?.mapViewUpdate(place: Place(name: selectedResult.title, lat: placeMark.coordinate.latitude, lng: placeMark.coordinate.longitude))
       self.dismiss(animated: true, completion: nil)
     }
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return SearchPlaceTableViewCell.height
   }
 }
 

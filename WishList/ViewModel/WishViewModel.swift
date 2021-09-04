@@ -20,18 +20,6 @@ class WishViewModel {
     return wishsCount - 1
   }
   
-  var favoriteWishs: [Wish]{
-    return manager.wishs.filter{ $0.favorite }
-  }
-  
-  var favoriteWishsCount: Int{
-    return favoriteWishs.count
-  }
-  
-  func favoriteWish(_ index: Int)-> Wish{
-    return favoriteWishs[index]
-  }
-  
   var places: [Place?]{
     return manager.wishs.map{ $0.place }
   }
@@ -95,36 +83,7 @@ class WishViewModel {
   func place(_ index: Int)-> Place?{
     return manager.wishs[index].place
   }
-  
-  func filterWishs(text: String, type: SearchType)-> [Wish]{
-    if text == ""{
-      return manager.wishs
-    }
-    if type == .none {
-      return manager.wishs
-    }else if type == .name {
-      return manager.wishs.filter{
-        $0.name.localizedStandardContains(text)
-      }
-    }else if type == .tag {
-      return manager.wishs.filter{
-        $0.tag.contains(text)
-      }
-    }else {
-      return manager.wishs.filter{
-        $0.name.localizedStandardContains(text) || $0.tag.contains(text)
-      }
-    }
-  }
-  
-  func filterWishsCount(text: String, type: SearchType)-> Int{
-    return filterWishs(text: text, type: type).count
-  }
-  
-  func filterWish(text: String, type: SearchType, index: Int)-> Wish{
-    return filterWishs(text: text, type: type)[index]
-  }
-  
+    
   func loadWish() {
     FireBase.loadData()
   }
@@ -219,9 +178,8 @@ extension WishViewModel {
   }
 }
 
-// MARK: - SelectWish
+// MARK: - SelectWishVC
 extension WishViewModel {
-  // SelectWishVC
   func changeUIImage(index: Int){
     let ChangeImageNotification: Notification.Name = Notification.Name("ChangeImageNotification")
     ChangeUIImage.changeUIImage(imageURL: manager.wishs[index].imgURL){ [weak self] image in
@@ -257,11 +215,11 @@ extension WishViewModel {
   }
 }
 
-// MARK: - SearchWishVC
+// MARK: - SearchWishVC, FavoriteWishVC
 extension WishViewModel {
-  func findWish(filterWish: Wish)-> Int{
+  func findWish(_ wish: Wish)-> Int{
     for index in manager.wishs.indices {
-      if manager.wishs[index].timestamp == filterWish.timestamp{
+      if manager.wishs[index].timestamp == wish.timestamp{
         return index
       }
     }

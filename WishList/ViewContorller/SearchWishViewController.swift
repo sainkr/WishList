@@ -17,6 +17,7 @@ class SearchWishViewController: UIViewController {
   @IBOutlet weak var tagSwitch: UISwitch!
   @IBOutlet weak var wishTableView: UITableView!
   
+  private let filterWishViewModel = FilterWishViewModel()
   private let wishViewModel = WishViewModel()
   private var searchText = ""
   private var searchType: SearchType = .none
@@ -38,7 +39,7 @@ class SearchWishViewController: UIViewController {
 
 extension SearchWishViewController: UITableViewDataSource{
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return wishViewModel.filterWishsCount(text: searchText, type: searchType)
+    return filterWishViewModel.filterWishsCount(text: searchText, type: searchType)
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -46,8 +47,8 @@ extension SearchWishViewController: UITableViewDataSource{
       return UITableViewCell()
     }
     
-    let filterWish = self.wishViewModel.filterWish(text: self.searchText, type: self.searchType, index: indexPath.item)
-    let index = self.wishViewModel.findWish(filterWish: filterWish)
+    let filterWish = self.filterWishViewModel.filterWish(text: self.searchText, type: self.searchType, index: indexPath.item)
+    let index = self.wishViewModel.findWish(filterWish)
     
     cell.favoriteButtonTapHandler = {
       self.wishViewModel.updateFavorite(index)
@@ -66,8 +67,8 @@ extension SearchWishViewController: UITableViewDelegate{
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     guard let selectWishVC = storyboard?.instantiateViewController(identifier: SelectWishViewController.identifier) as? SelectWishViewController else { return }
-    let filterWish = self.wishViewModel.filterWish(text: self.searchText, type: self.searchType, index: indexPath.item)
-    let index = self.wishViewModel.findWish(filterWish: filterWish)
+    let filterWish = self.filterWishViewModel.filterWish(text: self.searchText, type: self.searchType, index: indexPath.item)
+    let index = self.wishViewModel.findWish(filterWish)
     selectWishVC.modalPresentationStyle = .fullScreen
     selectWishVC.index = index
     present(selectWishVC, animated: true, completion: nil)

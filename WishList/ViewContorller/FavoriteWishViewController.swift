@@ -14,6 +14,7 @@ class FavoriteWishViewController: UIViewController {
   @IBOutlet weak var wishTableView: UITableView!
   
   private let wishViewModel = WishViewModel()
+  private let favoriteWishViewModel = FavoriteWishViewModel()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -41,7 +42,7 @@ class FavoriteWishViewController: UIViewController {
 // MARK:- UITableViewDataSource
 extension FavoriteWishViewController: UITableViewDataSource{
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return wishViewModel.favoriteWishsCount
+    return favoriteWishViewModel.favoriteWishsCount
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,8 +50,8 @@ extension FavoriteWishViewController: UITableViewDataSource{
       return UITableViewCell()
     }
     
-    let favoriteWish = self.wishViewModel.favoriteWish(indexPath.item)
-    let index = self.wishViewModel.findWish(filterWish: favoriteWish)
+    let favoriteWish = self.favoriteWishViewModel.favoriteWish(indexPath.item)
+    let index = self.wishViewModel.findWish(favoriteWish)
     
     cell.favoriteButtonTapHandler = {
       self.wishViewModel.updateFavorite(index)
@@ -70,8 +71,8 @@ extension FavoriteWishViewController: UITableViewDelegate{
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     guard let selectWishVC = storyboard?.instantiateViewController(identifier: SelectWishViewController.identifier) as? SelectWishViewController else { return }
-    let favoriteWish = self.wishViewModel.favoriteWish(indexPath.item)
-    let index = self.wishViewModel.findWish(filterWish: favoriteWish)
+    let favoriteWish = self.favoriteWishViewModel.favoriteWish(indexPath.item)
+    let index = self.wishViewModel.findWish(favoriteWish)
     selectWishVC.modalPresentationStyle = .fullScreen
     selectWishVC.index = index
     present(selectWishVC, animated: true, completion: nil)

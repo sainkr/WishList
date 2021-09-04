@@ -83,7 +83,7 @@ extension MainViewController{
   }
   
   @IBAction func mapButtonDidTap(_ sender: Any) {
-    guard let mapVC = storyboard?.instantiateViewController(identifier: "MapViewController") as? MapViewController else { return }
+    guard let mapVC = storyboard?.instantiateViewController(identifier: MapViewController.identifier ) as? MapViewController else { return }
     mapVC.modalPresentationStyle = .fullScreen
     present(mapVC, animated: true, completion: nil)
   }

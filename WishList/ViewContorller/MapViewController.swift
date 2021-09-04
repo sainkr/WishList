@@ -10,6 +10,9 @@ import MapKit
 import UIKit
 
 class MapViewController: UIViewController {
+  
+  static let identifier = "MapViewController"
+  
   @IBOutlet weak var mapView: MKMapView!
   @IBOutlet weak var searchView: UIView!
   @IBOutlet weak var addPlaceButton: UIButton!

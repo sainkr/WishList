@@ -1,15 +1,13 @@
 //
-//  AddWishImageCollectionViewCell.swift
+//  AddImageCollectionViewCell.swift
 //  WishList
 //
-//  Created by 홍승아 on 2021/08/11.
+//  Created by 홍승아 on 2021/09/05.
 //
 
 import UIKit
 
-import SnapKit
-
-class AddImageCollectionViewCell: UICollectionViewCell{
+class AddImageCollectionViewCell: UICollectionViewCell {
   static let identifier = "AddImageCollectionViewCell"
   
   static let width: CGFloat = 100
@@ -20,6 +18,11 @@ class AddImageCollectionViewCell: UICollectionViewCell{
   @IBOutlet weak var addImageView: UIImageView!
   
   var deleteButtonTapHandler: (() -> Void )?
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    // Initialization code
+  }
   
   func updateUI(_ photo: UIImage){
     thumbnailImageView.isHidden = false

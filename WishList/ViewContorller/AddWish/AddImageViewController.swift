@@ -19,11 +19,17 @@ class AddImageViewController: UIViewController{
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    registerAddImageCollectionViewCells()
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
     imageCollectionView.reloadData()
+  }
+  
+  private func registerAddImageCollectionViewCells(){
+    let addImageCollectionCellNib = UINib(nibName: AddImageCollectionViewCell.identifier, bundle: nil)
+    imageCollectionView.register(addImageCollectionCellNib, forCellWithReuseIdentifier: AddImageCollectionViewCell.identifier)
   }
 }
 
