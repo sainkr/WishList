@@ -74,12 +74,10 @@ class ShowImageViewController: UIViewController {
     pageViewController.setViewControllers([imageViewControllers[imgIndex]], direction: .forward, animated: true, completion: nil)
   }
 
-  
   @IBAction func deleteButtonDidTap(_ sender: Any) {
     dismiss(animated: true, completion: nil)
   }
 }
-
 
 // MARK: - UIPageViewControllerDataSource
 extension ShowImageViewController: UIPageViewControllerDataSource{

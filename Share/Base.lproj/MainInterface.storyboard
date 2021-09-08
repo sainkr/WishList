@@ -6,7 +6,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -68,39 +67,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gfe-oE-5rb">
-                                <rect key="frame" x="10" y="178" width="394" height="65"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="65" id="yV8-ib-Jth"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="POO-OI-E1v">
-                                    <size key="itemSize" width="87" height="36"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ShareTagCollectionViewCell" reuseIdentifier="ShareTagCollectionViewCell" id="b0B-pb-sFT" customClass="ShareTagCollectionViewCell" customModule="Share" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="14.5" width="87" height="36"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pnR-wE-PVe">
-                                            <rect key="frame" x="0.0" y="0.0" width="87" height="36"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <size key="customSize" width="87" height="36"/>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fg4-qD-6Qx">
-                                <rect key="frame" x="21" y="255" width="374" height="1"/>
+                                <rect key="frame" x="21" y="243" width="374" height="1"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="NH2-61-RqE"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2zp-4a-3Hd">
-                                <rect key="frame" x="20" y="266" width="374" height="100"/>
+                                <rect key="frame" x="20" y="254" width="374" height="100"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Kdm-mw-TOv"/>
@@ -110,28 +85,43 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9GX-WE-XR0">
-                                <rect key="frame" x="20" y="376" width="374" height="1"/>
+                                <rect key="frame" x="20" y="364" width="374" height="1"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="tFJ-Or-5Y0"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="http://" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IGk-hB-Twn">
-                                <rect key="frame" x="20" y="385" width="374" height="25.5"/>
+                                <rect key="frame" x="20" y="373" width="374" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="duN-Ps-RcP">
+                                <rect key="frame" x="10" y="170" width="394" height="65"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="L7L-X7-ZcR"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1qh-z8-mEY">
+                                    <size key="itemSize" width="128" height="45"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1Xd-am-t49"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="duN-Ps-RcP" firstAttribute="top" secondItem="QYc-aT-A0m" secondAttribute="bottom" id="0ia-Hz-v6R"/>
                             <constraint firstItem="IGk-hB-Twn" firstAttribute="leading" secondItem="1Xd-am-t49" secondAttribute="leading" constant="20" id="1iS-GR-kbN"/>
-                            <constraint firstAttribute="trailing" secondItem="gfe-oE-5rb" secondAttribute="trailing" constant="10" id="1lG-H7-bsF"/>
                             <constraint firstItem="9GX-WE-XR0" firstAttribute="top" secondItem="2zp-4a-3Hd" secondAttribute="bottom" constant="10" id="1vd-Ut-O62"/>
                             <constraint firstItem="1Xd-am-t49" firstAttribute="trailing" secondItem="H9l-3A-FrX" secondAttribute="trailing" id="2NS-gd-t8h"/>
                             <constraint firstItem="1Xd-am-t49" firstAttribute="top" secondItem="H9l-3A-FrX" secondAttribute="top" id="9E5-fy-Qmq"/>
                             <constraint firstItem="0Og-i5-urZ" firstAttribute="leading" secondItem="1Xd-am-t49" secondAttribute="leading" constant="20" id="BE7-sQ-1o5"/>
                             <constraint firstItem="1Xd-am-t49" firstAttribute="trailing" secondItem="fg4-qD-6Qx" secondAttribute="trailing" constant="19" id="CGt-Gj-VRG"/>
+                            <constraint firstItem="1Xd-am-t49" firstAttribute="trailing" secondItem="duN-Ps-RcP" secondAttribute="trailing" constant="10" id="F1j-4t-zno"/>
                             <constraint firstItem="2zp-4a-3Hd" firstAttribute="top" secondItem="fg4-qD-6Qx" secondAttribute="bottom" constant="10" id="FfS-AH-Oyc"/>
                             <constraint firstItem="QYc-aT-A0m" firstAttribute="leading" secondItem="1Xd-am-t49" secondAttribute="leading" constant="20" id="Iqz-nc-7B6"/>
                             <constraint firstItem="0Og-i5-urZ" firstAttribute="top" secondItem="H9l-3A-FrX" secondAttribute="bottom" constant="10" id="KyY-RQ-mzW"/>
@@ -143,12 +133,11 @@
                             <constraint firstItem="1Xd-am-t49" firstAttribute="trailing" secondItem="9GX-WE-XR0" secondAttribute="trailing" constant="20" id="U6Q-cb-3wq"/>
                             <constraint firstItem="1Xd-am-t49" firstAttribute="trailing" secondItem="IGk-hB-Twn" secondAttribute="trailing" constant="20" id="UeV-nX-Yhu"/>
                             <constraint firstItem="1Xd-am-t49" firstAttribute="trailing" secondItem="QYc-aT-A0m" secondAttribute="trailing" constant="20" id="Xi5-9p-waC"/>
-                            <constraint firstItem="gfe-oE-5rb" firstAttribute="top" secondItem="QYc-aT-A0m" secondAttribute="bottom" constant="8" symbolic="YES" id="ZJI-Wh-INt"/>
                             <constraint firstItem="2zp-4a-3Hd" firstAttribute="leading" secondItem="1Xd-am-t49" secondAttribute="leading" constant="20" id="eh3-5l-MUT"/>
-                            <constraint firstItem="gfe-oE-5rb" firstAttribute="leading" secondItem="wbc-yd-nQP" secondAttribute="leading" constant="10" id="hTP-3W-vmY"/>
                             <constraint firstItem="1Xd-am-t49" firstAttribute="trailing" secondItem="2zp-4a-3Hd" secondAttribute="trailing" constant="20" id="kD8-hR-rDk"/>
+                            <constraint firstItem="duN-Ps-RcP" firstAttribute="leading" secondItem="1Xd-am-t49" secondAttribute="leading" constant="10" id="oKR-zp-Qb3"/>
                             <constraint firstItem="TJv-NN-7Vo" firstAttribute="top" secondItem="0Og-i5-urZ" secondAttribute="bottom" constant="10" id="vBI-Wv-PWL"/>
-                            <constraint firstItem="fg4-qD-6Qx" firstAttribute="top" secondItem="gfe-oE-5rb" secondAttribute="bottom" constant="12" id="wYq-Es-7wn"/>
+                            <constraint firstItem="fg4-qD-6Qx" firstAttribute="top" secondItem="duN-Ps-RcP" secondAttribute="bottom" constant="8" symbolic="YES" id="xGF-TI-HEX"/>
                             <constraint firstItem="1Xd-am-t49" firstAttribute="trailing" secondItem="TJv-NN-7Vo" secondAttribute="trailing" constant="20" id="yKb-r3-Plt"/>
                             <constraint firstItem="QYc-aT-A0m" firstAttribute="top" secondItem="TJv-NN-7Vo" secondAttribute="bottom" constant="10" id="ygX-n0-rZN"/>
                             <constraint firstItem="TJv-NN-7Vo" firstAttribute="leading" secondItem="1Xd-am-t49" secondAttribute="leading" constant="20" id="zqe-dP-73i"/>
@@ -158,7 +147,7 @@
                         <outlet property="linkTextField" destination="IGk-hB-Twn" id="ywg-3Z-wEa"/>
                         <outlet property="memoTextView" destination="2zp-4a-3Hd" id="qEG-q6-z6g"/>
                         <outlet property="nameTextField" destination="0Og-i5-urZ" id="3LA-rs-LuC"/>
-                        <outlet property="tagCollectionView" destination="gfe-oE-5rb" id="fnP-Co-WNc"/>
+                        <outlet property="tagCollectionView" destination="duN-Ps-RcP" id="Pqn-7e-Jqr"/>
                         <outlet property="tagTextField" destination="QYc-aT-A0m" id="c1m-PL-I3G"/>
                     </connections>
                 </viewController>

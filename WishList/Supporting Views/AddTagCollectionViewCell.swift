@@ -14,7 +14,7 @@ class AddTagCollectionViewCell: UICollectionViewCell{
   
   static func fittingSize(availableHeight: CGFloat, tag: String) -> CGSize {
     let cell = AddTagCollectionViewCell()
-    cell.configure(tag: tag)
+    cell.configureTitleLabelText(tag: tag)
     let targetSize = CGSize(
       width: UIView.layoutFittingCompressedSize.width,
       height: availableHeight)
@@ -72,7 +72,7 @@ class AddTagCollectionViewCell: UICollectionViewCell{
     }
   }
   
-  func configure(tag: String) {
+  func configureTitleLabelText(tag: String) {
     titleLabel.text = tag
   }
   

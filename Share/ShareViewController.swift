@@ -9,6 +9,9 @@ import UIKit
 import Social
 import MobileCoreServices
 
+import Firebase
+import FirebaseStorage
+
 class ShareViewController: UIViewController{
   
   @IBOutlet weak var nameTextField: UITextField!
@@ -17,20 +20,42 @@ class ShareViewController: UIViewController{
   @IBOutlet weak var memoTextView: UITextView!
   @IBOutlet weak var linkTextField: UITextField!
   
-  var tags: [String] = []
-  var currentURL: String = ""
+  private var tagViewModel = TagViewModel()
+  private var currentURL: String = ""
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    tagTextField.delegate = self
-    memoTextView.delegate = self
-    
-    memoTextView.text = "간단 메모"
-    memoTextView.textColor = .lightGray
-    
+    confgiureView()
     getLink()
     setupCollectionView()
+  }
+  
+  @IBAction func cancelButtonTapped(_ sender: Any) {
+    self.extensionContext!.cancelRequest(withError: NSError(domain: "com.domain.name", code: 0, userInfo: nil))
+  }
+  
+  @IBAction func doneButtonTapped(_ sender: Any) {
+    if nameTextField.text == "" {
+      addAlert(message:"이름을 입력하세요." , title: "확인")
+      return
+    }
+    if tagViewModel.isNotExistTag() {
+      addAlert(message:"적어도 한 개의 태그를 입력하세요." , title: "확인")
+      return
+    }
+    saveWish()
+    dismiss(animated: true){
+      self.extensionContext!.completeRequest(returningItems: nil, completionHandler: nil)
+    }
+  }
+}
+
+extension ShareViewController {
+  private func confgiureView(){
+    tagTextField.delegate = self
+    memoTextView.delegate = self
+    memoTextView.text = "간단 메모"
+    memoTextView.textColor = .lightGray
   }
   
   private func getLink(){
@@ -40,7 +65,6 @@ class ShareViewController: UIViewController{
           if attachment.hasItemConformingToTypeIdentifier("public.url") {
             attachment.loadItem(forTypeIdentifier: "public.url", options: nil, completionHandler: { (url, error) in
               if let shareURL = url as? NSURL {
-                // Do stuff with your URL now.
                 DispatchQueue.main.async {
                   self.currentURL = shareURL.absoluteString!
                   self.linkTextField.text = self.currentURL
@@ -59,11 +83,11 @@ class ShareViewController: UIViewController{
     flowLayout.minimumInteritemSpacing = 0
     flowLayout.scrollDirection = .horizontal
     flowLayout.sectionInset = .init(top: 10, left: 0, bottom: 10, right: 0)
-    
     tagCollectionView.setCollectionViewLayout(flowLayout, animated: false)
     tagCollectionView.delegate = self
     tagCollectionView.dataSource = self
     tagCollectionView.backgroundColor = UIColor.clear
+    tagCollectionView.register(AddTagCollectionViewCell.self, forCellWithReuseIdentifier: AddTagCollectionViewCell.identifier)
   }
   
   private func addAlert(message: String, title: String){
@@ -73,65 +97,46 @@ class ShareViewController: UIViewController{
     self.present(alert, animated: true, completion: nil)
   }
   
-  @IBAction func cancelButtonTapped(_ sender: Any) {
-    self.extensionContext!.cancelRequest(withError: NSError(domain: "com.domain.name", code: 0, userInfo: nil))
+  private func saveWish(){
+    let memoTextViewText = memoTextView.text == "간단 메모" ? "" : memoTextView.text ?? ""
+    let wish = Wish(timestamp: Int(Date().timeIntervalSince1970.rounded()), name: nameTextField.text ?? "", tag: tagViewModel.tags, memo: memoTextViewText, img: [], imgURL: [], link: currentURL, place: nil, favorite: false)
+    FirebaseApp.configure()
+    DataBaseManager.shared.saveWish(wish)
   }
-  
-  @IBAction func doneButtonTapped(_ sender: Any) {
-    if nameTextField.text == "" {
-      addAlert(message:"이름을 입력하세요." , title: "확인")
-      return
-    }
-    if tags.count == 0 {
-      addAlert(message:"적어도 한 개의 태그를 입력하세요." , title: "확인")
-      return
-    }
-    
-    let defaults = UserDefaults(suiteName: "group.com.sainkr.WishList")
-    defaults?.set(nameTextField.text, forKey: "Name")
-    defaults?.set(tags, forKey: "Tag")
-    defaults?.set(memoTextView.text, forKey: "Memo")
-    defaults?.set(currentURL, forKey: "URL")
-    defaults?.synchronize()
-    
-    self.extensionContext!.completeRequest(returningItems: nil, completionHandler: nil)
-  }
-  
 }
 
-extension ShareViewController: UICollectionViewDataSource{
+// MARK:- UICollectionViewDataSource
+extension ShareViewController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return tags.count
+    return tagViewModel.tagsCount
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ShareTagCollectionViewCell.identifier, for: indexPath) as? ShareTagCollectionViewCell else {
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AddTagCollectionViewCell.identifier, for: indexPath) as? AddTagCollectionViewCell else {
       return UICollectionViewCell()
     }
-    
-    let tag = tags[indexPath.item]
-    cell.configure(tag: tag)
-    
+    cell.configureTitleLabelText(tag: tagViewModel.tag(indexPath.item))
     cell.deleteButtonTapHandler = {
-      self.tags.remove(at: indexPath.item)
+      self.tagViewModel.removeTag(indexPath.item)
       self.tagCollectionView.reloadData()
     }
-    
     return cell
   }
 }
 
+// MARK:- UICollectionViewDelegateFlowLayout
 extension ShareViewController : UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return ShareTagCollectionViewCell.fittingSize(availableHeight: 45, tag: tags[indexPath.item])
+    return AddTagCollectionViewCell.fittingSize(availableHeight: 45, tag: tagViewModel.tag(indexPath.item))
   }
 }
 
-extension ShareViewController: UITextFieldDelegate{
+// MARK:- UICollectionViewDelegateFlowLayout
+extension ShareViewController: UITextFieldDelegate {
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     if textField == tagTextField {
       guard let tag = tagTextField.text, tag.isEmpty == false else { return false }
-      tags.append(tag)
+      tagViewModel.addTag(tag)
       tagTextField.text = ""
       tagCollectionView.reloadData()
     }
@@ -139,6 +144,7 @@ extension ShareViewController: UITextFieldDelegate{
   }
 }
 
+// MARK:- UITextViewDelegate
 extension ShareViewController: UITextViewDelegate {
   func textViewDidBeginEditing(_ textView: UITextView) {
     if textView.textColor == UIColor.lightGray {
@@ -151,7 +157,6 @@ extension ShareViewController: UITextViewDelegate {
     if textView.text.isEmpty {
       textView.text = "간단 메모"
       textView.textColor = UIColor.lightGray
-      
       let newPosition = textView.beginningOfDocument
       textView.selectedTextRange = textView.textRange(from: newPosition, to: newPosition)
     }

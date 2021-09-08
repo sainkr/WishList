@@ -53,7 +53,7 @@ extension AddTagViewController: UICollectionViewDataSource{
       return UICollectionViewCell()
     }
     let tag = wishViewModel.tag(index: wishViewModel.lastWishIndex, tagIndex: indexPath.item)
-    cell.configure(tag: tag)
+    cell.configureTitleLabelText(tag: tag)
     cell.deleteButtonTapHandler = {
       self.wishViewModel.removeTag(indexPath.item)
       self.tagCollectionView.reloadData()

@@ -105,11 +105,6 @@ extension WishViewModel {
     manager.wishs = wishList
   }
   
-  func addWish(_ name: String,_ memo: String,_ tag: [String],_ link: String){
-    manager.wishs.append(Wish(timestamp: Int(Date().timeIntervalSince1970.rounded()), name: name, tag: tag, memo: memo, img: [], imgURL: [], link: link, place: nil, favorite: false))
-    saveWish(lastWishIndex)
-  }
-  
   func updateFavorite(_ index: Int){
     manager.wishs[index].favorite = !manager.wishs[index].favorite
     FireBase.updateFavoriteWish(manager.wishs[index])
@@ -181,10 +176,9 @@ extension WishViewModel {
 // MARK: - SelectWishVC
 extension WishViewModel {
   func changeUIImage(index: Int){
-    let ChangeImageNotification: Notification.Name = Notification.Name("ChangeImageNotification")
     ChangeUIImage.changeUIImage(imageURL: manager.wishs[index].imgURL){ [weak self] image in
       self?.manager.wishs[index].img = image
-      NotificationCenter.default.post(name: ChangeImageNotification, object: nil)
+      NotificationCenter.default.post(name: NotificationName.ChangeImageNotification, object: nil)
     }
   }
   

@@ -26,7 +26,6 @@ class SelectWishViewController: UIViewController {
   @IBOutlet weak var nameLabelTop: NSLayoutConstraint!
   
   private let wishViewModel = WishViewModel()
-  private let ChangeImageNotification: Notification.Name = Notification.Name("ChangeImageNotification")
   private var selectImageViewController: SelectImageViewController!
   private var indicator: NVActivityIndicatorView!
   var index: Int = 0
@@ -45,13 +44,18 @@ class SelectWishViewController: UIViewController {
     configureNavigationBar()
     configureCollectionView()
     configureIndicatior()
-    NotificationCenter.default.addObserver(self, selector: #selector(convertToUIImageComplete(_ :)), name: ChangeImageNotification, object: nil)
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
     configureView()
     tagCollectionView.reloadData()
+    NotificationCenter.default.addObserver(self, selector: #selector(convertToUIImageComplete(_ :)), name: NotificationName.ChangeImageNotification, object: nil)
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(true)
+    NotificationCenter.default.removeObserver(self, name: NotificationName.ChangeImageNotification, object: nil)
   }
 }
 
@@ -72,6 +76,7 @@ extension SelectWishViewController{
       make.bottom.equalToSuperview()
     }
   }
+  
   private func configureView(){
     nameLabel.text = wishViewModel.name(index)
     contentLabel.text = wishViewModel.memo(index)
@@ -201,4 +206,3 @@ extension SelectWishViewController: UICollectionViewDelegateFlowLayout {
     return SelectTagCollectionViewCell.fittingSize(availableHeight: 45, tag: wishViewModel.tag(index: index,tagIndex: indexPath.item))
   }
 }
-

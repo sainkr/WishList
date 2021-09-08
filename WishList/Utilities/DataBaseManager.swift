@@ -12,8 +12,6 @@ import FirebaseStorage
 
 let DidReceiveWishsNotification: Notification.Name = Notification.Name("DidReceiveWishsNotification")
 
-// Firebase : nil값이면 저장 안됨
-
 class DataBaseManager {
   static let shared = DataBaseManager()
   
@@ -73,36 +71,37 @@ class DataBaseManager {
     }
   }
   
-  private func convertUIImagetoImageURL(wish: Wish, completion: @escaping (_ imageURL: [String]) -> Void){
-    var imageURL: [String] = []
-    for i in wish.img.indices{
-      let image: UIImage = wish.img[i]
-      // 지정된 이미지를 JPEG 형식으로 포함하는 데이터 개체를 반환합니다., JPEG 이미지의 품질 최대 압축 ~ 최소 압축
-      let data = image.jpegData(compressionQuality: 0.1)!
-      let metaData = StorageMetadata()
-      metaData.contentType = "image/png"
-      let imageName = "\(wish.timestamp)\(i)"
-      storage.reference().child(imageName).putData(data, metadata: metaData) { (data, err) in
+private func convertUIImagetoImageURL(wish: Wish, completion: @escaping (_ imageURL: [String]) -> Void){
+  var imageURL: [String] = []
+  for i in wish.img.indices{
+    let image: UIImage = wish.img[i]
+    // 지정된 이미지를 JPEG 형식으로 포함하는 데이터 개체를 반환합니다., JPEG 이미지의 품질 최대 압축 ~ 최소 압축
+    let data = image.jpegData(compressionQuality: 0.1)!
+    let metaData = StorageMetadata()
+    metaData.contentType = "image/png"
+    let imageName = "\(wish.timestamp)\(i)"
+    storage.reference().child(imageName).putData(data, metadata: metaData) { (data, err) in
+      if let error = err {
+        print("--> error:\(error.localizedDescription)")
+        return
+      }
+      self.storage.reference().child(imageName).downloadURL { (url, err) in
         if let error = err {
-          print("--> error1:\(error.localizedDescription)")
+          print("--> error: \(error.localizedDescription)")
+          return
         }
-        self.storage.reference().child(imageName).downloadURL { (url, err) in
-          print("url fetch")
-          if let error = err {
-            print("--> error2:\(error.localizedDescription)")
-          }
-          else {
-            print("---> \(i)")
-            imageURL.append(url!.absoluteString)
-            if imageURL.count == wish.img.count {
-              print("--->imgurl..length : \(imageURL.count)")
-              completion(imageURL)
-            }
-          }
+        guard let url = url else {
+          print("--> urlError")
+          return
+        }
+        imageURL.append(url.absoluteString)
+        if imageURL.count == wish.img.count {
+          completion(imageURL)
         }
       }
     }
   }
+}
   
   func updateFavoriteWish(_ wish: Wish){
     let imgURL = wish.imgURL.isEmpty ? ["-"] : wish.imgURL

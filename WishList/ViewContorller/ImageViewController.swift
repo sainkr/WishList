@@ -11,15 +11,15 @@ import Kingfisher
 import SnapKit
 
 class ImageViewController: UIViewController {
+  private let wishViewModel = WishViewModel()
   private var imageView = UIImageView()
+  
   var imageType: ImageType = .none
   var sizeType: ImageSizeType = .small
   var index: Int = 0
   var imgIndex: Int = 0
   var image: UIImage?
   var imageURL: String?
-  
-  let wishViewModel = WishViewModel()
   
   override func viewDidLoad() {
     super.viewDidLoad()

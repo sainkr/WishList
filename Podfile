@@ -25,3 +25,12 @@ target 'WishList' do
   end
 
 end
+
+target 'Share' do
+  use_frameworks!
+  
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
+  
+  pod 'SnapKit', '~> 5.0.0'
+end

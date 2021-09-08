@@ -70,7 +70,7 @@ extension MapViewController{
   }
   
   private func decorateView(uiView: UIView, cornerRadius: CGFloat, shadowColor: CGColor, masksToBounds: Bool, shadowOffset: CGSize, shadowRadius: CGFloat, shadowOpacity: Float){
-    uiView.layer.cornerRadius = cornerRadius
+    uiView.layer.cornerRadius = cornerRadius 
     uiView.layer.shadowColor = shadowColor
     uiView.layer.masksToBounds = masksToBounds
     uiView.layer.shadowOffset = shadowOffset

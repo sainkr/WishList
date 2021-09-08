@@ -19,7 +19,6 @@ class MainViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     registerWishTableViewCells()
-    addShareWish()
     configureAddButton()
   }
   
@@ -57,20 +56,6 @@ class MainViewController: UIViewController {
     DispatchQueue.main.async {
       self.wishTableView.reloadData()
     }
-  }
-  
-  private func addShareWish(){ // Share extension에서 추가한 wish 저장
-    let defaults = UserDefaults(suiteName: "group.com.sainkr.WishList")
-    guard let name = defaults?.string(forKey: "Name") else { return }
-    guard let memo = defaults?.string(forKey: "Memo") else { return }
-    guard let tag = defaults?.stringArray(forKey: "Tag") else { return }
-    guard let url = defaults?.string(forKey: "URL") else { return }
-    wishViewModel.addWish(name, memo, tag, url)
-    wishTableView.reloadData()
-    defaults?.removeObject(forKey: "Name")
-    defaults?.removeObject(forKey: "Memo")
-    defaults?.removeObject(forKey: "Tag")
-    defaults?.removeObject(forKey: "URL")
   }
 }
 

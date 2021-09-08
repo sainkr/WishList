@@ -88,8 +88,10 @@ extension AddImageViewController: PHPickerViewControllerDelegate {
   private func presentEditImageViewController(_ images: [UIImage]){
     guard let editImageVC = storyboard?.instantiateViewController(identifier: EditImageViewController.identifier) as? EditImageViewController else { return }
     editImageVC.modalPresentationStyle = .fullScreen
-    editImageVC.images = wishViewModel.wishImages(images: images)
-    present(editImageVC, animated: true, completion: nil)
+    editImageVC.images = self.wishViewModel.wishImages(images: images)
+    DispatchQueue.main.async {
+      self.present(editImageVC, animated: true, completion: nil)
+    }
   }
   
   @available(iOS 14, *)
@@ -108,9 +110,7 @@ extension AddImageViewController: PHPickerViewControllerDelegate {
         guard let image = image as? UIImage else { return }
         images.append(image)
         if images.count == self.itemProviders.count{
-          DispatchQueue.main.async {
-            self.presentEditImageViewController(images)
-          }
+          self.presentEditImageViewController(images)
         }
       }
     }
@@ -127,5 +127,3 @@ extension AddImageViewController: CropViewControllerDelegate {
     dismiss(animated: true, completion: nil)
   }
 }
-
-
