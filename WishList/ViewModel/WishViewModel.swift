@@ -176,7 +176,7 @@ extension WishViewModel {
 // MARK: - SelectWishVC
 extension WishViewModel {
   func changeUIImage(index: Int){
-    ChangeUIImage.changeUIImage(imageURL: manager.wishs[index].imgURL){ [weak self] image in
+    ChangeUIImage.image(imageURL: manager.wishs[index].imgURL){ [weak self] image in
       self?.manager.wishs[index].img = image
       NotificationCenter.default.post(name: NotificationName.ChangeImageNotification, object: nil)
     }

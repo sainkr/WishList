@@ -14,8 +14,6 @@ class AddImageViewController: UIViewController{
   @IBOutlet weak var imageCollectionView: UICollectionView!
   
   private let wishViewModel = WishViewModel()
-  private var itemProviders: [NSItemProvider] = []
-  private var iterator: IndexingIterator<[NSItemProvider]>?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -70,7 +68,6 @@ extension AddImageViewController: UICollectionViewDelegate{
         picker.delegate = self
         picker.modalPresentationStyle = .fullScreen
         self.present(picker, animated: true, completion: nil)
-        
       }
     }
   }
@@ -86,10 +83,10 @@ extension AddImageViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - PHPickerViewControllerDelegate
 extension AddImageViewController: PHPickerViewControllerDelegate {
   private func presentEditImageViewController(_ images: [UIImage]){
-    guard let editImageVC = storyboard?.instantiateViewController(identifier: EditImageViewController.identifier) as? EditImageViewController else { return }
-    editImageVC.modalPresentationStyle = .fullScreen
-    editImageVC.images = self.wishViewModel.wishImages(images: images)
     DispatchQueue.main.async {
+      guard let editImageVC = self.storyboard?.instantiateViewController(identifier: EditImageViewController.identifier) as? EditImageViewController else { return }
+      editImageVC.modalPresentationStyle = .fullScreen
+      editImageVC.images = self.wishViewModel.wishImages(images: images)
       self.present(editImageVC, animated: true, completion: nil)
     }
   }
@@ -97,22 +94,9 @@ extension AddImageViewController: PHPickerViewControllerDelegate {
   @available(iOS 14, *)
   func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
     picker.dismiss(animated: true)
-    itemProviders = results.map(\.itemProvider)
-    iterator = itemProviders.makeIterator()
-    var images: [UIImage] = []
-    while true {
-      guard let itemProvider = iterator?.next(), itemProvider.canLoadObject(ofClass: UIImage.self) else { break }
-      itemProvider.loadObject(ofClass: UIImage.self) { image, error in
-        if let error = error {
-          print("error : \(error)")
-          return
-        }
-        guard let image = image as? UIImage else { return }
-        images.append(image)
-        if images.count == self.itemProviders.count{
-          self.presentEditImageViewController(images)
-        }
-      }
+    let loadUIImage = LoadUIImage(results.map(\.itemProvider))
+    loadUIImage.image{ images in
+      self.presentEditImageViewController(images)
     }
   }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 class ChangeUIImage{
-  static func changeUIImage(imageURL: [String], completion: @escaping (_ img: [UIImage])-> Void){
+  static func image(imageURL: [String], completion: @escaping (_ img: [UIImage])-> Void){
     DispatchQueue.global(qos: .userInteractive).async {
       var img: [UIImage] = []
       for imgURL in imageURL{
