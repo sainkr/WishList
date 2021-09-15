@@ -133,6 +133,7 @@ private func convertUIImagetoImageURL(wish: Wish, completion: @escaping (_ image
         // print("---> snapshot : \(wishValue.values)")
         do {
           let data = try JSONSerialization.data(withJSONObject: Array(wishValue.values), options: [])
+          print(Array(wishValue.values))
           let decoder = JSONDecoder()
           // 현재 data는 Array안에 Dictionary가 있는 형태인데 [Wish]로 디코딩 하기
           let wish = try decoder.decode([WishDB].self, from: data)

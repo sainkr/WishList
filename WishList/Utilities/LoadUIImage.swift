@@ -8,7 +8,6 @@
 import UIKit
 
 class LoadUIImage{
-  
   private var itemProviders: [NSItemProvider] = []
   
   init(_ itemProvdiers: [NSItemProvider]){
