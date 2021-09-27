@@ -825,7 +825,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 040FE434A1229D2006604128 /* Pods-Share.debug.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = Share/Share.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SG72AH33ZM;
@@ -848,7 +848,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BF138299F8F4FDA4C190385A /* Pods-Share.release.xcconfig */;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = Share/Share.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SG72AH33ZM;

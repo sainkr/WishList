@@ -10,7 +10,6 @@ import MapKit
 import UIKit
 
 class MapViewController: UIViewController {
-  
   static let identifier = "MapViewController"
   
   @IBOutlet weak var mapView: MKMapView!
@@ -30,13 +29,13 @@ class MapViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    requestLocation()
     configureView()
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
     configureMapView()
+    requestLocation()
   }
 }
 
@@ -103,6 +102,20 @@ extension MapViewController{
     guard let currentLocation = currentLocation?.coordinate else { return }
     place = Place(name: "-", lat: currentLocation.latitude, lng: currentLocation.longitude)
   }
+  
+  private func displayLocationServicesDisabledAlert() {
+    let alertController = UIAlertController(title: "위치 권한 접근 오류",
+                                            message: "위치 접근 허용을 앱을 사용하는 동안으로 바꿔주세요.",
+                                            preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "확인", style: .default){ _ in
+      guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+      if UIApplication.shared.canOpenURL(url) {
+        UIApplication.shared.open(url)
+      }
+    }
+    alertController.addAction(okAction)
+    present(alertController, animated: true, completion: nil)
+  }
 }
 
 // MARK: - IBAction
@@ -125,7 +138,13 @@ extension MapViewController {
   }
   
   @IBAction func currentLocationButtonDidTap(_ sender: Any) {
-    setCurrentLoacation()
+    if #available(iOS 14.0, *) {
+      if locationManager.authorizationStatus == .denied {
+        displayLocationServicesDisabledAlert()
+      }else {
+        setCurrentLoacation()
+      }
+    }
   }
   
   @objc func searchViewDidTap(_ gesture: UITapGestureRecognizer) {
@@ -141,16 +160,17 @@ extension MapViewController: CLLocationManagerDelegate {
   }
   
   func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     if #available(iOS 14.0, *) {
-      if manager.authorizationStatus == .authorizedWhenInUse {
-        setCurrentLoacation()
+      guard manager.authorizationStatus != .denied else {
+        displayLocationServicesDisabledAlert()
+        return
       }
     } else {
       // Fallback on earlier versions
     }
-  }
-  
-  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     print("Failed to get users location.")
   }
   
@@ -164,13 +184,6 @@ extension MapViewController: CLLocationManagerDelegate {
     locationManager.requestLocation()
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     setCurrentLoacation()
-  }
-  
-  private func displayLocationServicesDisabledAlert() {
-    let alert = UIAlertController(title: "오류 발생", message: "위치 서비스 기능이 꺼져있음", preferredStyle: .alert)
-    let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
-    alert.addAction(okAction)
-    self.present(alert, animated: true, completion: nil)
   }
   
   private func setCurrentLoacation(){
